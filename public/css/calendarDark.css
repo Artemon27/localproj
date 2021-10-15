@@ -1,59 +1,66 @@
-.wrapper{
-    width: 1300px;
-    margin: auto;
+body{
+    background-color: #150505;
+    color:white;
 }
 .year-num{
     font-size:30pt;
 }
+.card{
+    background-color: #150505;
+}
+.wrapper{
+    width: 1300px;
+    margin: auto;
+}
 .month-1{
-    background-color: #D9FEFF;
+    background-color: #293B3C;
 }
 .month-2{
-    background-color: #C0E7FF;
+    background-color: #1f2040;
 }
 .month-3{
-    background-color: #D9FEFF;
+    background-color: #293B3C;
 }
 .month-4{
-    background-color: #C0E7FF;
+    background-color: #1f2040;
 }
 .month-5{
-    background-color: #D9FEFF;
+    background-color: #293B3C;
 }
 .month-6{
-    background-color: #C0E7FF;
+    background-color: #1f2040;
 }
 .month-7{
-    background-color: #D9FEFF;
+    background-color: #293B3C;
 }
 .month-8{
-    background-color: #C0E7FF;
+    background-color: #1f2040;
 }
 .month-9{
-    background-color: #D9FEFF;
+    background-color: #293B3C;
 }
 .month-10{
-    background-color: #C0E7FF;
+    background-color: #1f2040;
 }
 .month-11{
-    background-color: #D9FEFF;
+    background-color: #293B3C;
 }
 .month-12{
-    background-color: #C0E7FF;
+    background-color: #1f2040;
 }
 
 .holiday-0{
-    color:black;
-    background-color: #95B9CE;
+    color:wheat;
+    background-color: #2e2f62;
 }
 .holiday-1{
-    color:black;
-    background-color: #B3D4D5;
+    color:wheat;
+    background-color: #436264;
 }
 
 .holiday2{
     color:black;
-    background-color: #ff9191;
+    background-color: #a43333;
 }
 
 table{
@@ -74,6 +81,7 @@ td{
 }
 .month-name{    
     text-align: right;
+    color: #e3e3e3;
 }
 .month-name-rotate{
     -webkit-transform: rotate(270deg); 
