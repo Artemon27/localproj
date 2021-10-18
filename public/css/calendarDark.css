@@ -140,7 +140,18 @@ td{
 .holiday2 .btn-check:checked + .btn-submit{
     background-color: #277fa2;
 }
+.btn-submit:hover, .btn-check:checked + .btn-submit:hover{
+    background-color: #1b5c75;
+    cursor:pointer;
+}
 
 .wd-name {
     font-weight: 600;
+}
+
+.carousel-control-prev, .carousel-control-next{
+    height:80px;
+}
+.cal-col-1{
+    margin-left:-100px;
 }

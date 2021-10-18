@@ -1,8 +1,10 @@
 @php
     $weekday = mktime(0, 0, 0, $month, 1, $year);
     $weekday = getdate($weekday);
-    $tomorrow  = mktime(0, 0, 0, date("m")  , date("d")+1, date("Y"));
-    $tomorrow = getdate($tomorrow);
+    $today  = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
+    
+    
+    
     $i=1;
     $j=1;
     $end=0;
@@ -30,7 +32,11 @@
             <td class="p-2"></td>
         @endfor
         @for (; $i < 8; $i++)  
-            @include ('holiday.days')
+            @if ($today < mktime(0, 0, 0, $month, $j, $year))
+                @include ('holiday.days')
+            @else
+                @include ('holiday.days-inactive')
+            @endif            
             @php
                 $j++;
             @endphp
@@ -58,14 +64,22 @@
             @endphp      
         @endif
         @if ($end==1)
-            @if ($month % 4 != 0)                       
-                @include ('holiday.days',['month'=>$month+1])
+            @if ($month % 4 != 0)   
+                @if ($today < mktime(0, 0, 0, $month+1, $j, $year))
+                    @include ('holiday.days',['month'=>$month+1])
+                @else
+                    @include ('holiday.days-inactive')
+                @endif                
                 @php
                     $j++;
                 @endphp 
             @endif
         @else
-            @include ('holiday.days')
+            @if ($today < mktime(0, 0, 0, $month, $j, $year))
+                @include ('holiday.days')
+            @else
+                @include ('holiday.days-inactive')
+            @endif
             @php
                 $j++;
             @endphp
