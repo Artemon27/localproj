@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\HolidayController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,7 +21,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('holiday', [HolidayController::class, 'index']);
+require(__DIR__ . '/front/holiday.php');
 
 
 Auth::routes([
@@ -51,8 +53,16 @@ Route::group([
         'as' => 'admin.'
     ], function () {
         Route::resource('users', UserController::class)->except(['show']);        
-    });
+        require(__DIR__ . '/admin/holidays.php');
+        require(__DIR__ . '/admin/holidaydays.php');
+    });    
 });
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', function() {
+    return view('home');
+})->name('home')->middleware('auth');

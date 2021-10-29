@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,15 +13,15 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
+    const ROLE_ULTRA_ADMIN = 10;
+    const ROLE_ADMIN = 9;
+    const ROLE_USER = 1;
+    
     protected $fillable = [
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -41,4 +42,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return string
+     */
+    public function roleAsString(): string
+    {
+        switch ($this->role) {
+            case self::ROLE_ADMIN:
+                return "Админ";
+            default:
+                return "Пользователь";
+        }
+    }
+
+    /**
+     * @param Builder $query
+     *
+     * @return Builder
+     */
+    public function scopeRoleUser(Builder $query): Builder
+    {
+        return $query->where('role', self::ROLE_USER);
+    }
 }

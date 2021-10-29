@@ -253,6 +253,21 @@ return [
             'label'       => 4,
             'label_color' => 'success',
         ],
+        [
+            'text' => 'Пользователи',
+            'url'  => 'admin/users',
+            'icon' => 'fas fa-users',
+        ],
+        [
+            'text' => 'Отпуск',
+            'url'  => 'admin/holidays',
+            'icon' => 'fas fa-users',
+        ],
+        [
+            'text' => 'Праздничные дни',
+            'url'  => 'admin/holidaydays',
+            'icon' => 'fas fa-users',
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',

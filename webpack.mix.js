@@ -11,6 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
+
 mix.js('resources/js/app.js', 'public/js')
-    .vue()
-    .sass('resources/sass/app.scss', 'public/css');
+    .copy('resources/css/bootstrap.min.css', 'public/css')
+    .copy('resources/css/calendar.css', 'public/css')
+    .copy('resources/css/calendarDark.css', 'public/css')
+    
+    .copy('resources/js/bootstrap.min.js', 'public/js');

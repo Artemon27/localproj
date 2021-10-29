@@ -1,12 +1,160 @@
-.month-1{
-    background-color: blue;
+body {
+    background-color: #fdfdfd;
+}
+.card{
+    box-shadow: 0px 0px 40px black;  
+    background-color: inherit;
+}
+
+.wrapper{
+    width: 1300px;
+    margin: auto;
+}
+.year-num{
+    font-size:30pt;
 }
 .month-1{
-    background-color: green;
+    background-color: #D9FEFF;
 }
-.month-1{
-    background-color: yellow;
+.month-2{
+    background-color: #C0E7FF;
 }
-.month-1{
-    background-color: blue;
+.month-3{
+    background-color: #D9FEFF;
+}
+.month-4{
+    background-color: #C0E7FF;
+}
+.month-5{
+    background-color: #D9FEFF;
+}
+.month-6{
+    background-color: #C0E7FF;
+}
+.month-7{
+    background-color: #D9FEFF;
+}
+.month-8{
+    background-color: #C0E7FF;
+}
+.month-9{
+    background-color: #D9FEFF;
+}
+.month-10{
+    background-color: #C0E7FF;
+}
+.month-11{
+    background-color: #D9FEFF;
+}
+.month-12{
+    background-color: #C0E7FF;
+}
+
+.holiday-0{
+    color:black;
+    background-color: #95B9CE;
+}
+.holiday-1{
+    color:black;
+    background-color: #B3D4D5;
+}
+
+.holiday2{
+    color:black;
+    background-color: #ff9191;
+}
+
+table{
+      -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+td{
+    text-align: center;
+    margin:2px;
+}
+.month-names{
+    width:100px;
+    text-align: center;
+}
+.month-name{    
+    text-align: right;
+}
+.month-name-rotate{
+    -webkit-transform: rotate(270deg); 
+    transform: rotate(270deg);
+    word-wrap: normal;
+    font-size: 17pt;
+    text-align: center;
+    padding-top: 70px;    
+    margin-top: -7px;    
+}
+.month-num{
+    font-size: 30pt;
+    margin-left: 8px;
+}
+.month-name-1{
+}
+.month-name-rotate-1{  
+}
+.month-name-2{
+}
+.month-name-rotate-2{
+}
+.month-name-3{
+}
+.month-name-rotate-3{   
+}
+.month-name-4{
+}
+.month-name-rotate-4{  
+}
+.month-name-5{
+}
+.month-name-6{
+}
+.month-name-7{
+}
+.month-name-8{
+}
+.month-name-9{
+}
+.month-name-10{
+}
+.month-name-11{
+}
+.month-name-12{
+}
+.btn-submit{
+    width:100%;
+    height:100%;
+    padding-top: 6px;
+}
+.btn-check:checked + .btn-submit{
+    background-color: #319cc6;
+}
+
+.holiday2 .btn-check:checked + .btn-submit{
+    background-color: #277fa2;
+}
+.btn-submit:hover, .btn-check:checked + .btn-submit:hover{
+    background-color: #3ac4f9;
+    cursor:pointer;
+}
+
+.wd-name {
+    font-weight: 600;
+}
+
+.carousel-control-prev, .carousel-control-next{
+    height:80px;
+}
+.carousel-control-prev-icon, .carousel-control-next-icon{
+    background-color: black;
+}
+.cal-col-1{
+    margin-left:-100px;
 }
