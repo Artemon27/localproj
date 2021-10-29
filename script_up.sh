@@ -1,5 +1,5 @@
 #!\bin\bash\
 composer update
-npm update
+npm install
 npm run dev
 php artisan migrate
