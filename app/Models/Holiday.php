@@ -10,6 +10,6 @@ class Holiday extends Model
     use HasFactory;
     
     protected $fillable = [
-        'user_id', 'datefrom', 'dateto', 'days', 'allow'
+        'user_id', 'datefrom', 'dateto', 'days', 'allow', 'PVT', 'INV', 'OB'
     ];
 }

@@ -96,8 +96,8 @@ $year=2022;
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Следующий</span>
                 </button>
-            </div>
-            @include ('holiday.table')
+            </div>                        
+            @include ('holiday.table',['dates'=>$dates])
         </div>
     </div>
 </form>
@@ -119,9 +119,9 @@ var mouse=0;
 var strDays = [];
 
 $('#btn-off').click(function(){
-    $('body input:checkbox').each(function() {
-        if ($(this).attr('checked')){
-            $(this).removeAttr('checked');
+    $('body .dchange').each(function() {
+        if ($(this).hasClass('dchecked')){
+            $(this).removeClass('dchecked');
             numdays--;
         }
    });
@@ -129,27 +129,27 @@ $('#btn-off').click(function(){
    updatedates();
 }); 
 
-$('body .btn-submit').mousedown(function(e) {     
+$('body .dchange').mousedown(function(e) {     
     mouse=1;
-    if ($(this).parent().children('input').attr('checked')){
-        $(this).parent().children('input').removeAttr('checked');
+    if ($(this).hasClass('dchecked')){
+        $(this).removeClass('dchecked');
         numdays--;
         updatenum(numdays);
-        $('body .btn-submit').on('mouseenter',function(){
-            if ($(this).parent().children('input').attr('checked')){
-                $(this).parent().children('input').removeAttr('checked');
+        $('body .dchange').on('mouseenter',function(){
+            if (($(this).hasClass('dchecked'))&&(numdays>0)){
+                $(this).removeClass('dchecked');
                 numdays--;
                 updatenum(numdays);
             }
         });
     }
     else{
-        $(this).parent().children('input').attr('checked', 'checked')
+        $(this).addClass('dchecked');
         numdays++;
         updatenum(numdays);
-        $('body .btn-submit').on('mouseenter',function(){        
-            if ((!$(this).parent().children('input').attr('checked'))&&(numdays>0)){
-                $(this).parent().children('input').attr('checked', 'checked');
+        $('body .dchange').on('mouseenter',function(){        
+            if (!$(this).hasClass('dchecked')){
+                $(this).addClass('dchecked');
                 numdays++;
                 updatenum(numdays);                
             }
@@ -167,10 +167,10 @@ function updatedates(){
     var i = 0;
     var $child;
     var curIndex;
-    strDays = [];
-    $('#calendar input').each(function( index ) {        
+    
+    $('#calendar .dchange').each(function( index ) {        
         if (!line){
-            if ($(this).attr('checked')){
+            if ($(this).hasClass('dchecked')){
                 curDate = formatDate(new Date ($(this).attr('cur-date')*1000));
                 curDateVal = formatDateVal(new Date ($(this).attr('cur-date')*1000));
                 line = 1;
@@ -182,21 +182,28 @@ function updatedates(){
             }
         }
         else{
-            if ($(this).attr('checked')){
+            if ($(this).hasClass('dchecked')){
                 numLine++;
             }
             else{                        
                 line = 0;
                 endDate = new Date ($(this).attr('cur-date')*1000);
                 endDate.setDate(endDate.getDate() - 1);
-                var $el = $('<tr><td><input class="curDate" type="date" value="'+curDateVal+'"></td><td><input type="number" min="0" class="numLine" value="'+numLine+'"></td><td><input type="number" min="0" value="0" class="PVT"></td><td><input type="number" min="0" value="0" class="INV"></td><td><input type="number" min="0" value="0" class="OB"></td></tr>');
+                var $el = $('<tr><td><input class="curDate" type="date" name="data['+i+'][datefrom]" value="'+curDateVal+'" disabled></td><td><input type="number" min="0" class="numLine" name="data['+i+'][days]" value="'+numLine+'"></td><td><input type="number" min="0" value="0" name="data['+i+'][PVT]" class="PVT"></td><td><input type="number" min="0" value="0" name="data['+i+'][INV]" class="INV"></td><td><input type="number" min="0" value="0" name="data['+i+'][OB]" class="OB"></td></tr>');
                 $child = $('#table-all').children().eq(i);
                 if ( $child.html()){
                     $('.curDate', $child).val(curDateVal);
                     $('.numLine', $child).val(numLine);
-                    i++;                    
-                    strDays.push({curDateVal:curDateVal, numLine:numLine, curIndex:curIndex });
-                    
+                    strDays[i].curDateVal=curDateVal;
+                    strDays[i].numLine=numLine;
+                    strDays[i].curIndex=curIndex;
+                    $('.PVT', $child).val(0);
+                    $('.INV', $child).val(0);
+                    $('.OB', $child).val(0);
+                    strDays[i].PVT=0;
+                    strDays[i].INV=0;
+                    strDays[i].OB=0;
+                    i++;               
                 }
                 else{
                     
@@ -212,21 +219,22 @@ function updatedates(){
     while ($child.html()){
         $child.detach();
         $child = $('#table-all').children().eq(i);
+        strDays.splice(i, 1);
     }    
 }
 
-function updateCalendar(){
 
-}
 
 function tableInputOn(){
+    $('body input').off('change');
     var PVT = 0;
     var INV = 0;
     var OB = 0;
     var numOldLine;
-    var i=0;
     var numDopLine = 0;
+    var numLine=0;
     $('#table-all input').change(function( ){
+        var i=0;
         var index = $(this).parent().parent().index();
         var curIndex = +strDays[index].curIndex;
         numOldLine = +strDays[index].numLine;
@@ -234,45 +242,71 @@ function tableInputOn(){
         PVT = $(this).parent().parent().find('.PVT').val();
         INV = $(this).parent().parent().find('.INV').val();
         OB = $(this).parent().parent().find('.OB').val();
-        console.log(curIndex);
-        console.log(numOldLine);
-        console.log(strDays[index].numLine);
         numOldDopLine = +strDays[index].PVT + +strDays[index].INV + +strDays[index].OB;
         numDopLine = +PVT + +INV + +OB
         if ($(this).parent().index()==1){
             if (numOldLine < strDays[index].numLine){
                 for (i = numOldLine; i<strDays[index].numLine; i++){
-                    if (numDopLine>0){
-                        $('#calendar input').eq(curIndex +numDopLine +i).attr('checked', 'checked').addClass('dop-days');
-                        $('#calendar input').eq(curIndex +i).removeClass('dop-days');
+                    if (numDopLine>0){                        
+                        if (strDays[+index+1]){
+                            if((+curIndex + +numDopLine +i+1)>=(strDays[+index+1].curIndex)){
+                                strDays[index].numLine = +strDays[index].numLine + +strDays[+index+1].numLine;
+                                numLine = PVT + +strDays[+index+1].PVT;
+                                strDays.splice(index+1, 1);
+                                $(this).parent().parent().find('.PVT').val(numLine).change();
+                                $(this).parent().parent().find('.numLine').val(strDays[index].numLine);
+                                $(this).parent().parent().parent().children().eq(index+1).detach();
+                            }
+                        } 
+                        $('#calendar .dchange').eq(curIndex +numDopLine +i).removeClass('dchecked').addClass('dop-days');
+                        $('#calendar .dchange').eq(curIndex +i).removeClass('dop-days').addClass('dchecked');
                     }
                     else{
-                        $('#calendar input').eq(curIndex +numDopLine +i).attr('checked', 'checked');
+                        if (strDays[+index+1]){
+                            if((curIndex +i+1)>=(strDays[+index+1].curIndex)){
+                                strDays[index].numLine = +strDays[index].numLine + +strDays[+index+1].numLine;
+                                strDays.splice(index+1, 1);
+                                $(this).parent().parent().find('.numLine').val(strDays[index].numLine);
+                                $(this).parent().parent().parent().children().eq(index+1).detach();
+                            }
+                        }                        
+                        $('#calendar .dchange').eq(curIndex +i).addClass('dchecked').removeClass('dop-days');
                     }                    
                 } 
             }
             else {
                 for (i = numOldLine; i>strDays[index].numLine; i--){
                     if (numDopLine>0){
-                        $('#calendar input').eq(curIndex+numDopLine+i-1).removeAttr('checked').removeClass('dop-days');
-                        $('#calendar input').eq(curIndex+i-1).addClass('dop-days');
+                        $('#calendar .dchange').eq(curIndex+numDopLine+i-1).removeClass('dchecked dop-days');
+                        $('#calendar .dchange').eq(curIndex+i-1).removeClass('dchecked').addClass('dop-days');
                     }
                     else{
-                        $('#calendar input').eq(curIndex+numDopLine+i-1).removeAttr('checked');
+                        $('#calendar .dchange').eq(curIndex+numDopLine+i-1).removeClass('dchecked');
                     }   
                 }   
             }
         }
         else if ($(this).parent().index()>1){
+        console.log(numOldDopLine);
+        console.log(numDopLine);
             if (numOldDopLine < numDopLine){
                 for (i = numOldDopLine; i<numDopLine; i++){
-                    $('#calendar input').eq(curIndex +numOldLine +i).attr('checked', 'checked').addClass('dop-days');
+                    $('#calendar .dchange').eq(curIndex +numOldLine +i).removeClass('dchecked').addClass('dop-days');
+                    if (strDays[+index+1]){
+                        if((curIndex + +numOldLine +i+1)>=(strDays[+index+1].curIndex)){
+                            numLine = +strDays[index].numLine + +strDays[+index+1].numLine;
+                            strDays.splice(index+1, 1);
+                            $(this).parent().parent().find('.numLine').val(numLine).change();
+                            $(this).parent().parent().parent().children().eq(index+1).detach();
+                            continue;
+                        }
+                    }                    
                     console.log(1);
                 } 
             }  
             else {
                 for (i = numOldDopLine; i>numDopLine; i--){
-                    $('#calendar input').eq(curIndex+numOldLine+i-1).removeAttr('checked').removeClass('dop-days');
+                    $('#calendar .dchange').eq(curIndex+numOldLine+i-1).removeClass('dop-days');
                 }   
             }
         }
@@ -317,19 +351,18 @@ function updatenum(n){
 
 
 $(document).mouseup (function() {  
-  $('body .btn-submit').off('mouseenter');
+  $('body .dchange').off('mouseenter');
   if (mouse){
       mouse=0;
       updatedates();
       tableInputOn();
+      $('#calendar .dop-days').removeClass('dop-days');
   }  
 });
    
 
 $(document).ready(function() {    
    updatenum(numdays);
-   updatedates();
-   tableInputOn();
  });    
  
 $('#theme').click(function(e){

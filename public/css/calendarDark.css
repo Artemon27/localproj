@@ -134,19 +134,17 @@ td{
 }
 .month-name-12{
 }
-.btn-submit{
-    width:100%;
-    height:100%;
-    padding-top: 6px;
+.dchange{
+    
 }
-.btn-check:checked + .btn-submit{
+.dchecked.dchange{
     background-color: #319cc6;
 }
 
-.holiday2 .btn-check:checked + .btn-submit{
+.holiday2 .dchecked.dchange{
     background-color: #277fa2;
 }
-.btn-submit:hover, .btn-check:checked + .btn-submit:hover{
+.dchange:hover, .dchecked.dchange:hover{
     background-color: #1b5c75;
     cursor:pointer;
 }

@@ -18,7 +18,10 @@ class CreateHolidaysTable extends Migration
             $table->foreignId('user_id');
             $table->timestamp('datefrom');
             $table->timestamp('dateto');
-            $table->integer('days');            
+            $table->integer('days');           
+            $table->integer('PVT');      
+            $table->integer('INV');      
+            $table->integer('OB');      
             $table->boolean('allow')->default(0);
             $table->timestamps();
         });

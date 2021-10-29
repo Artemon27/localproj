@@ -6,30 +6,26 @@
         @forelse ($dates as $key => $date)            
             @if ($date->datefromStr <= $currentDate)
                 @if ($date->datetoStr >= $currentDate)
-                    <td height="40px" class="month-{{$month}} holiday2">
-                        <input type="checkbox" class="btn-check" cur-date="{{$currentDate}}" name="data[{{$currentDate}}]" autocomplete="off" {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'checked' : '') : 'checked'}}>
-                        <label class="btn-submit" for="data[{{$currentDate}}]">{{$j}}</label>
+                    <td height="40px" class="month-{{$month}} holiday2 dchange {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'dchecked' : '') : 'dchecked'}}"  cur-date="{{$currentDate}}">
+                        {{$j}}
                     </td> 
                 @else
                     @php
                         unset($dates[$key])
                     @endphp
-                    <td height="40px" class="month-{{$month}} holiday2">
-                        <input type="checkbox" class="btn-check" cur-date="{{$currentDate}}" name="data[{{$currentDate}}]" autocomplete="off" {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'checked' : '') : ''}}>
-                        <label class="btn-submit" for="data[{{$currentDate}}]">{{$j}}</label>
+                    <td height="40px" class="month-{{$month}} holiday2 dchange {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'dchecked' : '') : ''}}"  cur-date="{{$currentDate}}">
+                        {{$j}}
                     </td> 
                 @endif    
             @else
-                <td height="40px" class="month-{{$month}} holiday2">
-                    <input type="checkbox" class="btn-check" cur-date="{{$currentDate}}" name="data[{{$currentDate}}]" autocomplete="off" {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'checked' : '') : ''}}>
-                    <label class="btn-submit" for="data[{{$currentDate}}]">{{$j}}</label>
+                <td height="40px" class="month-{{$month}} holiday2 dchange {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'dchecked' : '') : ''}}"  cur-date="{{$currentDate}}">
+                    {{$j}}
                 </td> 
             @endif
             @break
         @empty
-            <td height="40px" class="month-{{$month}} holiday2">
-                <input type="checkbox" class="btn-check" cur-date="{{$currentDate}}" name="data[{{$currentDate}}]" autocomplete="off" {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'checked' : '') : ''}}>
-                <label class="btn-submit" for="data[{{$currentDate}}]">{{$j}}</label>
+            <td height="40px" class="month-{{$month}} holiday2 dchange {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'dchecked' : '') : ''}}"  cur-date="{{$currentDate}}">
+                {{$j}}
             </td>
         @endforelse 
         @php
@@ -43,60 +39,52 @@
         @forelse ($dates as $key => $date)
             @if ($date->datefromStr <= $currentDate)
                 @if ($date->datetoStr >= $currentDate)
-                    <td height="40px" class="month-{{$month}} holiday-{{$month%2}}">
-                        <input type="checkbox" class="btn-check" cur-date="{{$currentDate}}" name="data[{{$currentDate}}]" autocomplete="off" {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'checked' : '') : 'checked'}}>
-                        <label class="btn-submit" for="data[{{$currentDate}}]">{{$j}}</label>
+                    <td height="40px" class="month-{{$month}} holiday-{{$month%2}} dchange {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'dchecked' : '') : 'dchecked'}}" cur-date="{{$currentDate}}">
+                        {{$j}}
                     </td> 
                 @else
                     @php
                         unset($dates[$key])
                     @endphp
-                    <td height="40px" class="month-{{$month}} holiday-{{$month%2}}">
-                        <input type="checkbox" class="btn-check" cur-date="{{$currentDate}}" name="data[{{$currentDate}}]" autocomplete="off" {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'checked' : '') : ''}}>
-                        <label class="btn-submit" for="data[{{$currentDate}}]">{{$j}}</label>
+                    <td height="40px" class="month-{{$month}} holiday-{{$month%2}} dchange {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'dchecked' : '') : ''}}" cur-date="{{$currentDate}}">
+                        {{$j}}
                     </td> 
                 @endif    
             @else
-                <td height="40px" class="month-{{$month}} holiday-{{$month%2}}">
-                    <input type="checkbox" class="btn-check" cur-date="{{$currentDate}}" name="data[{{$currentDate}}]" autocomplete="off" {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'checked' : '') : ''}}>
-                    <label class="btn-submit" for="data[{{$currentDate}}]">{{$j}}</label>
+                <td height="40px" class="month-{{$month}} holiday-{{$month%2}} dchange {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'dchecked' : '') : ''}}" cur-date="{{$currentDate}}">
+                    {{$j}}
                 </td> 
             @endif
             @break
         @empty
-            <td height="40px" class="month-{{$month}} holiday-{{$month%2}}">
-                <input type="checkbox" class="btn-check" cur-date="{{$currentDate}}" name="data[{{$currentDate}}]" autocomplete="off" {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'checked' : '') : ''}}>
-                <label class="btn-submit" for="data[{{$currentDate}}]">{{$j}}</label>
+            <td height="40px" class="month-{{$month}} holiday-{{$month%2}} dchange {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'dchecked' : '') : ''}}" cur-date="{{$currentDate}}">
+                {{$j}}
             </td>
         @endforelse
     @else
         @forelse ($dates as $key => $date)
             @if ($date->datefromStr <= $currentDate)
                 @if ($date->datetoStr >= $currentDate)
-                    <td height="40px" class="month-{{$month}}">
-                        <input type="checkbox" class="btn-check" cur-date="{{$currentDate}}" name="data[{{$currentDate}}]" autocomplete="off" {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'checked' : '') : 'checked'}}>
-                        <label class="btn-submit" for="data[{{$currentDate}}]">{{$j}}</label>
+                    <td height="40px" class="month-{{$month}} dchange {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'dchecked' : '') : 'dchecked'}}" cur-date="{{$currentDate}}">
+                        {{$j}}
                     </td> 
                 @else
                     @php
                         unset($dates[$key])
                     @endphp
-                    <td height="40px" class="month-{{$month}}">
-                        <input type="checkbox" class="btn-check" cur-date="{{$currentDate}}" name="data[{{$currentDate}}]" autocomplete="off" {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'checked' : '') : ''}}>
-                        <label class="btn-submit" for="data[{{$currentDate}}]">{{$j}}</label>
+                    <td height="40px" class="month-{{$month}} dchange {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'dchecked' : '') : ''}}" cur-date="{{$currentDate}}">
+                        {{$j}}
                     </td> 
                 @endif    
             @else
-                <td height="40px" class="month-{{$month}}">
-                    <input type="checkbox" class="btn-check" cur-date="{{$currentDate}}" name="data[{{$currentDate}}]" autocomplete="off" {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'checked' : '') : ''}}>
-                    <label class="btn-submit" for="data[{{$currentDate}}]">{{$j}}</label>
+                <td height="40px" class="month-{{$month}} dchange {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'dchecked' : '') : ''}}" cur-date="{{$currentDate}}">
+                    {{$j}}
                 </td> 
             @endif
             @break
         @empty
-            <td height="40px" class="month-{{$month}}">
-                <input type="checkbox" class="btn-check" cur-date="{{$currentDate}}" name="data[{{$currentDate}}]" autocomplete="off" {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'checked' : '') : ''}}>
-                <label class="btn-submit" for="data[{{$currentDate}}]">{{$j}}</label>
+            <td height="40px" class="month-{{$month}} dchange {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'dchecked' : '') : ''}}" cur-date="{{$currentDate}}">
+                {{$j}}
             </td>
         @endforelse
     @endif       

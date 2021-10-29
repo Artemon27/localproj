@@ -26,60 +26,26 @@ class HolidayRequest extends FormRequest
     {
         if($this->data){
             foreach ($this->data as $data => $value){
-                $dates[]=Carbon::createFromTimestamp($data);
-                $this->numdays++;
-            }
-            $sliced = array_slice($dates, 1);
-            $k=1;
-            $i=0;
-            if (count($sliced)){
-                foreach ($sliced as $index => $date){
-                    if ($k==1){
-                        $dateArr[$i]['datefrom']=Carbon::create($dates[$index])->startOfDay();     
-                    }
-                    if ($date->isSameDay($dates[$index]->addDay())){
-                        $k++;
-                    }
-                    else{ 
-                        if ($k>6){
-                            $k=1;        
-                            $dateArr[$i]['dateto']=$dates[$index]->subDay()->endOfDay();
-                            $i++;
-                        }                        
-                        else{
-                            return ['data'=> [
-                                function ($attribute, $value, $fail) {
-                                    $fail('Можно выбирать не менее 7 дней подряд');   
-                                }
-                            ,]];
-                        }
-                    }
-                }
-                if ($k<7){                         
+                $dates[]=Carbon::createFromFormat('Y-m-d', $value['datefrom']);
+                if ($value['days'] < 7){
                     return ['data'=> [
                         function ($attribute, $value, $fail) {
-                            $fail('Можно выбирать не менее 7 дней подряд');
+                            $fail('Можно выбирать не менее 7 дней подряд');   
                         }
                     ,]];
                 }
-                else{                    
-                    $dateArr[$i]['dateto']=$date->endOfDay();
-                }
             }
-            else{
-                return ['_token'=> [
-                    function ($attribute, $value, $fail) {                
-                        $fail('Можно выбирать не менее 7 дней подряд');                
-                    }
-                ,]];
-            }            
-            $this->dateArr = $dateArr;
+            return [
+                'data.*.days'=> ['integer'],
+                'data.*.PVT'=> ['integer'],
+                'data.*.INV'=> ['integer'],
+                'data.*.OB'=> ['integer'],
+            ];
+        }
+        else{    
             return [
                 //
             ];
-        }
-        return [
-                //
-            ];
+        }        
     }
 }
