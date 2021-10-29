@@ -1,7 +1,3 @@
-body{
-    background-color: #150505;
-    color:white;
-}
 .year-num{
     font-size:30pt;
 }
@@ -9,15 +5,9 @@ body{
     background-color: #150505;
 }
 .wrapper{
+    width: 1300px;
     margin: auto;
 }
-.holiday-slider{
-    width:1300px;
-}
-#table-all input[type="number"]{
-    max-width: 50px;
-}
-
 .month-1{
     background-color: #293B3C;
 }
@@ -134,17 +124,19 @@ td{
 }
 .month-name-12{
 }
-.dchange{
-    
+.btn-submit{
+    width:100%;
+    height:100%;
+    padding-top: 6px;
 }
-.dchecked.dchange{
+.btn-check:checked + .btn-submit{
     background-color: #319cc6;
 }
 
-.holiday2 .dchecked.dchange{
+.holiday2 .btn-check:checked + .btn-submit{
     background-color: #277fa2;
 }
-.dchange:hover, .dchecked.dchange:hover{
+.btn-submit:hover, .btn-check:checked + .btn-submit:hover{
     background-color: #1b5c75;
     cursor:pointer;
 }
@@ -158,7 +150,4 @@ td{
 }
 .cal-col-1{
     margin-left:-100px;
-}
-.dop-days{
-    background-color: black;
 }
