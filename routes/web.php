@@ -17,11 +17,11 @@ use App\Http\Controllers\Admin\UserController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/holiday');
 });
 
 
-require(__DIR__ . '/front/holiday.php');
+
 
 
 Auth::routes([
@@ -57,18 +57,15 @@ Route::group([
         require(__DIR__ . '/admin/holidaydays.php');
     });    
 });
+
+Route::group([
+        'middleware' => 'auth'
+    ], function () {
+        require(__DIR__ . '/front/holiday.php');
+    });  
+    
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', function() {
-    return view('home');
-})->name('home')->middleware('auth');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/ldap', [App\Http\Controllers\UserController::class, 'index']);
