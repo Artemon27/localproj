@@ -16,8 +16,8 @@ class CreateHolidaysTable extends Migration
         Schema::create('holidays', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->timestamp('datefrom');
-            $table->timestamp('dateto');
+            $table->timestamp('datefrom')->nullable();
+            $table->timestamp('dateto')->nullable();
             $table->integer('days');           
             $table->integer('PVT');      
             $table->integer('INV');      

@@ -22,13 +22,13 @@ class CreateUsersTable extends Migration
             $table->smallInteger('role')->default(User::ROLE_USER);
             $table->string('password');
             $table->string('objectguid');
-            $table->string('pager');
-            $table->string('department');
-            $table->string('homePhone');
-            $table->string('email');
-            $table->string('mail');
+            $table->string('pager')->nullable();
+            $table->string('department')->nullable();
+            $table->string('homePhone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('mail')->nullable();
             $table->string('sAMAccountName');
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->rememberToken();
             $table->timestamps();
             
