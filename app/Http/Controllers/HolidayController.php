@@ -36,13 +36,16 @@ class HolidayController extends Controller
         $now = Carbon::now();
         
         Holiday::Where('user_id','=',$id)->Where('allow','=','0')->Where('datefrom','>',$now)->delete();
-
-        foreach ($request['data'] as $date){
-            $date['user_id'] = $id;
-            $date['datefrom']=Carbon::createFromFormat('Y-m-d', $date['datefrom'])->startOfDay();
-            $date['dateto']=$date['datefrom']->copy()->addDays($date['days']-1)->endOfDay();
-            Holiday::Create($date);
+        
+        if (isset($request['data'])){
+                foreach ($request['data'] as $date){
+                $date['user_id'] = $id;
+                $date['datefrom']=Carbon::createFromFormat('Y-m-d', $date['datefrom'])->startOfDay();
+                $date['dateto']=$date['datefrom']->copy()->addDays($date['days']-1)->endOfDay();
+                Holiday::Create($date);
+            }
         }
+        
         return back()->with('success', 'Отпуск обновлён');
     }
 }

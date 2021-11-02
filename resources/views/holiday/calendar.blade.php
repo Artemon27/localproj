@@ -68,7 +68,7 @@
                 @if ($today < mktime(0, 0, 0, $month+1, $j, $year))
                     @include ('holiday.days',['month'=>$month+1])
                 @else
-                    @include ('holiday.days-inactive')
+                    @include ('holiday.days-inactive',['month'=>$month+1])
                 @endif                
                 @php
                     $j++;

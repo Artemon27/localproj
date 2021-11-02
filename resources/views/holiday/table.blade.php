@@ -17,6 +17,7 @@
             <td><input type="number" min="0" value="{{$date->PVT}}" name="data[{{$loop->index}}][PVT]" class="PVT"></td>
             <td><input type="number" min="0" value="{{$date->INV}}" name="data[{{$loop->index}}][INV]" class="INV"></td>
             <td><input type="number" min="0" value="{{$date->OB}}" name="data[{{$loop->index}}][OB]" class="OB"></td>
+            <td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td>
         </tr>
         @empty
         @endforelse

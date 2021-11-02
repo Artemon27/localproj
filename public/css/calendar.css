@@ -1,18 +1,24 @@
 body {
     background-color: #fdfdfd;
 }
+.year-num{
+    font-size:30pt;
+}
 .card{
     box-shadow: 0px 0px 40px black;  
     background-color: inherit;
 }
 
 .wrapper{
-    width: 1300px;
     margin: auto;
 }
-.year-num{
-    font-size:30pt;
+.holiday-slider{
+    width:1300px;
 }
+#table-all input[type="number"]{
+    max-width: 50px;
+}
+
 .month-1{
     background-color: #D9FEFF;
 }
@@ -128,19 +134,14 @@ td{
 }
 .month-name-12{
 }
-.btn-submit{
-    width:100%;
-    height:100%;
-    padding-top: 6px;
-}
-.btn-check:checked + .btn-submit{
+.dchecked.dchange{
     background-color: #319cc6;
 }
 
-.holiday2 .btn-check:checked + .btn-submit{
+.holiday2 .dchecked.dchange{
     background-color: #277fa2;
 }
-.btn-submit:hover, .btn-check:checked + .btn-submit:hover{
+.dchange:hover, .dchecked.dchange:hover{
     background-color: #3ac4f9;
     cursor:pointer;
 }
@@ -157,4 +158,7 @@ td{
 }
 .cal-col-1{
     margin-left:-100px;
+}
+.dop-days{
+    background-color: black;
 }

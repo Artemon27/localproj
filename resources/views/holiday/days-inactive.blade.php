@@ -1,6 +1,6 @@
 @foreach ($arHolidays as $day)
     @if ($day===$j.'.'.$month)
-        <td height="40px" class="month-{{$month}} holiday2">
+        <td width="40px" height="40px" class="month-{{$month}} holiday2">
             <div>{{$j}}</div>
         </td>
         @php
@@ -11,11 +11,11 @@
 @endforeach
 @if (!$hol)
     @if ($i==6 || $i==7)
-        <td height="40px" class="month-{{$month}} holiday-{{$month%2}}">
+        <td width="40px" height="40px" class="month-{{$month}} holiday-{{$month%2}}">
             <div>{{$j}}</div>
         </td>
     @else
-        <td height="40px" class="month-{{$month}}">
+        <td width="40px" height="40px" class="month-{{$month}}">
             <div>{{$j}}</div>
         </td>   
     @endif       
