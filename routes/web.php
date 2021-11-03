@@ -39,6 +39,7 @@ Route::get('/register', function () {
 
 Route::group([
     'prefix' => 'admin',
+    'middleware' => 'admin',
 ], function () {
     Route::get('/login', [LoginController::class, 'showLoginForm']);
     Route::post('/login', [LoginController::class, 'login'])->name('admin-login');

@@ -34,6 +34,7 @@ $('body .dchange').mousedown(function(e) {
     }
     else{
         $(this).addClass('dchecked');
+        $(this).removeClass('dop-days PVT INV OB');
         numdays++;
         updatenum(numdays);
         $('body .dchange').on('mouseenter',function(){        
@@ -53,7 +54,6 @@ $('body .dchange').mousedown(function(e) {
 
 //Обновляет данные в таблице по рисованному календарю
 function updatedates(){
-    var curDate = 0;
     var line = 0;
     var numLine = 0;
     var i = 0;
@@ -134,139 +134,79 @@ function updatedates(){
 //Добавляет change функцию на input в таблице (отслеживание изменений+рисование)
 function tableInputOn(){
     $('body input').off('change');
-    var PVT = 0;
-    var INV = 0;
-    var OB = 0;
-    var numOldLine;
+    var numOldLine = 0;
     var numDopLine = 0;
-    var numLine=0;
-    var numLine2=0;
-    var numLine3=0;
+    var numFullLine = 0;
+    var curIndex = 0;
     $('#table-all input').change(function( ){
         var i=0;
         var index = $(this).parent().parent().index();
-        var curIndex = +strDays[index].curIndex;
+       
+        curIndex = +strDays[index].curIndex;
+        
         numOldLine = +strDays[index].numLine;
-        strDays[index].numLine = $(this).parent().parent().find('.numLine').val();
-        PVT = $(this).parent().parent().find('.PVT').val();
-        INV = $(this).parent().parent().find('.INV').val();
-        OB = $(this).parent().parent().find('.OB').val();
         numOldDopLine = +strDays[index].PVT + +strDays[index].INV + +strDays[index].OB;
-        numDopLine = +PVT + +INV + +OB
-        if ($(this).hasClass('numLine')){
-            if (numOldLine < strDays[index].numLine){
+        
+        strDays[index].numLine = +$(this).parent().parent().find('.numLine').val();
+        strDays[index].PVT = +$(this).parent().parent().find('.PVT').val();
+        strDays[index].INV = +$(this).parent().parent().find('.INV').val();
+        strDays[index].OB = +$(this).parent().parent().find('.OB').val();           
+        
+        numDopLine = strDays[index].PVT + strDays[index].INV + strDays[index].OB;
+        numFullLine = strDays[index].numLine + numDopLine;       
+        
+        numdays = numdays + strDays[index].numLine - numOldLine
+        updatenum(numdays);
+        
+        if ((numDopLine > numOldDopLine)||(strDays[index].numLine > numOldLine))
+        {
+            while(1){
+                if (strDays[index+1]){
+                    if((curIndex + numFullLine)>=(+strDays[index+1].curIndex)){
+                        clearNextDates(index);
+                        numFullLine = strDays[index].numLine + strDays[index].PVT + strDays[index].INV + strDays[index].OB;
+                    }
+                    else{
+                        break;
+                    }
+                }
+                else{
+                    break;
+                }
+
+            }      
+
+            numDopLine = strDays[index].PVT + strDays[index].INV + strDays[index].OB;
+
+            if (numOldLine<strDays[index].numLine){
                 for (i = numOldLine; i<strDays[index].numLine; i++){
-                    if (numDopLine>0){                        
-                        if (strDays[+index+1]){
-                            if((+curIndex + +numDopLine + +i)>=(strDays[+index+1].curIndex)){
-                                strDays[index].numLine = +strDays[index].numLine + +strDays[+index+1].numLine;
-                                numLine = PVT + +strDays[+index+1].PVT;
-                                numLine2 = INV + +strDays[+index+1].INV;
-                                numLine3 = OB + +strDays[+index+1].OB;
-                                strDays.splice(index+1, 1);
-                                if (numLine!=PVT){
-                                    $(this).parent().parent().find('.PVT').val(numLine).change();
-                                    PVT = numLine;
-                                }
-                                if (numLine2!=INV){
-                                    $(this).parent().parent().find('.INV').val(numLine2).change();
-                                    INV = numLine2;
-                                }
-                                if (numLine3!=OB){
-                                    $(this).parent().parent().find('.OB').val(numLine3).change();
-                                    OB = numLine3;
-                                }                                                                
-                                numDopLine = +PVT + +INV + +OB;
-                                $(this).parent().parent().find('.numLine').val(strDays[index].numLine);
-                                $(this).parent().parent().parent().children().eq(index+1).detach();
-                            }
-                        } 
-                        $('#calendar .dchange').eq(curIndex +numDopLine +i).removeClass('dchecked').addClass('dop-days');
-                        $('#calendar .dchange').eq(curIndex +i).removeClass('dop-days INV OB PVT').addClass('dchecked');
-                    }
-                    else{
-                        if (strDays[+index+1]){
-                            if((curIndex +i+1)>=(strDays[+index+1].curIndex)){
-                                strDays[index].numLine = +strDays[index].numLine + +strDays[+index+1].numLine;
-                                numLine = PVT + +strDays[+index+1].PVT;
-                                numLine2 = INV + +strDays[+index+1].INV;
-                                numLine3 = OB + +strDays[+index+1].OB;
-                                strDays.splice(index+1, 1);
-                                if (numLine!=PVT){
-                                    $(this).parent().parent().find('.PVT').val(numLine).change();
-                                    PVT = numLine;
-                                }
-                                if (numLine2!=INV){
-                                    $(this).parent().parent().find('.INV').val(numLine2).change();
-                                    INV = numLine2;
-                                }
-                                if (numLine3!=OB){
-                                    $(this).parent().parent().find('.OB').val(numLine3).change();
-                                    OB = numLine3;
-                                }
-                                numDopLine = +PVT + +INV + +OB;
-                                $(this).parent().parent().find('.numLine').val(strDays[index].numLine);
-                                $(this).parent().parent().parent().children().eq(index+1).detach();
-                            }
-                        }                        
-                        $('#calendar .dchange').eq(curIndex +i).addClass('dchecked').removeClass('dop-days INV OB PVT');
-                    }                    
-                } 
-                for (i = 0; i<numDopLine; i++){
-                    $('#calendar .dchange').eq(curIndex +strDays[index].numLine+i).removeClass('dop-days INV OB PVT');
-                }   
-                AddPvtInvOb(curIndex, numOldLine, PVT, INV, OB);
+                    $('#calendar .dchange').eq(curIndex +i).addClass('dchecked').removeClass('dop-days INV OB PVT');
+                }
             }
-            else {
-                for (i = numOldLine; i>strDays[index].numLine; i--){
-                    if (numDopLine>0){
-                        $('#calendar .dchange').eq(curIndex+numDopLine+i-1).removeClass('dchecked dop-days INV OB PVT');
-                        $('#calendar .dchange').eq(curIndex+i-1).removeClass('dchecked').addClass('dop-days');
-                        for (i = 0; i<numOldDopLine; i++){
-                            $('#calendar .dchange').eq(curIndex +numOldLine+i).removeClass('dop-days INV OB PVT');
-                        }   
-                        AddPvtInvOb(curIndex, numOldLine, PVT, INV, OB);
-                    }
-                    else{
-                        $('#calendar .dchange').eq(curIndex+numDopLine+i-1).removeClass('dchecked');
-                    }   
-                }   
-            }
+
+            for (i = 0; i<numOldDopLine; i++){
+                $('#calendar .dchange').eq(curIndex + strDays[index].numLine + i).removeClass('dop-days INV OB PVT');
+            }   
+            AddPvtInvOb(curIndex, strDays[index].numLine, strDays[index].PVT, strDays[index].INV, strDays[index].OB);
         }
-        else if ($(this).parent().index()>1){ 
-            if (numOldDopLine < numDopLine){
-                for (i = numOldDopLine; i<numDopLine; i++){
-                    if ($(this).hasClass('PVT')){
-                        $('#calendar .dchange').eq(curIndex +numOldLine +i).removeClass('dchecked').addClass('dop-days PVT');
-                    }
-                    if ($(this).hasClass('INV')){
-                        $('#calendar .dchange').eq(curIndex +numOldLine +i).removeClass('dchecked').addClass('dop-days INV');
-                    }
-                    if ($(this).hasClass('OB')){
-                        $('#calendar .dchange').eq(curIndex +numOldLine +i).removeClass('dchecked').addClass('dop-days OB');
-                    }                    
-                    if (strDays[+index+1]){
-                        if((curIndex + +numOldLine +i+1)>=(strDays[+index+1].curIndex)){
-                            numLine = +strDays[index].numLine + +strDays[+index+1].numLine;
-                            strDays.splice(index+1, 1);
-                            $(this).parent().parent().find('.numLine').val(numLine).change();
-                            $(this).parent().parent().parent().children().eq(index+1).detach();
-                            continue;
-                        }
-                    }                    
-                    console.log(1);
-                } 
-            }  
-            else {
-                for (i = 0; i<numOldDopLine; i++){
-                    $('#calendar .dchange').eq(curIndex +numOldLine+i).removeClass('dop-days INV OB PVT');
-                }   
-                AddPvtInvOb(curIndex, numOldLine, PVT, INV, OB);
+        else {
+            if (numOldLine > strDays[index].numLine){
+                for (i = strDays[index].numLine; i<numOldLine; i++){
+                    $('#calendar .dchange').eq(curIndex+i).removeClass('dchecked');
+                }                       
             }
+            for (i = 0; i<numOldDopLine; i++){
+                $('#calendar .dchange').eq(curIndex + numOldLine + i).removeClass('dop-days INV OB PVT');
+            }                
+            AddPvtInvOb(curIndex, strDays[index].numLine, strDays[index].PVT, strDays[index].INV, strDays[index].OB);      
         }
-        strDays[index].PVT = PVT;
-        strDays[index].INV = INV;
-        strDays[index].OB = OB;
+        
+        
+        $(this).parent().parent().find('.numLine').val(strDays[index].numLine);
+        $(this).parent().parent().find('.PVT').val(strDays[index].PVT);
+        $(this).parent().parent().find('.INV').val(strDays[index].INV);
+        $(this).parent().parent().find('.OB').val(strDays[index].OB);
+        
 });
 }
 
@@ -282,6 +222,32 @@ function AddPvtInvOb(curIndex, numOldLine, PVT, INV, OB){
         $('#calendar .dchange').eq(curIndex +numOldLine +i).addClass('dop-days OB');
     }
 }
+
+//Очистка дат при переполнении
+function clearNextDates(index){
+    var indexNext=index+1;
+    var i=+0;
+    var PVT, INV, OB, numLine, numDopLine;
+    var curIndex = +strDays[indexNext].curIndex;
+    numLine = +strDays[indexNext].numLine;
+    PVT = +strDays[indexNext].PVT;
+    INV = +strDays[indexNext].INV;
+    OB = +strDays[indexNext].OB;
+    strDays[index].numLine = +strDays[index].numLine  + numLine
+    strDays[index].PVT = +strDays[index].PVT  + PVT
+    strDays[index].INV = +strDays[index].INV  + INV
+    strDays[index].OB = +strDays[index].OB  + OB
+    numDopLine = PVT+INV+OB;            
+    for (i=0; i<numLine; i++){
+        $('#calendar .dchange').eq(curIndex+i).removeClass('dchecked');
+    }
+    for (i=0; i<numDopLine; i++){
+        $('#calendar .dchange').eq(curIndex+numLine+i).removeClass('dop-days INV OB PVT');
+    }
+    $('#table-all tr').eq(indexNext).detach();
+    strDays.splice(indexNext, 1);
+}
+        
 //Формат даты для записи в поле "Начало"
 function formatDate(date) {
 
