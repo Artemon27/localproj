@@ -1,24 +1,26 @@
 @php
     $currentDate = strtotime($j.'.'.$month.'.'.$year);
 @endphp
-@foreach ($arHolidays as $day)
-    @if ($day===$j.'.'.$month)        
-        <td width="40px" height="40px" class="month-{{$month}} holiday2 dchange {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'dchecked' : '') : ''}}"  cur-date="{{$currentDate}}">
-            {{$j}}
-        </td>
-        @php
-            $hol = 1;
-        @endphp
-        @break
-    @endif
-@endforeach
+@isset ($arHolidays)
+    @foreach ($arHolidays as $day)
+        @if ($day===$j.'.'.$month)        
+            <td width="40px" height="40px" class="month-{{$month}} holiday2 dchange" cur-date="{{$currentDate}}">
+                {{$j}}
+            </td>
+            @php
+                $hol = 1;
+            @endphp
+            @break
+        @endif
+    @endforeach
+@endisset
 @if (!$hol)
     @if ($i==6 || $i==7)        
-        <td width="40px" height="40px" class="month-{{$month}} holiday-{{$month%2}} dchange {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'dchecked' : '') : ''}}" cur-date="{{$currentDate}}">
+        <td width="40px" height="40px" class="month-{{$month}} holiday-{{$month%2}} dchange" cur-date="{{$currentDate}}">
             {{$j}}
         </td>
     @else        
-        <td width="40px" height="40px" class="month-{{$month}} dchange {{old('data') ? (array_key_exists($currentDate, old('data')) ? 'dchecked' : '') : ''}}" cur-date="{{$currentDate}}">
+        <td width="40px" height="40px" class="month-{{$month}} dchange" cur-date="{{$currentDate}}">
             {{$j}}
         </td>
     @endif       

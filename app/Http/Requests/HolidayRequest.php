@@ -24,6 +24,7 @@ class HolidayRequest extends FormRequest
      */
     public function rules()
     {
+        $belka=0;
         if($this->data){
             foreach ($this->data as $data => $value){
                 $dates[]=Carbon::createFromFormat('Y-m-d', $value['datefrom']);
@@ -34,6 +35,16 @@ class HolidayRequest extends FormRequest
                         }
                     ,]];
                 }
+                if ($value['days']>=14){
+                   $belka=1;
+                }
+            }
+            if (!$belka){
+                return ['data'=> [
+                        function ($attribute, $value, $fail) {
+                            $fail('Один из отпусков должен быть не менее 14 дней');   
+                        }
+                    ,]];
             }
             return [
                 'data.*.days'=> ['integer'],

@@ -3,16 +3,7 @@
 
 @section('content')
 @php
-$calendar = simplexml_load_file('http://elavt.devo/calendar.xml');
- 
-$calendar = $calendar->days->day;
- 
-foreach( $calendar as $day ){
-    $d = (array)$day->attributes()->d;
-    $d = $d[0];
-    $d = number_format(substr($d, 3, 2)).'.'.number_format(substr($d, 0, 2));
-    if( $day->attributes()->t == 1 ) $arHolidays[] = $d;
-}
+
 $year=2022;
 @endphp
 

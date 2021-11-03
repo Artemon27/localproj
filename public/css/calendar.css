@@ -15,6 +15,9 @@ body {
 .holiday-slider{
     width:1300px;
 }
+#table-dates{
+    min-width:410px;
+}
 #table-all input[type="number"]{
     max-width: 50px;
 }
@@ -160,5 +163,5 @@ td{
     margin-left:-100px;
 }
 .dop-days{
-    background-color: black;
+    background-color: #68b7d7;
 }

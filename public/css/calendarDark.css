@@ -14,6 +14,9 @@ body{
 .holiday-slider{
     width:1300px;
 }
+#table-dates{
+    min-width:410px;
+}
 #table-all input[type="number"]{
     max-width: 50px;
 }

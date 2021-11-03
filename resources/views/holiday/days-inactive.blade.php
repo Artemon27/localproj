@@ -1,14 +1,16 @@
-@foreach ($arHolidays as $day)
-    @if ($day===$j.'.'.$month)
-        <td width="40px" height="40px" class="month-{{$month}} holiday2">
-            <div>{{$j}}</div>
-        </td>
-        @php
-            $hol = 1;
-        @endphp
-        @break
-    @endif
-@endforeach
+@isset ($arHolidays)
+    @foreach ($arHolidays as $day)
+        @if ($day===$j.'.'.$month)
+            <td width="40px" height="40px" class="month-{{$month}} holiday2">
+                <div>{{$j}}</div>
+            </td>
+            @php
+                $hol = 1;
+            @endphp
+            @break
+        @endif
+    @endforeach
+@endisset
 @if (!$hol)
     @if ($i==6 || $i==7)
         <td width="40px" height="40px" class="month-{{$month}} holiday-{{$month%2}}">
