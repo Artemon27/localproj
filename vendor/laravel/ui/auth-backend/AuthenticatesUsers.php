@@ -31,9 +31,7 @@ trait AuthenticatesUsers
      */
     public function login(Request $request)
     {
-        
         $this->validateLogin($request);
-        
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
@@ -45,7 +43,11 @@ trait AuthenticatesUsers
             return $this->sendLockoutResponse($request);
         }
 
-        if ($this->attemptLogin($request)) {            
+        if ($this->attemptLogin($request)) {
+            if ($request->hasSession()) {
+                $request->session()->put('auth.password_confirmed_at', time());
+            }
+
             return $this->sendLoginResponse($request);
         }
 
@@ -66,7 +68,7 @@ trait AuthenticatesUsers
      * @throws \Illuminate\Validation\ValidationException
      */
     protected function validateLogin(Request $request)
-    {                        
+    {
         $request->validate([
             $this->username() => 'required|string',
             'password' => 'required|string',
@@ -80,7 +82,7 @@ trait AuthenticatesUsers
      * @return bool
      */
     protected function attemptLogin(Request $request)
-    {        
+    {
         return $this->guard()->attempt(
             $this->credentials($request), $request->filled('remember')
         );

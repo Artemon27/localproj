@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Holiday;
 
 class User extends Authenticatable
 {
@@ -64,5 +65,10 @@ class User extends Authenticatable
     public function scopeRoleUser(Builder $query): Builder
     {
         return $query->where('role', self::ROLE_USER);
+    }
+    
+    public function holidays()
+    {
+        return $this->hasMany(Holiday::class);
     }
 }

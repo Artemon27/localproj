@@ -268,6 +268,11 @@ return [
             'url'  => 'admin/holidaydays',
             'icon' => 'fas fa-users',
         ],
+        [
+            'text' => 'Создать таблицу',
+            'url'  => 'admin/holitable',
+            'icon' => 'fas fa-users',
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
