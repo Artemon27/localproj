@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Holiday;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -78,5 +79,14 @@ class User extends Authenticatable
     public function holidays()
     {
         return $this->hasMany(Holiday::class);
+    }
+    
+    public function holidaysYear($year)
+    {
+        $dateFrom = Carbon::create($year, 1, 1, 0, 0, 0);
+        
+        $dateTo = Carbon::create($year, 12, 31, 23, 59, 59);
+        
+        return $this->holidays->Where('datefrom','>',$dateFrom)->Where('datefrom','<',$dateTo);
     }
 }

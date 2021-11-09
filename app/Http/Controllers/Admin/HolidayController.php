@@ -47,9 +47,22 @@ class HolidayController extends Controller
         return back()->with('success', 'Отпуск обновлён');
     }
     
+    public function download(){
+        
+        $users=User::orderBy('department')->orderBy('name')->get();
+                     
+        return view('admin.holidays.download', compact('users'));    
+    }
+    
+    
+    
+    
+    
+    
+    
     public function holiTable(){
         
-        $users=User::orderBy('department')->get();
+        $users=User::orderBy('department')->orderBy('name')->get();
         
         $merges = ["25", "29", "12", "19", "11", "10", "12", "13", "13", "13" ];
         $style = [
@@ -167,7 +180,7 @@ class HolidayController extends Controller
         
         $sxe->asXML('Table.xml');
         
-        return view('admin.holidays.download');  
+         
         
     }
 }

@@ -25,13 +25,13 @@ $year=2022;
                     <div id="numdays"></div>
                     <input id="numdaysIn" type="hidden" value="{{old('numdays') ?? 0}}" name="numdays">
                 </div>
-                <div class="col-2 text-end">
+                <div class="col-3 text-end">
                     <div class="row">
                         <div class="col"><a target="_blank" href="{{ asset('Instruction.pdf') }}" class="btn btn-sm btn-outline-success">Инструкция</a></div>
                         <div class="col"><button href="" class="btn btn-btn btn-sm btn-outline-primary">Сохранить</button></div>
                     </div>                    
                 </div>  
-                <div class="col-3 text-end">
+                <div class="col-2 text-end">
                     <div class="btn-group dropstart">
                         <button type="button"  class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             МЕНЮ    
