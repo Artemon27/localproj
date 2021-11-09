@@ -14,20 +14,27 @@ $year=2022;
         <div class="card-header">
             <div class="row">
                 <div class="col-2">
-                    
+                    <div id="theme" class="btn btn-sm btn-outline-primary">Сменить тему</div>   
                 </div>
                 <div class="col-2">
                     <div id="btn-off" class="btn btn-sm btn-outline-primary">Очистить</div>
                 </div>
-                <div class="col-4 text-center">
+                <div class="col-1">
+                </div>
+                <div class="col-2 text-center">
                     <div id="numdays"></div>
                     <input id="numdaysIn" type="hidden" value="{{old('numdays') ?? 0}}" name="numdays">
                 </div>
                 <div class="col-2 text-end">
-                    <div id="theme" class="btn btn-sm btn-outline-primary">Сменить тему</div>   
+                    <div class="row">
+                        <div class="col"><a target="_blank" href="{{ asset('instruction.pdf') }}" class="btn btn-sm btn-outline-success">Инструкция</a></div>
+                        <div class="col"><button href="" class="btn btn-btn btn-sm btn-outline-primary">Сохранить</button></div>
+                    </div>                    
+                </div>  
+                <div class="col-1"> 
+                    
                 </div>  
                 <div class="col-2 text-end">
-                     <button id="" class="btn btn-sm btn-outline-primary">Сохранить</button>   
                 </div>            
             </div>        
         </div>
@@ -96,14 +103,14 @@ $year=2022;
 
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/daterangepicker.css') }}">
 <link rel="stylesheet" disabled="1" href="{{ asset('css/calendar.css') }}">
 <link rel="stylesheet" href="{{ asset('css/calendarDark.css') }}">
 @endpush
 
+@push('beforescripts')
+<script src="{{ asset('js/popper.min.js') }}"></script>
+@endpush
 @push('scripts')
-<script src="{{ asset('js/moment.min.js') }}"></script>
-<script src="{{ asset('js/daterangepicker.js') }}"></script>
 <script src="{{ asset('js/holiday.js') }}"></script>
 <script>
 var numdays = {{old('numdays') ?? $numdays}};   

@@ -84,6 +84,7 @@ class HolidayController extends Controller
                     }                
                     $cells = $newrow->children();
                     $cells[0]->Data = $user->department;
+                    $department = $user->department;
                 }
                 $holidays=$user->holidays;
                 foreach ($holidays as $num => $holiday){                    
@@ -115,7 +116,7 @@ class HolidayController extends Controller
                         if ($cells[4]->Data){
                             $cells[4]->Data = $cells[4]->Data.'+';    
                         }
-                        $cells[4]->Data = $cells[4]->Data.$holiday->INV.'ОБ';
+                        $cells[4]->Data = $cells[4]->Data.$holiday->OB.'ОБ';
                     }     
                     $cells[5]->Data = date("d.m.y", strtotime($holiday->datefrom));
                 }                
