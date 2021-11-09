@@ -31,10 +31,20 @@ $year=2022;
                         <div class="col"><button href="" class="btn btn-btn btn-sm btn-outline-primary">Сохранить</button></div>
                     </div>                    
                 </div>  
-                <div class="col-1"> 
-                    
-                </div>  
-                <div class="col-2 text-end">
+                <div class="col-3 text-end">
+                    <div class="btn-group dropstart">
+                        <button type="button"  class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            МЕНЮ    
+                        </button> 
+                        <ul class="dropdown-menu" style="">
+                            <li><div class="dropdown-header text-primary fs-6">{{Auth::user()->name}}</div></li>
+                            <li><hr class="dropdown-divider"></li>
+                            @if (Auth::user()->role > 8)
+                            <li><a class="dropdown-item" href="/admin">Админка</a></li>
+                            @endif
+                            <li><a onclick="logout()" class="dropdown-item" href="#">Выйти</a></li>
+                        </ul>
+                    </div>
                 </div>            
             </div>        
         </div>
@@ -115,6 +125,22 @@ $year=2022;
 <script>
 var numdays = {{old('numdays') ?? $numdays}};   
 
+
+function logout(){
+    $.ajax({
+        url: `{{ route('logout') }}`,
+        data: {
+          '_token': '{{ csrf_token() }}'
+        },
+        type: 'POST',
+        success: function () {
+         window.location.href="/";
+        },
+        error: function(){
+         window.location.href="/";   
+        }                
+      });
+}
 
 </script>
 @endpush

@@ -107,13 +107,13 @@ class HolidayController extends Controller
                         $cells[4]->Data = $holiday->PVT.'ПВТ';
                     }     
                     if ($holiday->INV){
-                        if ($cells[4]->Data){
+                        if ($cells[4]->Data>0){
                             $cells[4]->Data = $cells[4]->Data.'+';    
                         }
                         $cells[4]->Data = $cells[4]->Data.$holiday->INV.'ИНВ';                  
                     }     
                     if ($holiday->OB){
-                        if ($cells[4]->Data){
+                        if ($cells[4]->Data>0){
                             $cells[4]->Data = $cells[4]->Data.'+';    
                         }
                         $cells[4]->Data = $cells[4]->Data.$holiday->OB.'ОБ';
