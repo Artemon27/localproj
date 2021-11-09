@@ -27,7 +27,7 @@ $year=2022;
                 </div>
                 <div class="col-2 text-end">
                     <div class="row">
-                        <div class="col"><a target="_blank" href="{{ asset('instruction.pdf') }}" class="btn btn-sm btn-outline-success">Инструкция</a></div>
+                        <div class="col"><a target="_blank" href="{{ asset('Instruction.pdf') }}" class="btn btn-sm btn-outline-success">Инструкция</a></div>
                         <div class="col"><button href="" class="btn btn-btn btn-sm btn-outline-primary">Сохранить</button></div>
                     </div>                    
                 </div>  
