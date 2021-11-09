@@ -11,12 +11,7 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-xs-12 col-md-6">
-                    <a href="{{ route('admin.users.create') }}" class="btn btn-outline-primary">Добавить</a>
-                </div>
-                <div class="col-xs-12 col-md-6">
                     {{ $users->links() }}
-                </div>
             </div>
         </div>
         <div class="card-body">
@@ -38,9 +33,6 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->roleAsString() }}</td>
                         <td class="text-center">
-                            <a href="{{ route('admin.users.edit', $user->id) }}">
-                                <i class="far fa-edit"></i>
-                            </a>
                             <a class="delete text-red"
                                data-id="{{ $user->id }}"
                                type="button"

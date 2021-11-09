@@ -27,7 +27,7 @@ class UserController extends Controller
             'users' => User::query()
                 ->select(['id', 'name', 'email', 'role'])                
                 ->latest()
-                ->paginate()
+                ->paginate('20')
         ]);
     }
 
@@ -92,6 +92,11 @@ class UserController extends Controller
     public function destroy(User $user): JsonResponse
     {
         try {
+            if (count ($user->holidays)){
+                foreach ($user->holidays as $holiday){
+                    $holiday->delete;
+                }                
+            }   
             $user->delete();
         } catch (\Throwable $e) {
             return new JsonResponse(['message' => 'Ошибка удаление'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);

@@ -53,8 +53,8 @@ class HolidayController extends Controller
         
         $merges = ["25", "29", "12", "19", "11", "10", "12", "13", "13", "13" ];
         $style = [
-            "m2429262496736", 
-            "m2429262496756", 
+            "s165", 
+            "s165", 
             "m2429262496776", 
             "m2429262496796", 
             "m2429262496816", 
@@ -69,7 +69,7 @@ class HolidayController extends Controller
         $sxe = new SimpleXMLElement('HoliTemplnew.xml', NULL, TRUE);
         
         $allchild = $sxe->children();
-        $department=0;
+        $department='n';
         foreach ($users as $user){            
             if (count ($user->holidays)){
                 if ($department != $user->department)
@@ -78,7 +78,7 @@ class HolidayController extends Controller
                     for( $i=0; $i < 10; $i++ ) {
                         $cell = $newrow->addChild('Cell');
                         $cell->addAttribute('xmlns:ss:MergeAcross',$merges[$i] );
-                        $cell->addAttribute('xmlns:ss:StyleID',$style[$i] );
+                        $cell->addAttribute('xmlns:ss:StyleID','m2429262496736' );
                         $data = $cell->addChild('Data');
                         $data->addAttribute('xmlns:ss:Type',"String" );
                     }                
@@ -98,7 +98,7 @@ class HolidayController extends Controller
                     $cells = $newrow->children();
                     if ($num == 0){
                         $cells[0]->Data = $user->title;
-                        $cells[1]->Data = $user->name;
+                        $cells[1]->Data = $user->shortName();
                         $cells[2]->Data = $user->pager;
                     }                    
                     $cells[3]->Data = $holiday->days;                

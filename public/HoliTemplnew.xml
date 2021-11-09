@@ -26,9 +26,9 @@
  </ExcelWorkbook>
  <Styles>
   <Style ss:ID="Default" ss:Name="Normal">
-   <Alignment ss:Vertical="Bottom"/>
+   <Alignment ss:Horizontal="Left"/>
    <Borders/>
-   <Font ss:FontName="Arial Cyr" x:CharSet="204"/>
+   <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman" ss:Size="9"/>
    <Interior/>
    <NumberFormat/>
    <Protection/>
@@ -609,6 +609,16 @@
   </Style>
   <Style ss:ID="s164">
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman" ss:Bold="1"/>
+  </Style>
+   <Style ss:ID="s165">
+   <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman" ss:Size="9"/>
+  <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Alignment ss:Horizontal="Left"/>
   </Style>
  </Styles>
  <Worksheet ss:Name="стр1">

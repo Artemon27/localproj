@@ -57,11 +57,19 @@ class User extends Authenticatable
         }
     }
 
-    /**
-     * @param Builder $query
-     *
-     * @return Builder
-     */
+    
+    function shortName () {
+        $format="A b. c.";
+        $words = explode(" ", $this->name);
+        $format_keys = array("A", "B", "C");
+        $short_name = $format;
+        foreach ($format_keys as $index => $word) {
+            $short_name = str_replace($word, $words[$index], $short_name);
+            $short_name = str_replace(mb_strtolower($word), mb_substr($words[$index], 0, 1, 'UTF-8'), $short_name);
+        }    
+        return $short_name;
+    }
+    
     public function scopeRoleUser(Builder $query): Builder
     {
         return $query->where('role', self::ROLE_USER);
