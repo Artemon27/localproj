@@ -18,6 +18,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        'Adldap\Laravel\Events\AuthenticationSuccessful' => [
+        'App\Listeners\LogAuthSuccessful'
+    ],
+        
     ];
 
     /**

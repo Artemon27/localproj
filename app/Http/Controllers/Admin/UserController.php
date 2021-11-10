@@ -7,10 +7,15 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-
 use Illuminate\Contracts\View\View;
+use Adldap\Models\Attributes\Guid;
+use Illuminate\Support\Facades\Hash;
+use Adldap\Laravel\Facades\Adldap;
 
+use Symfony\Component\HttpFoundation\Request;
 use App\Http\Requests\Admin\UserRequest;
+
+
 
 use App\Models\User;
 
@@ -22,12 +27,12 @@ class UserController extends Controller
      * @return View
      */
     public function index(): View
-    {
+    {                    
         return view('admin.users.index', [
             'users' => User::query()
-                ->select(['id', 'name', 'email', 'role'])                
-                ->latest()
-                ->paginate('20')
+                ->select(['id', 'name', 'email', 'role','department','pager','title'])                
+                ->orderBy('name')
+                ->paginate('30')
         ]);
     }
 
@@ -82,6 +87,43 @@ class UserController extends Controller
         return redirect()->route('admin.users.index')->with('success', 'Пользователь обновлён');
     }
 
+
+public function updateldap (){
+    Import::useScope(LdapUserImportScope::class);
+}
+    
+    
+    public function updateldap2() {
+        $users=Adldap::search()->users()->select('name','password','objectguid','department','homePhone','userprincipalname','mail','sAMAccountName','title','pager')->get();
+        
+        if (count($users)){
+            foreach ($users as $user){   
+                $objectguid = (string) new Guid($user->getObjectGuid());
+                $newUser = User::Where('objectguid','=',$objectguid)->first();
+                
+                if (empty($newUser)){
+                    $newUser = new User;
+                }                
+                $newUser->name = $user->getName();
+                $newUser->objectguid = (string) new Guid($user->getObjectGuid());
+                $newUser->sAMAccountName = $user->getAccountName();
+                
+                $polouts = ['pager','department','homePhone','userprincipalname','mail','title'];
+                $polin = ['pager','department','homePhone','email','mail','title'];
+                
+                foreach($polouts as $index => $polout){
+                    if (isset($user[$polout][0])){
+                        $newUser->{$polin[$index]} = $user[$polout][0];         
+                    }
+                }
+                $newUser->password=Hash::make('Elavt123');                
+                
+                $newUser->save();
+            }
+        }
+        return back()->with('success', 'Обновлено');
+        
+    }
     /**
      * Remove the specified resource from storage.
      *

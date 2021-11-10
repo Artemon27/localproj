@@ -19,9 +19,9 @@ use App\Http\Controllers\Admin\UserController;
 Route::get('/', function () {
     return redirect('/holiday');
 });
-
-
-
+Route::get('/home', function () {
+    return redirect('/holiday');
+});
 
 
 Auth::routes([
@@ -46,7 +46,9 @@ Route::group([
     Route::post('/logout', [LoginController::class, 'logout'])
         ->middleware('auth')
         ->name('admin-logout');
-
+    
+    Route::post('/updateldap', [UserController::class, 'updateldap'])->name('users-update');
+    
     Route::view('/', 'admin.main')->middleware('auth')->name('admin');
 
     Route::group([

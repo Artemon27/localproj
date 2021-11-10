@@ -9,20 +9,32 @@
 @section('content')
 <div class="col-12">
     <div class="card">
+        @include ('modules.messages')
         <div class="card-header">
             <div class="row">
+                <div class="col">
+                    <form action="{{ route('users-update') }}" method="post">
+                        @csrf    
+                        <button class="btn btn-success" type="submit">Обновить данные пользователей</button>
+                    </form>
+                </div>
+                <div class="col">
                     {{ $users->links() }}
+                </div>                
             </div>
         </div>
         <div class="card-body">
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th width="10%">ID</th>
+                        <th width="5%">ID</th>
                         <th width="20%">Имя</th>
+                        <th width="10%">Отдел</th>
+                        <th width="10%">Таб.номер</th>
+                        <th width="20%">Должность</th>
                         <th width="20%">Email</th>
-                        <th width="20%">Роль</th>
-                        <th width="10%">Действия</th>
+                        <th width="10%">Роль</th>
+                        <th width="5%">Действия</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +42,9 @@
                     <tr>
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
+                        <td>{{ $user->department }}</td>
+                        <td>{{ $user->pager }}</td>
+                        <td>{{ $user->title }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->roleAsString() }}</td>
                         <td class="text-center">
