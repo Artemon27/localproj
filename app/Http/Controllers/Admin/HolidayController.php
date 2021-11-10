@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Http\Requests\Admin\HolidayRequest;
+use App\Http\Requests\Admin\holiTableRequest;
 use App\Models\Holiday;
 use App\Models\User;
 use SimpleXMLElement;
@@ -47,11 +48,11 @@ class HolidayController extends Controller
         return back()->with('success', 'Отпуск обновлён');
     }
     
-    public function download(){
-        
+    public function download( $year = 2022)
+    {        
         $users=User::orderBy('department')->orderBy('name')->get();
                      
-        return view('admin.holidays.download', compact('users'));    
+        return view('admin.holidays.download', compact('users','year'));    
     }
     
     
@@ -60,8 +61,10 @@ class HolidayController extends Controller
     
     
     
-    public function holiTable(){
-        
+    public function holiTable(holiTableRequest $request)
+    {        
+        $year = $request['year'];
+
         $users=User::orderBy('department')->orderBy('name')->get();
         
         $merges = ["25", "29", "12", "19", "11", "10", "12", "13", "13", "13" ];
@@ -84,7 +87,7 @@ class HolidayController extends Controller
         $allchild = $sxe->children();
         $department='n';
         foreach ($users as $user){            
-            if (count ($user->holidays)){
+            if (count ($user->holidaysYear($year))){
                 if ($department != $user->department)
                 {
                     $newrow = $allchild->Worksheet->Table->addChild('Row');                    
@@ -99,7 +102,8 @@ class HolidayController extends Controller
                     $cells[0]->Data = $user->department;
                     $department = $user->department;
                 }
-                $holidays=$user->holidays;
+                $holidays=$user->holidaysYear($year);
+                $names = 0;
                 foreach ($holidays as $num => $holiday){                    
                     $newrow = $allchild->Worksheet->Table->addChild('Row');                    
                     for( $i=0; $i < 10; $i++ ) {
@@ -110,7 +114,8 @@ class HolidayController extends Controller
                         $data->addAttribute('xmlns:ss:Type',"String" );
                     }                
                     $cells = $newrow->children();
-                    if ($num == 0){
+                    if ($names == 0){
+                        $names=1;
                         $cells[0]->Data = $user->title;
                         $cells[1]->Data = $user->shortName();
                         $cells[2]->Data = $user->pager;
@@ -178,9 +183,8 @@ class HolidayController extends Controller
         $cell1->addChild('Data',"(расшифровка подписи)")->addAttribute('xmlns:ss:Type',"String" );        
            
         
-        $sxe->asXML('Table.xml');
-        
-         
-        
+        $sxe->asXML('Table'.$year.'.xml');
+
+        return response()->download('Table'.$year.'.xml');
     }
 }

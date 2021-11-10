@@ -269,8 +269,8 @@ return [
             'icon' => 'fas fa-users',
         ],
         [
-            'text' => 'Создать таблицу',
-            'url'  => 'admin/holitable',
+            'text' => 'Список отпусков',
+            'url'  => 'admin/holidays/download',
             'icon' => 'fas fa-users',
         ],
         ['header' => 'account_settings'],
