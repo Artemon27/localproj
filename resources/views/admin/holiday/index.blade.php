@@ -72,7 +72,7 @@ $year=2022;
             </div>        
         </div>
         @include ('modules.messages')
-        <div class="card-body d-flex justify-content-center align-items-start" id="holiday">
+        <div class="card-body d-flex flex-wrap justify-content-center align-items-start" id="holiday">
             <div id="carouselExampleControls" class="carousel slide holiday-slider" data-bs-ride="carousel" data-bs-interval="false">    
                 <div class="carousel-inner">
                     @for ($curyear=$year-1; $curyear<$year+2; $curyear++)
@@ -92,7 +92,7 @@ $year=2022;
                                     @if ($l==0)
                                         <div class="d-flex flex-wrap flex-column cal-col-1">
                                     @else
-                                        <div class="d-flex flex-wrap flex-column">
+                                        <div class="d-flex flex-wrap flex-column cal-col">
                                     @endif                                
                                         <table>
                                             <tr>

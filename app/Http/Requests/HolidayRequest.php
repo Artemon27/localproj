@@ -35,6 +35,27 @@ class HolidayRequest extends FormRequest
                         }
                     ,]];
                 }
+                if(($value['PVT']!=5)&&($value['PVT']!=0)){
+                    return ['data'=> [
+                        function ($attribute, $value, $fail) {
+                            $fail('ПВТ может быть либо 0 либо 5 дней');   
+                        }
+                    ,]];
+                }
+                if(($value['INV']!=2)&&($value['INV']!=0)){
+                    return ['data'=> [
+                        function ($attribute, $value, $fail) {
+                            $fail('ИНВ может быть либо 0 либо 2 дня');   
+                        }
+                    ,]];
+                }
+                if(($value['OB']!=2)&&($value['OB']!=4)&&($value['OB']!=0)){
+                    return ['data'=> [
+                        function ($attribute, $value, $fail) {
+                            $fail('ОБ может быть либо 0 либо 2 либо 4 дня');   
+                        }
+                    ,]];
+                }
                 if ($value['days']>=14){
                    $belka=1;
                 }
@@ -45,7 +66,7 @@ class HolidayRequest extends FormRequest
                             $fail('Один из отпусков должен быть не менее 14 дней');   
                         }
                     ,]];
-            }
+            }            
             return [
                 'data.*.days'=> ['integer'],
                 'data.*.PVT'=> ['integer'],

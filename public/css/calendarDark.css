@@ -12,7 +12,7 @@ body{
     margin: auto;
 }
 .holiday-slider{
-    width:1300px;
+    width:1100px;
 }
 #table-dates{
     min-width:410px;
@@ -164,4 +164,13 @@ td{
 }
 .dop-days{
     background-color: #257899;
+}
+
+@media (max-width: 1550px) {
+    #calendar  .cal-col{
+        margin-left: -50px;
+    }
+    .holiday-slider{
+        width:1000px;
+    }
 }
