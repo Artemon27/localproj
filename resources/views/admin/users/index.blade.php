@@ -27,7 +27,7 @@
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th width="5%">ID</th>
+                        <th width="5%">№</th>
                         <th width="20%">Имя</th>
                         <th width="10%">Отдел</th>
                         <th width="10%">Таб.номер</th>
@@ -38,9 +38,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                @forelse($users as $user)
-                    <tr>
-                        <td>{{ $user->id }}</td>
+                @php
+                    $i=$users->firstItem();
+                @endphp
+                @forelse($users as $num => $user)
+                    <tr>                        
+                        <td>{{ $i++ }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->department }}</td>
                         <td>{{ $user->pager }}</td>

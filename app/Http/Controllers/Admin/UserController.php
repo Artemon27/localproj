@@ -86,15 +86,14 @@ class UserController extends Controller
 
         return redirect()->route('admin.users.index')->with('success', 'Пользователь обновлён');
     }
-
-
-public function updateldap (){
-    Import::useScope(LdapUserImportScope::class);
-}
     
     
-    public function updateldap2() {
-        $users=Adldap::search()->users()->select('name','password','objectguid','department','homePhone','userprincipalname','mail','sAMAccountName','title','pager')->get();
+    public function updateldap() {
+        $wheres = [
+            'objectClass' => 'person',
+            'memberOf' => 'CN=ВСЕ-НИЦ-1,OU=NIC-1,DC=nic1,DC=elavt,DC=spb,DC=ru'
+        ];
+        $users=Adldap::search()->users()->where($wheres)->select('name','password','objectguid','department','homePhone','userprincipalname','mail','sAMAccountName','title','pager')->get();
         
         if (count($users)){
             foreach ($users as $user){   
