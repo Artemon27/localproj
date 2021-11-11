@@ -4,6 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Carbon\Carbon;
+use App\Rules\PVTValidate;
+use App\Rules\OBValidate;
+use App\Rules\INVValidate;
 
 class HolidayRequest extends FormRequest
 {
@@ -28,34 +31,6 @@ class HolidayRequest extends FormRequest
         if($this->data){
             foreach ($this->data as $data => $value){
                 $dates[]=Carbon::createFromFormat('Y-m-d', $value['datefrom']);
-                if ($value['days'] < 7){
-                    return ['data'=> [
-                        function ($attribute, $value, $fail) {
-                            $fail('Можно выбирать не менее 7 дней подряд');   
-                        }
-                    ,]];
-                }
-                if(($value['PVT']!=5)&&($value['PVT']!=0)){
-                    return ['data'=> [
-                        function ($attribute, $value, $fail) {
-                            $fail('ПВТ может быть либо 0 либо 5 дней');   
-                        }
-                    ,]];
-                }
-                if(($value['INV']!=2)&&($value['INV']!=0)){
-                    return ['data'=> [
-                        function ($attribute, $value, $fail) {
-                            $fail('ИНВ может быть либо 0 либо 2 дня');   
-                        }
-                    ,]];
-                }
-                if(($value['OB']!=2)&&($value['OB']!=4)&&($value['OB']!=0)){
-                    return ['data'=> [
-                        function ($attribute, $value, $fail) {
-                            $fail('ОБ может быть либо 0 либо 2 либо 4 дня');   
-                        }
-                    ,]];
-                }
                 if ($value['days']>=14){
                    $belka=1;
                 }
@@ -68,10 +43,10 @@ class HolidayRequest extends FormRequest
                     ,]];
             }            
             return [
-                'data.*.days'=> ['integer'],
-                'data.*.PVT'=> ['integer'],
-                'data.*.INV'=> ['integer'],
-                'data.*.OB'=> ['integer'],
+                'data.*.days'=> ['integer','min:7'],
+                'data.*.PVT'=> ['integer', new PVTValidate],
+                'data.*.INV'=> ['integer', new INVValidate],
+                'data.*.OB'=> ['integer', new OBValidate],
             ];
         }
         else{    
@@ -80,4 +55,11 @@ class HolidayRequest extends FormRequest
             ];
         }        
     }
+    
+    public function messages()
+{
+    return [
+        'data.*.days.min' => 'Можно выбирать не менее 7 дней подряд',
+    ];
+}
 }
