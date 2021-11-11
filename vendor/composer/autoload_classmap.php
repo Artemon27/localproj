@@ -181,6 +181,7 @@ return array(
     'App\\Http\\Requests\\Admin\\UserRequest' => $baseDir . '/app/Http/Requests/Admin/UserRequest.php',
     'App\\Http\\Requests\\Admin\\holiTableRequest' => $baseDir . '/app/Http/Requests/Admin/holiTableRequest.php',
     'App\\Http\\Requests\\HolidayRequest' => $baseDir . '/app/Http/Requests/HolidayRequest.php',
+    'App\\Listeners\\LogAuthSuccessful' => $baseDir . '/app/Listeners/LogAuthSuccessful.php',
     'App\\Models\\AllHoliday' => $baseDir . '/app/Models/AllHoliday.php',
     'App\\Models\\Holiday' => $baseDir . '/app/Models/Holiday.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',

@@ -24,44 +24,23 @@ class HolidayRequest extends FormRequest
      */
     public function rules()
     {
+        $belka=0;
         if($this->data){
             foreach ($this->data as $data => $value){
-                $dates[]=Carbon::createFromTimestamp($data);
-                $this->numdays++;
+                $dates[]=Carbon::createFromFormat('Y-m-d', $value['datefrom']);
             }
-            $sliced = array_slice($dates, 1);
-            $k=1;
-            $i=0;            
-            if (count($sliced)){
-                foreach ($sliced as $index => $date){
-                    if ($k==1){
-                        $dateArr[$i]['datefrom']=Carbon::create($dates[$index])->startOfDay();     
-                    }
-                    if ($date->isSameDay($dates[$index]->addDay())){
-                        $k++;
-                    }
-                    else{ 
-                        $k=1;        
-                        $dateArr[$i]['dateto']=$dates[$index]->subDay()->endOfDay();
-                        $i++;
-                    }   
-                }      
-                if ($k==1){
-                    $dateArr[$i]['datefrom']=Carbon::create($dates[$index+1])->startOfDay();
-                }
-                $dateArr[$i]['dateto']=$dates[$index+1]->endOfDay();
-            }
-            else{
-                $dateArr[$i]['datefrom']=Carbon::create($dates[0])->startOfDay();     
-                $dateArr[$i]['dateto']=$dateArr[$i]['datefrom'];
-            }            
-            $this->dateArr = $dateArr;
+            return [
+                'id'=>'exists:users,id',
+                'data.*.days'=> ['integer'],
+                'data.*.PVT'=> ['integer'],
+                'data.*.INV'=> ['integer'],
+                'data.*.OB'=> ['integer'],
+            ];
+        }
+        else{    
             return [
                 //
             ];
-        }
-        return [
-                //
-            ];
+        }    
     }
 }

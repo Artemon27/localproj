@@ -260,7 +260,7 @@ return [
         ],
         [
             'text' => 'Отпуск',
-            'url'  => 'admin/holidays',
+            'url'  => 'admin/holidays/holiday',
             'icon' => 'fas fa-users',
         ],
         [

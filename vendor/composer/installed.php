@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'd408ddd2c132fb2c65f6f9a2fe02c46554bf22e8',
+    'reference' => 'c2ee06b7e9924ffda6d85a70704cb543a5a0a601',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -222,6 +222,15 @@
       array (
       ),
       'reference' => '8c3d0a3f6af734494ad8f6fbbee0ba92422859f3',
+    ),
+    'harvesthq/chosen' => 
+    array (
+      'pretty_version' => 'v1.8.7',
+      'version' => '1.8.7.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'ad86732b668627c131e61ee8f0e6e9ed52e4db8d',
     ),
     'illuminate/auth' => 
     array (
@@ -472,7 +481,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'd408ddd2c132fb2c65f6f9a2fe02c46554bf22e8',
+      'reference' => 'c2ee06b7e9924ffda6d85a70704cb543a5a0a601',
     ),
     'laravel/sail' => 
     array (
