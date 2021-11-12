@@ -27,14 +27,20 @@ class LogAuthSuccessful
      */
     public function handle(AuthenticationSuccessful $event)
     {
+        $belka=0;
         $groups = $event->user->getGroups();
         if (count($groups)){
             foreach($groups as $group){
                 if ($group['name'][0]=='holiadmin'){
                     $event->model->role = User::ROLE_ADMIN;
                     $event->model->save();
+                    $belka=1;
                 }
             }
         }
+        if (!$belka){
+            $event->model->role = User::ROLE_USER;
+            $event->model->save();
+        }        
     }
 }
