@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Rules\PVTValidate;
 use App\Rules\OBValidate;
 use App\Rules\INVValidate;
+use App\Rules\FourteenValidate;
 
 class HolidayRequest extends FormRequest
 {
@@ -26,34 +27,14 @@ class HolidayRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
-        $belka=0;
-        if($this->data){
-            foreach ($this->data as $data => $value){
-                $dates[]=Carbon::createFromFormat('Y-m-d', $value['datefrom']);
-                if ($value['days']>=14){
-                   $belka=1;
-                }
-            }
-            if (!$belka){
-                return ['data'=> [
-                        function ($attribute, $value, $fail) {
-                            $fail('Один из отпусков должен быть не менее 14 дней');   
-                        }
-                    ,]];
-            }            
-            return [
-                'data.*.days'=> ['integer','min:7'],
-                'data.*.PVT'=> ['integer', new PVTValidate],
-                'data.*.INV'=> ['integer', new INVValidate],
-                'data.*.OB'=> ['integer', new OBValidate],
-            ];
-        }
-        else{    
-            return [
-                //
-            ];
-        }        
+    {          
+        return [
+            'data'=> [new FourteenValidate],
+            'data.*.days'=> ['integer','min:7'],
+            'data.*.PVT'=> ['integer', new PVTValidate],
+            'data.*.INV'=> ['integer', new INVValidate],
+            'data.*.OB'=> ['integer', new OBValidate],
+        ]; 
     }
     
     public function messages()

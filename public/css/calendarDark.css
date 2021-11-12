@@ -21,41 +21,31 @@ body{
     max-width: 50px;
 }
 
-.month-1{
+.month-1, .month-3, .month-5, .month-7, .month-9, .month-11{
     background-color: #293B3C;
 }
-.month-2{
+.month-2, .month-2, .month-4, .month-6, .month-8, .month-10, .month-12{
     background-color: #1f2040;
 }
 .month-3{
-    background-color: #293B3C;
 }
 .month-4{
-    background-color: #1f2040;
 }
 .month-5{
-    background-color: #293B3C;
 }
 .month-6{
-    background-color: #1f2040;
 }
 .month-7{
-    background-color: #293B3C;
 }
 .month-8{
-    background-color: #1f2040;
 }
 .month-9{
-    background-color: #293B3C;
 }
 .month-10{
-    background-color: #1f2040;
 }
 .month-11{
-    background-color: #293B3C;
 }
 .month-12{
-    background-color: #1f2040;
 }
 
 .holiday-0{

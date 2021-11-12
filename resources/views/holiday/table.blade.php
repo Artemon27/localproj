@@ -33,6 +33,9 @@
                 <td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td>
             </tr>
             @empty
+            <tr class="empty">
+                <td colspan="10"><h5>Выделите даты отпуска на календаре</h5></td>
+            </tr>
             @endforelse        
         @endif
     </tbody>

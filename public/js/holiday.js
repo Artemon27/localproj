@@ -325,6 +325,7 @@ $(document).mouseup (function() {
   $('body .dchange').off('mouseenter');
   if (mouse){
       mouse=0;
+      $('.empty').detach();
       updatedates();
       tableInputOn();
   }  

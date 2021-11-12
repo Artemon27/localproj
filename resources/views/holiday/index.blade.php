@@ -48,7 +48,7 @@ $year=2022;
                 </div>            
             </div>        
         </div>
-        @include ('modules.messages')
+        
         <div class="card-body d-flex flex-wrap justify-content-center align-items-start" id="holiday">
             <div id="carouselExampleControls" class="carousel slide holiday-slider" data-bs-ride="carousel" data-bs-interval="false">    
                 <div class="carousel-inner">
@@ -109,6 +109,51 @@ $year=2022;
         </div>
     </div>
 </form>
+
+@if(Session::get('success'))
+<div class="modal fade text-dark" id="staticBackdrop" data-bs-backdrop="true" data-bs-keyboard="true" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center">
+        <h4 class="modal-title" id="staticBackdropLabel">
+            @if(is_array(json_decode(Session::get('success'), true)))
+                {!! implode('', Session::get('success')->all(':message<br/>')) !!}
+            @else
+                {!! Session::get('success') !!}
+            @endif
+        </h4>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endif
+    
+@if(isset($errors))
+    @if ($errors->any())
+        <div class="modal fade text-dark" id="staticBackdrop" data-bs-backdrop="true" data-bs-keyboard="true" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header justify-content-center">
+                <div class="modal-title" id="staticBackdropLabel">                
+                    <h5 class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            {!! $error !!}<br/>
+                        @endforeach
+                    </h5>                
+                </div>
+              </div>
+              <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    @endif
+@endif
+
 @endsection
 
 
@@ -125,6 +170,19 @@ $year=2022;
 <script>
 var numdays = {{old('numdays') ?? $numdays}};   
 
+@if(Session::get('success'))
+var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {  
+});
+myModal.show();
+@endif
+
+@if(isset($errors))
+    @if ($errors->any())
+        var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {  
+        });
+        myModal.show();
+    @endif
+@endif
 
 function logout(){
     $.ajax({
