@@ -46,6 +46,6 @@ class HolidayController extends Controller
             }
         }
         
-        return back()->with('success', 'Отпуск обновлён');
+        return back()->with('success', 'Отпуск сохранён');
     }
 }
