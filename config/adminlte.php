@@ -251,17 +251,17 @@ return [
         [
             'text' => 'Изменить отпуска',
             'url'  => 'admin/holidays/holiday',
-            'icon' => 'fas fa-users',
+            'icon' => 'fas fa-calendar-alt',
         ],
         [
             'text' => 'Праздничные дни',
             'url'  => 'admin/holidaydays',
-            'icon' => 'fas fa-users',
+            'icon' => 'fas fa-glass-cheers',
         ],
         [
             'text' => 'Список отпусков',
             'url'  => 'admin/holidays/download',
-            'icon' => 'fas fa-users',
+            'icon' => 'fas fa-umbrella-beach',
         ],
     ],
 

@@ -24,23 +24,12 @@ class HolidayRequest extends FormRequest
      */
     public function rules()
     {
-        $belka=0;
-        if($this->data){
-            foreach ($this->data as $data => $value){
-                $dates[]=Carbon::createFromFormat('Y-m-d', $value['datefrom']);
-            }
-            return [
-                'id'=>'exists:users,id',
-                'data.*.days'=> ['integer'],
-                'data.*.PVT'=> ['integer'],
-                'data.*.INV'=> ['integer'],
-                'data.*.OB'=> ['integer'],
-            ];
-        }
-        else{    
-            return [
-                //
-            ];
-        }    
+        return [
+            'id'=>'exists:users,id',
+            'data.*.days'=> ['integer'],
+            'data.*.PVT'=> ['integer'],
+            'data.*.INV'=> ['integer'],
+            'data.*.OB'=> ['integer'],
+        ];
     }
 }

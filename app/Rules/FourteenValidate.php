@@ -27,7 +27,6 @@ class FourteenValidate implements Rule
     public function passes($attribute, $value)
     {
         foreach ($value as $data => $date){
-            $dates[]=Carbon::createFromFormat('Y-m-d', $date['datefrom']);
             if ($date['days']>=14){
                return 1;
             }
