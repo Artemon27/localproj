@@ -55,18 +55,19 @@ Route::group([
         'middleware' => 'auth',
         'as' => 'admin.'
     ], function () {
-        Route::resource('users', UserController::class)->except(['show']);        
+        Route::resource('users', UserController::class)->except(['show']);
         require(__DIR__ . '/admin/holidays.php');
         require(__DIR__ . '/admin/holidaydays.php');
-    });    
+    });
 });
 
 Route::group([
         'middleware' => 'auth'
     ], function () {
         require(__DIR__ . '/front/holiday.php');
-    });  
-    
+        require(__DIR__ . '/front/offHours.php');
+    });
+
 Auth::routes();
 
 
