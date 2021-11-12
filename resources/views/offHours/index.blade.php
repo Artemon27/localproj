@@ -11,27 +11,32 @@ $year=2022;
 <form action="{{ route('offhours.store') }}" method="post">
     @csrf
     <div class="card">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-2">
-
-                </div>
-                <div class="col-2">
-                    <div id="btn-off" class="btn btn-sm btn-outline-primary">Очистить</div>
-                </div>
-                <div class="col-4 text-center">
-                    <div id="numdays"></div>
-                    <input id="numdaysIn" type="hidden" value="{{old('numdays') ?? 0}}" name="numdays">
-                </div>
-                <div class="col-2 text-end">
-                    <div id="theme" class="btn btn-sm btn-outline-primary">Сменить тему</div>
-                </div>
-                <div class="col-2 text-end">
-                     <button id="" class="btn btn-sm btn-outline-primary">Сохранить</button>
-                </div>
-            </div>
-        </div>
-        @include ('modules.messages')
+      <div class="card-header">
+          <div class="row">
+              <div class="col-2">
+                  <div id="theme" class="btn btn-sm btn-outline-primary">Сменить тему</div>
+              </div>
+              <div class="col-2">
+                  <div id="btn-off" class="btn btn-sm btn-outline-primary">Очистить</div>
+              </div>
+              <div class="col-1">
+              </div>
+              <div class="col-2 text-center">
+                  <div id="numdays"></div>
+                  <input id="numdaysIn" type="hidden" value="{{old('numdays') ?? 0}}" name="numdays">
+              </div>
+              <div class="col-3 text-end">
+                  <div class="row">
+                      <div class="col"><a target="_blank" href="{{ asset('Instruction.pdf') }}" class="btn btn-sm btn-outline-success">Инструкция</a></div>
+                      <div class="col"><button href="" class="btn btn-btn btn-sm btn-outline-primary">Сохранить</button></div>
+                  </div>
+              </div>
+              <div class="col-2 text-end">
+                  @include ('modules.menu')
+              </div>
+          </div>
+      </div>
+      @include('modules.messages')
         <div class="card-body d-flex justify-content-center align-items-start" id="holiday">
             <div id="carouselExampleControls" class="carousel slide holiday-slider" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="carousel-inner">
@@ -94,6 +99,9 @@ $year=2022;
 </form>
 @endsection
 
+@push('beforescripts')
+<script src="{{ asset('js/popper.min.js') }}"></script>
+@endpush
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/daterangepicker.css') }}">
