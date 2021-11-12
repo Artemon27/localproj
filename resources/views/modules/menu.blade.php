@@ -6,9 +6,9 @@
         <li><div class="dropdown-header text-primary fs-6">{{Auth::user()->name}}</div></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="/">Главная</a></li>
-        <li><a class="dropdown-item" href="/offhours">Запись на вечер</a></li>
         @if (Auth::user()->role > 8)
         <li><a class="dropdown-item" href="/admin">Админка</a></li>
+        <li><a class="dropdown-item" href="/offhours">Запись на вечер</a></li>
         @endif
         <li><a type="button" class="dropdown-item btn btn-primary" data-bs-toggle="modal" data-bs-target="#aboutModale" href="#">О нас</a></li>
         <li><a onclick="logout()" class="dropdown-item" href="#">Выйти</a></li>
