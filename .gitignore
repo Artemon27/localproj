@@ -12,3 +12,4 @@ yarn-error.log
 /.vscode
 _ide_helper.php
 .phpstorm.meta.php
+/public/css/holiuser/*.css

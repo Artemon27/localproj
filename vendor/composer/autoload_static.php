@@ -735,6 +735,7 @@ class ComposerStaticInit77236d1be32714789821060452a4803d
         'App\\Listeners\\LogAuthSuccessful' => __DIR__ . '/../..' . '/app/Listeners/LogAuthSuccessful.php',
         'App\\Models\\AllHoliday' => __DIR__ . '/../..' . '/app/Models/AllHoliday.php',
         'App\\Models\\Holiday' => __DIR__ . '/../..' . '/app/Models/Holiday.php',
+        'App\\Models\\Holidesign' => __DIR__ . '/../..' . '/app/Models/Holidesign.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\UserHoliday' => __DIR__ . '/../..' . '/app/Models/UserHoliday.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',

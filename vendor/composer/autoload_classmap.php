@@ -184,6 +184,7 @@ return array(
     'App\\Listeners\\LogAuthSuccessful' => $baseDir . '/app/Listeners/LogAuthSuccessful.php',
     'App\\Models\\AllHoliday' => $baseDir . '/app/Models/AllHoliday.php',
     'App\\Models\\Holiday' => $baseDir . '/app/Models/Holiday.php',
+    'App\\Models\\Holidesign' => $baseDir . '/app/Models/Holidesign.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\UserHoliday' => $baseDir . '/app/Models/UserHoliday.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',

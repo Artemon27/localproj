@@ -34,6 +34,7 @@ class HolidayRequest extends FormRequest
             'data.*.PVT'=> ['integer', new PVTValidate],
             'data.*.INV'=> ['integer', new INVValidate],
             'data.*.OB'=> ['integer', new OBValidate],
+            'design'=>['integer','min:0', 'max:3'],
         ]; 
     }
     

@@ -366,13 +366,23 @@ $(document).ready(function() {
 
 
 //Для смены темы
-$('#theme').click(function(e){
-    if ($('link[href*="calendar.css"]').prop('disabled')){
-        $('link[href*="calendar.css"]').prop('disabled', false);
-        $('link[href*="calendarDark.css"]').prop('disabled', true);
+$('#theme').click(function(){
+    if (!$('link[theme*="1"]').prop('disabled')){
+        $('link[theme*="1"]').prop('disabled', true);
+        $('link[theme*="2"]').prop('disabled', false);
+        $('link[theme*="3"]').prop('disabled', true);
+        $('#inpDesign').val('2');
+    }
+    else if (!$('link[theme*="2"]').prop('disabled')){
+        $('link[theme*="1"]').prop('disabled', true);
+        $('link[theme*="2"]').prop('disabled', true);
+        $('link[theme*="3"]').prop('disabled', false);
+        $('#inpDesign').val('3');
     }
     else{
-        $('link[href*="calendar.css"]').prop('disabled', true);
-        $('link[href*="calendarDark.css"]').prop('disabled', false);
+        $('link[theme*="1"]').prop('disabled', false);
+        $('link[theme*="2"]').prop('disabled', true);
+        $('link[theme*="3"]').prop('disabled', true);
+        $('#inpDesign').val('1');
     }
 });

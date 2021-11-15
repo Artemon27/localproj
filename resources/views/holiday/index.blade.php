@@ -10,6 +10,7 @@ $year=2022;
 
 <form action="{{ route('holiday.store') }}" method="post">
     @csrf
+    <input type="hidden" value="1" name="design" id="inpDesign">
     <div class="card">
         <div class="card-header">
             <div class="row">
@@ -146,8 +147,7 @@ $year=2022;
 
 
 @push('styles')
-<link rel="stylesheet" disabled="1" href="{{ asset('css/calendar.css') }}">
-<link rel="stylesheet" href="{{ asset('css/calendarDark.css') }}">
+@include ('modules.theme')
 @endpush
 
 @push('beforescripts')

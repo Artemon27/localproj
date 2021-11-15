@@ -12,7 +12,7 @@ $year=2022;
     <div class="card-header">
         <div class="row">
             <div class="col-2">
-                <div id="theme" class="btn btn-sm btn-outline-primary">Сменить тему</div>   
+                
             </div>
             <div class="col-2">
                 <div id="btn-off" class="btn btn-sm btn-outline-primary">Очистить</div>
@@ -91,60 +91,19 @@ $year=2022;
                 <span class="visually-hidden">Следующий</span>
             </button>
         </div>                        
-        @include ('holiday.table',['dates'=>$dates])
-    </div>
-</div>
-
-@if(Session::get('success'))
-<div class="modal fade text-dark" id="staticBackdrop" data-bs-backdrop="true" data-bs-keyboard="true" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header justify-content-center">
-        <h4 class="modal-title" id="staticBackdropLabel">
-            @if(is_array(json_decode(Session::get('success'), true)))
-                {!! implode('', Session::get('success')->all(':message<br/>')) !!}
-            @else
-                {!! Session::get('success') !!}
-            @endif
-        </h4>
-      </div>
-      <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-      </div>
-    </div>
-  </div>
-</div>
-@endif
-    
-@if(isset($errors))
-    @if ($errors->any())
-        <div class="modal fade text-dark" id="staticBackdrop" data-bs-backdrop="true" data-bs-keyboard="true" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header justify-content-center">
-                <div class="modal-title" id="staticBackdropLabel">                
-                    <h5 class="alert alert-danger">
-                        @foreach ($errors->all() as $error)
-                            {!! $error !!}<br/>
-                        @endforeach
-                    </h5>                
-                </div>
-              </div>
-              <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-              </div>
-            </div>
-          </div>
+        <div class="">
+            @include ('holiday.table',['dates'=>$dates])
+            @include ('holiday.colors.colors')
         </div>
-    @endif
-@endif
+        
+    </div>
+</div>
 
 @endsection
 
 
 @push('styles')
-<link rel="stylesheet" disabled="1" href="{{ asset('css/calendar.css') }}">
-<link rel="stylesheet" href="{{ asset('css/calendarDark.css') }}">
+    @include ('modules.theme')
 @endpush
 
 @push('beforescripts')
@@ -154,20 +113,6 @@ $year=2022;
 <script src="{{ asset('js/holiday.js') }}"></script>
 <script>
 var numdays = {{old('numdays') ?? $numdays}};   
-
-@if(Session::get('success'))
-var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {  
-});
-myModal.show();
-@endif
-
-@if(isset($errors))
-    @if ($errors->any())
-        var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {  
-        });
-        myModal.show();
-    @endif
-@endif
 
 function logout(){
     $.ajax({

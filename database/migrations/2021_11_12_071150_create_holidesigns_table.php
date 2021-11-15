@@ -16,20 +16,20 @@ class CreateHolidesignsTable extends Migration
         Schema::create('holidesigns', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->onDelete('cascade');
-            $table->string('odd');
-            $table->string('even');
-            $table->string('odd-holi');
-            $table->string('even-holi');
-            $table->string('odd-color');
-            $table->string('even-color');
-            $table->string('odd-holi-color');
-            $table->string('even-holi-color');
-            $table->string('base-color');
-            $table->string('background');
-            $table->string('chosen-color');
-            $table->string('chosen-dop-color');
-            $table->string('card-header');            
-            $table->string('carousel-controls');
+            $table->string('odd')->nullable();
+            $table->string('even')->nullable();
+            $table->string('odd_holi')->nullable();
+            $table->string('even_holi')->nullable();
+            $table->string('odd_color')->nullable();
+            $table->string('even_color')->nullable();
+            $table->string('odd_holi_color')->nullable();
+            $table->string('even_holi_color')->nullable();
+            $table->string('base_color')->nullable();
+            $table->string('background')->nullable();
+            $table->string('chosen_color')->nullable();
+            $table->string('chosen_dop_color')->nullable();
+            $table->string('card_header')->nullable();         
+            $table->string('carousel_controls')->nullable();
             $table->timestamps();
         });
     }

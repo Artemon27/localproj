@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Holiday;
+use App\Models\Holidesign;
+use App\Models\UserSetting;
 use Carbon\Carbon;
 
 class User extends Authenticatable
@@ -89,5 +91,21 @@ class User extends Authenticatable
         $dateTo = Carbon::create($year, 12, 31, 23, 59, 59);
         
         return $this->holidays->Where('datefrom','>',$dateFrom)->Where('datefrom','<',$dateTo);
+    }
+    
+    public function colors()
+    {
+        return $this->hasOne(Holidesign::class);
+    }
+    
+    public function design() {
+        dd($this->settings());
+        return $this->settings()->design;
+        
+    }
+    
+    public function settings()
+    {
+        return $this->hasOne(UserSetting::class);
     }
 }

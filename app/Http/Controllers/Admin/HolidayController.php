@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class HolidayController extends Controller
 {
-    public function index() {
+    public function index() {        
         $id = 1;
         
         $now = Carbon::now();

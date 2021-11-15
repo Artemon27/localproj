@@ -1,6 +1,3 @@
-@php
-
-@endphp
 <table id='table-dates'>
     <tr>
         <td class="wd-name p-2" width="40px">Начало</td>            

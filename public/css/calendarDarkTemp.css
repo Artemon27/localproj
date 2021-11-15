@@ -1,14 +1,13 @@
-body {
-    background-color: #fdfdfd;
+body{
+    background-color: #150505;
+    color:[.base_color.];
 }
 .year-num{
     font-size:30pt;
 }
 .card{
-    box-shadow: 0px 0px 40px black;  
-    background-color: #fdfdfd;
+    background-color: [.background.];
 }
-
 .wrapper{
     margin: auto;
 }
@@ -23,15 +22,12 @@ body {
 }
 
 .month-1, .month-3, .month-5, .month-7, .month-9, .month-11{
-    background-color: #D9FEFF;
+    background-color: [.odd.];
+    color:[.odd_color.];
 }
 .month-2, .month-2, .month-4, .month-6, .month-8, .month-10, .month-12{
-    background-color: #C0E7FF;
-}
-
-.month-1{
-}
-.month-2{
+    background-color: [.even.];
+    color:[.even_color.];
 }
 .month-3{
 }
@@ -55,17 +51,19 @@ body {
 }
 
 .holiday-0{
-    color:black;
-    background-color: #95B9CE;
+    color:wheat;
+    background-color: [.even_holi.];
+    color:[.even_holi_color.];
 }
 .holiday-1{
-    color:black;
-    background-color: #B3D4D5;
+    color:wheat;
+    background-color: [.odd_holi.];
+    color:[.odd_holi_color.];
 }
 
 .holiday2{
     color:black;
-    background-color: #ff9191;
+    background-color: #a43333;
 }
 
 table{
@@ -86,6 +84,7 @@ td{
 }
 .month-name{    
     text-align: right;
+    color: [.base_color.];
 }
 .month-name-rotate{
     -webkit-transform: rotate(270deg); 
@@ -132,15 +131,18 @@ td{
 }
 .month-name-12{
 }
+.dchange{
+    
+}
 .dchecked.dchange{
-    background-color: #319cc6;
+    background-color: [.chosen_color.];
 }
 
 .holiday2 .dchecked.dchange{
     background-color: #277fa2;
 }
 .dchange:hover, .dchecked.dchange:hover{
-    background-color: #3ac4f9;
+    background-color: #1b5c75;
     cursor:pointer;
 }
 
@@ -152,13 +154,13 @@ td{
     height:80px;
 }
 .carousel-control-prev-icon, .carousel-control-next-icon{
-    background-color: black;
+    background-color: [.carousel_controls.];
 }
 .cal-col-1{
     margin-left:-100px;
 }
 .dop-days{
-    background-color: #68b7d7;
+    background-color: [.chosen_dop_color.];
 }
 
 @media (max-width: 1550px) {

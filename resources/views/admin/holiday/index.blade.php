@@ -125,8 +125,7 @@ $year=2022;
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('vendor/chosen/chosen.min.css') }}">
-<link rel="stylesheet" disabled="1" href="{{ asset('css/calendar.css') }}">
-<link rel="stylesheet" href="{{ asset('css/calendarDark.css') }}">
+    @include ('modules.theme')
 @endpush
 
 @push('beforescripts')
