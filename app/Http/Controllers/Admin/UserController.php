@@ -31,11 +31,16 @@ class UserController extends Controller
         $name = $request->get('name') ?? 'name';
         $sort = $request->get('sort') ?? 'asc';
         
-        return view('admin.users.index', [
-            'users' => User::query()
+        $users = User::query()
                 ->select(['id', 'name', 'email', 'role','department','pager','title'])                
                 ->orderBy($name, $sort)
-                ->paginate('30')
+                ->paginate('30');        
+        
+        $users->appends(['name' => $name]);
+        $users->appends(['sort' => $sort]);
+        
+        return view('admin.users.index', [
+            'users' => $users
         , 'name' => $name, 'sort' => $sort]);
     }
 

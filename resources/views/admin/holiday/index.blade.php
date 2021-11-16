@@ -9,7 +9,7 @@ $year=2022;
 
 <form action="{{ route('admin.holiday.chose') }}" method="post">
     @csrf
-    <div class="form-group w-50 m-auto mt-3 ">    
+    <div class="form-group w-50 m-auto mt-3 mb-3 ">    
         <div class="row">
             <div class="col-2">
                 <label for="parent_id">Имя пользователя</label>

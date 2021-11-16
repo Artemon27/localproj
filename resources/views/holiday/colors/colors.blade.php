@@ -71,9 +71,9 @@ $('.changeColor').on('input',function() {
             break;
         case 'base_color':
             $('body, .month-name').css('color', $(this).val());
-            $('.month-1, .month-3, .month-5, .month-7, .month-9, .month-11').css('color', $('#odd_holi').val());
+            $('.month-1, .month-3, .month-5, .month-7, .month-9, .month-11').css('color', $('#odd_color').val());
             $('.holiday-1').css('color', $('#odd_holi_color').val());
-            $('.month-2, .month-4, .month-6, .month-8, .month-10, .month-12').css('color', $('#even_holi').val());
+            $('.month-2, .month-4, .month-6, .month-8, .month-10, .month-12').css('color', $('#even_color').val());
             $('.holiday-0').css('color', $('#even_holi_color').val());
             break;
         case 'background':
