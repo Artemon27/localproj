@@ -26,14 +26,17 @@ class UserController extends Controller
      *
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {                    
+        $name = $request->get('name') ?? 'name';
+        $sort = $request->get('sort') ?? 'asc';
+        
         return view('admin.users.index', [
             'users' => User::query()
                 ->select(['id', 'name', 'email', 'role','department','pager','title'])                
-                ->orderBy('name')
+                ->orderBy($name, $sort)
                 ->paginate('30')
-        ]);
+        , 'name' => $name, 'sort' => $sort]);
     }
 
     /**

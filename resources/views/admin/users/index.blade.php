@@ -27,13 +27,37 @@
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th width="5%">№</th>
-                        <th width="20%">Имя</th>
-                        <th width="10%">Отдел</th>
-                        <th width="10%">Таб.номер</th>
-                        <th width="20%">Должность</th>
-                        <th width="20%">Email</th>
-                        <th width="10%">Роль</th>
+                        <th width="5%">№</a>
+                        @if (($name == 'name')&&($sort=='asc'))
+                            <th width="20%"><a href="{{route('admin.users.index',['name' => $name,'sort'=>'desc'])}}">Имя</a></th>
+                        @else
+                            <th width="20%"><a href="{{route('admin.users.index',['name' => 'name'])}}">Имя</a></th>
+                        @endif
+                        @if (($name == 'department')&&($sort=='asc'))
+                            <th width="10%"><a href="{{route('admin.users.index',['name' => $name,'sort'=>'desc'])}}">Отдел</a></th>
+                        @else
+                            <th width="10%"><a href="{{route('admin.users.index',['name' => 'department'])}}">Отдел</a></th>
+                        @endif
+                        @if (($name == 'pager')&&($sort=='asc'))
+                            <th width="10%"><a href="{{route('admin.users.index',['name' => $name,'sort'=>'desc'])}}">Таб.номер</a></th>
+                        @else
+                            <th width="10%"><a href="{{route('admin.users.index',['name' => 'pager'])}}">Таб.номер</a></th>
+                        @endif
+                        @if (($name == 'title')&&($sort=='asc'))
+                            <th width="20%"><a href="{{route('admin.users.index',['name' => $name,'sort'=>'desc'])}}">Должность</a></th>
+                        @else
+                            <th width="20%"><a href="{{route('admin.users.index',['name' => 'title'])}}">Должность</a></th>
+                        @endif
+                        @if (($name == 'email')&&($sort=='asc'))
+                            <th width="20%"><a href="{{route('admin.users.index',['name' => $name,'sort'=>'desc'])}}">Email</a></th>
+                        @else
+                            <th width="20%"><a href="{{route('admin.users.index',['name' => 'email'])}}">Email</a></th>
+                        @endif
+                        @if (($name == 'role')&&($sort=='asc'))
+                            <th width="20%"><a href="{{route('admin.users.index',['name' => $name,'sort'=>'desc'])}}">Роль</a></th>
+                        @else
+                            <th width="20%"><a href="{{route('admin.users.index',['name' => 'role'])}}">Роль</a></th>
+                        @endif                        
                         <th width="5%">Действия</th>
                     </tr>
                 </thead>

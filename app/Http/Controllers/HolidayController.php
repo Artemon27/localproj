@@ -98,7 +98,7 @@ class HolidayController extends Controller
         else {
             Holidesign::Create($request->all());
         }
-        $cssString = file_get_contents(asset('css/calendarDarkTemp.css'));
+        $cssString = file_get_contents('css/calendarDarkTemp.css');
         foreach ($request->all() as $name=>$setting){            
             $cssString = str_replace('[.'.$name.'.]', $setting, $cssString);
         }
