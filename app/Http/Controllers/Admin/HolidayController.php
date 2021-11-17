@@ -169,6 +169,53 @@ class HolidayController extends Controller
 
         // Конец
         $allchild->Worksheet->Table->addChild('Row')->addChild('Cell')->addAttribute('xmlns:ss:MergeAcross',"166" );   
+        
+        $cell1 = $allchild->Worksheet->Table->addChild('Row')->addChild('Cell');
+        $cell1->addAttribute('xmlns:ss:MergeAcross',"166" ); 
+        $cell1->addChild('Data',"Примечание: указанные в графике планируемые сроки отпусков уточняются в соответствии с текущей производственной необходимостью")->addAttribute('xmlns:ss:Type',"String" );
+        
+        $allchild->Worksheet->Table->addChild('Row')->addChild('Cell')->addAttribute('xmlns:ss:MergeAcross',"166" );
+        
+        
+        $endrow = $allchild->Worksheet->Table->addChild('Row');   
+        $cell1 = $endrow->addChild('Cell');
+        $cell1->addAttribute('xmlns:ss:StyleID',"s164" );
+        $cell1->addChild('Data',"Руководитель структурного подразделения")->addAttribute('xmlns:ss:Type',"String" );
+        
+        $cell1 = $endrow->addChild('Cell');
+        $cell1->addAttribute('xmlns:ss:Index',"46" );
+        $cell1->addAttribute('xmlns:ss:MergeAcross',"28" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s176" );
+        $cell1->addChild('Data',"Начальник НИЦ-1")->addAttribute('xmlns:ss:Type',"String" );
+        
+        $cell1 = $endrow->addChild('Cell');
+        $cell1->addAttribute('xmlns:ss:Index',"77" );
+        $cell1->addAttribute('xmlns:ss:MergeAcross',"19" );
+        
+        $cell1 = $endrow->addChild('Cell');
+        $cell1->addAttribute('xmlns:ss:Index',"99" );
+        $cell1->addAttribute('xmlns:ss:MergeAcross',"40" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s176" );
+        $cell1->addChild('Data',"В.А.Нечаев")->addAttribute('xmlns:ss:Type',"String" );
+        
+        $endrow = $allchild->Worksheet->Table->addChild('Row');   
+        $cell1 = $endrow->addChild('Cell');
+        $cell1->addAttribute('xmlns:ss:Index',"46" );
+        $cell1->addAttribute('xmlns:ss:MergeAcross',"28" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s186" );
+        $cell1->addChild('Data',"(должность)")->addAttribute('xmlns:ss:Type',"String" );
+
+        $cell1 = $endrow->addChild('Cell');
+        $cell1->addAttribute('xmlns:ss:Index',"77" );
+        $cell1->addAttribute('xmlns:ss:MergeAcross',"19" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s186" );
+        $cell1->addChild('Data',"(личная подпись)")->addAttribute('xmlns:ss:Type',"String" );
+
+        $cell1 = $endrow->addChild('Cell');
+        $cell1->addAttribute('xmlns:ss:Index',"99" );
+        $cell1->addAttribute('xmlns:ss:MergeAcross',"40" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s186" );
+        $cell1->addChild('Data',"(расшифровка подписи)")->addAttribute('xmlns:ss:Type',"String" );   
                 
         $endrow = $allchild->Worksheet->Table->addChild('Row');   
         $cell1 = $endrow->addChild('Cell');
@@ -176,35 +223,35 @@ class HolidayController extends Controller
         $cell1->addChild('Data',"Руководитель кадровой службы")->addAttribute('xmlns:ss:Type',"String" );
         
         $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:Index',"34" );
-        $cell1->addAttribute('xmlns:ss:MergeAcross',"53" );
+        $cell1->addAttribute('xmlns:ss:Index',"46" );
+        $cell1->addAttribute('xmlns:ss:MergeAcross',"28" );
         
         $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:Index',"92" );
-        $cell1->addAttribute('xmlns:ss:MergeAcross',"22" );
+        $cell1->addAttribute('xmlns:ss:Index',"77" );
+        $cell1->addAttribute('xmlns:ss:MergeAcross',"19" );
         
         $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:Index',"119" );
-        $cell1->addAttribute('xmlns:ss:MergeAcross',"48" );
+        $cell1->addAttribute('xmlns:ss:Index',"99" );
+        $cell1->addAttribute('xmlns:ss:MergeAcross',"40" );
 
         $endrow = $allchild->Worksheet->Table->addChild('Row');   
         $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:Index',"34" );
-        $cell1->addAttribute('xmlns:ss:MergeAcross',"53" );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s90" );
+        $cell1->addAttribute('xmlns:ss:Index',"46" );
+        $cell1->addAttribute('xmlns:ss:MergeAcross',"28" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s186" );
         $cell1->addChild('Data',"(должность)")->addAttribute('xmlns:ss:Type',"String" );
 
         $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:Index',"92" );
-        $cell1->addAttribute('xmlns:ss:MergeAcross',"22" );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s90" );
+        $cell1->addAttribute('xmlns:ss:Index',"77" );
+        $cell1->addAttribute('xmlns:ss:MergeAcross',"19" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s186" );
         $cell1->addChild('Data',"(личная подпись)")->addAttribute('xmlns:ss:Type',"String" );
 
         $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:Index',"119" );
-        $cell1->addAttribute('xmlns:ss:MergeAcross',"48" );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s90" );
-        $cell1->addChild('Data',"(расшифровка подписи)")->addAttribute('xmlns:ss:Type',"String" );        
+        $cell1->addAttribute('xmlns:ss:Index',"99" );
+        $cell1->addAttribute('xmlns:ss:MergeAcross',"40" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s186" );
+        $cell1->addChild('Data',"(расшифровка подписи)")->addAttribute('xmlns:ss:Type',"String" );  
            
         
         $sxe->asXML('Table'.$year.'.xml');

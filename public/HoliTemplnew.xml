@@ -620,6 +620,20 @@
    </Borders>
    <Alignment ss:Horizontal="Left"/>
   </Style>
+  <Style ss:ID="s176">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman"/>
+  </Style>
+  <Style ss:ID="s186">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
+   <Borders>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman" ss:Size="6"/>
+  </Style>
  </Styles>
  <Worksheet ss:Name="стр1">
   <Table ss:ExpandedColumnCount="167" ss:ExpandedRowCount="302" x:FullColumns="1"
