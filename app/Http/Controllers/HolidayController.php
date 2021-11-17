@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Http\Requests\HolidayRequest;
+use App\Models\User;
 use App\Models\Holiday;
 use App\Models\Holidesign;
 use App\Models\UserSetting;
@@ -134,5 +135,16 @@ class HolidayController extends Controller
         }
                 
         return back();
+    }
+    
+    
+    
+    public function charts() {
+        
+        $user = Auth::user();
+                
+        $users= User::get();
+                
+        return view('holiday.charts.index', compact('users','user'));         
     }
 }
