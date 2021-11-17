@@ -333,23 +333,23 @@ function drawCalendarInactive(){
 
         timestamp = new Date (curDateVal);
         timestamp = timestamp.getTime();
-        $('#calendar td').each(function( index ) {
+        $('#calendar .dblock').each(function( index ) {
             if (timestamp == $(this).attr('cur-date')*1000){
                 curIndex = index;
                 return true;
             }
         });
         for (i = 0; i < numLine; i++){         
-            $('#calendar td').eq(curIndex +i).addClass('old-dchecked');
+            $('#calendar .dblock').eq(curIndex +i).addClass('old-dchecked');
         }
         for (i = 0; i<PVT; i++){
-            $('#calendar td').eq(curIndex +numLine +i).addClass('old-dop-days PVT');
+            $('#calendar .dblock').eq(curIndex +numLine +i).addClass('old-dop-days PVT');
         } 
         for (; i<PVT+INV; i++){
-            $('#calendar td').eq(curIndex +numLine +i).addClass('old-dop-days INV');
+            $('#calendar .dblock').eq(curIndex +numLine +i).addClass('old-dop-days INV');
         } 
         for (; i<PVT+INV+OB; i++){
-            $('#calendar td').eq(curIndex +numLine +i).addClass('old-dop-days OB');
+            $('#calendar .dblock').eq(curIndex +numLine +i).addClass('old-dop-days OB');
         } 
     });
 }

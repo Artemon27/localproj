@@ -4,7 +4,7 @@
 @isset ($arHolidays)
     @foreach ($arHolidays as $day)
         @if ($day===$j.'.'.$month)
-            <td width="40px" height="40px" class="month-{{$month}} holiday2" cur-date="{{$currentDate}}">
+            <td width="40px" height="40px" class="month-{{$month}} holiday2 dblock" cur-date="{{$currentDate}}">
                 {{$j}}
             </td>
             @php
@@ -16,11 +16,11 @@
 @endisset
 @if (!$hol)
     @if ($i==6 || $i==7)
-        <td width="40px" height="40px" class="month-{{$month}} holiday-{{$month%2}}" cur-date="{{$currentDate}}">
+        <td width="40px" height="40px" class="month-{{$month}} holiday-{{$month%2}} dblock" cur-date="{{$currentDate}}">
             {{$j}}
         </td>
     @else
-        <td width="40px" height="40px" class="month-{{$month}}" cur-date="{{$currentDate}}">
+        <td width="40px" height="40px" class="month-{{$month}} dblock" cur-date="{{$currentDate}}">
             {{$j}}
         </td>   
     @endif       
