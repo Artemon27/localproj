@@ -2,10 +2,6 @@
 
 
 @section('content')
-@php
-
-$year=2022;
-@endphp
 
 
 <div class="card">

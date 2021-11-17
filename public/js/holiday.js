@@ -320,6 +320,40 @@ function drawCalendar(){
     });
 }
 
+//Рисование неактивного календаря по строкам таблицы
+function drawCalendarInactive(){
+    var i, numLine, PVT, INV, OB, timestamp, curIndex;
+    $('#table-incative tr').each(function(index){
+        i = +0;
+        curDateVal = $(this).find('.curDate').attr('value');
+        numLine = +$(this).find('.numLine').html();
+        PVT = +$(this).find('.PVT').html();
+        INV = +$(this).find('.INV').html();
+        OB = +$(this).find('.OB').html();
+
+        timestamp = new Date (curDateVal);
+        timestamp = timestamp.getTime();
+        $('#calendar td').each(function( index ) {
+            if (timestamp == $(this).attr('cur-date')*1000){
+                curIndex = index;
+                return true;
+            }
+        });
+        for (i = 0; i < numLine; i++){         
+            $('#calendar td').eq(curIndex +i).addClass('old-dchecked');
+        }
+        for (i = 0; i<PVT; i++){
+            $('#calendar td').eq(curIndex +numLine +i).addClass('old-dop-days PVT');
+        } 
+        for (; i<PVT+INV; i++){
+            $('#calendar td').eq(curIndex +numLine +i).addClass('old-dop-days INV');
+        } 
+        for (; i<PVT+INV+OB; i++){
+            $('#calendar td').eq(curIndex +numLine +i).addClass('old-dop-days OB');
+        } 
+    });
+}
+
 //Функции запускаемые по отпусканию мыши
 $(document).mouseup (function() {  
   $('body .dchange').off('mouseenter');
@@ -359,6 +393,7 @@ function delDates(elem){
 //Функции, запускаемые, при запуске страницы
 $(document).ready(function() {    
    updatenum(numdays);
+   drawCalendarInactive();
    drawCalendar();
    tableInputOn();
    delDates($('.del_dates'));

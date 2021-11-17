@@ -1,11 +1,27 @@
-<table id='table-dates'>
+<table id='table-dates' width="410px">
     <tr>
-        <td class="wd-name p-2" width="40px">Начало</td>            
-        <td class="wd-name p-2" width="40px">Дней</td>
-        <td class="wd-name p-2" width="40px">ПВТ</td>
-        <td class="wd-name p-2" width="40px">ИНВ</td>
-        <td class="wd-name p-2" width="40px">ОБ</td>
+        <td class="wd-name p-2" width="122px">Начало</td>            
+        <td class="wd-name p-2" width="54px">Дней</td>
+        <td class="wd-name p-2" width="54px">ПВТ</td>
+        <td class="wd-name p-2" width="54px">ИНВ</td>
+        <td class="wd-name p-2" width="54px">ОБ</td>
     </tr>
+    <tbody id="table-incative">        
+        @forelse ($oldDates as $date)
+        <tr>
+            <td class="curDate" value="{{Substr($date->datefrom,0,10)}}">{{date('d.m.Y',strtotime($date->datefrom))}}</td>
+            <td class="numLine">{{$date->days}}</td>
+            <td class="PVT">{{$date->PVT}}</td>
+            <td class="INV">{{$date->INV}}</td>
+            <td class="OB">{{$date->OB}}</td>
+            <td></td>
+        </tr>
+        @empty
+        <tr class="empty">
+            <td colspan="10"><h5>Выделите даты отпуска на календаре</h5></td>
+        </tr>
+        @endforelse     
+    </tbody>
     <tbody id="table-all">        
         @if (old('data')!=null)
             @forelse (old('data') as $date)

@@ -237,6 +237,11 @@ return [
             'text' => 'Пользователи',
             'url'  => 'admin/users',
             'icon' => 'fas fa-users',
+        ],        
+        [
+            'text' => 'Настройки',
+            'url'  => 'admin/settings',
+            'icon' => 'fas fa-cog',
         ],
         ['header' => 'ОТПУСК'],
         [

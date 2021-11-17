@@ -2,15 +2,14 @@
 
 
 @section('content')
-@php
-
-$year=2022;
-@endphp
-
 
 <form action="{{ route('holiday.store') }}" method="post">
     @csrf
+    @if ($user->settings)
+    <input type="hidden" value="{{$user->settings->design}}" name="design" id="inpDesign">
+    @else
     <input type="hidden" value="1" name="design" id="inpDesign">
+    @endif
     <div class="card">
         <div class="card-header">
             <div class="row">

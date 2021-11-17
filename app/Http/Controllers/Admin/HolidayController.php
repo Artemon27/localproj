@@ -10,6 +10,7 @@ use App\Http\Requests\Admin\holiTableRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Holiday;
 use App\Models\User;
+use App\Models\Setting;
 use SimpleXMLElement;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -19,8 +20,12 @@ class HolidayController extends Controller
     public function index() {        
         $id = 1;
         
-        $now = Carbon::now();
+        $setting = new Setting;
+        $year = $setting->CentralYear();
         
+        $now = Carbon::create($setting->CentralYear()-1);
+        
+       
         $dates= Holiday::Where('user_id','=',$id)->Where('dateto','>',$now)->get();
         
         $numdays = 0;
@@ -30,7 +35,7 @@ class HolidayController extends Controller
             $date->datetoStr = strtotime($date->dateto);
             $numdays = $numdays+$date->days;
         }
-        return view('admin.holidays.index', compact('dates','numdays'));         
+        return view('admin.holidays.index', compact('dates','numdays','year'));         
     }
     
     public function store(HolidayRequest $request)
@@ -58,6 +63,9 @@ class HolidayController extends Controller
         }
         $id = 1;
         
+        $setting = new Setting;
+        $year = $setting->CentralYear();
+        
         $dates= Holiday::Where('user_id','=',$user->id)->get();
         $users= User::get();
         
@@ -68,7 +76,7 @@ class HolidayController extends Controller
             $date->datetoStr = strtotime($date->dateto);
             $numdays = $numdays+$date->days;
         }
-        return view('admin.holiday.index', compact('dates','numdays','user','users'));         
+        return view('admin.holiday.index', compact('dates','numdays','user','users','year'));         
     }
     
     public function chose(Request $request)

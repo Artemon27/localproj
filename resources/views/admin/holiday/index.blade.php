@@ -2,10 +2,6 @@
 
 
 @section('content')
-@php
-
-$year=2022;
-@endphp
 
 <form action="{{ route('admin.holiday.chose') }}" method="post">
     @csrf

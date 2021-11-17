@@ -57,6 +57,7 @@ Route::group([
     ], function () {
         Route::resource('users', UserController::class)->except(['show']);
         require(__DIR__ . '/admin/holidays.php');
+        require(__DIR__ . '/admin/settings.php');
         require(__DIR__ . '/admin/holidaydays.php');
     });
 });

@@ -10,16 +10,25 @@ use App\Http\Requests\HolidayRequest;
 use App\Models\Holiday;
 use App\Models\Holidesign;
 use App\Models\UserSetting;
+use App\Models\Setting;
 
 class HolidayController extends Controller
 {
     //
     public function index() {
         $user = Auth::user();
+                
+        $setting = new Setting;
+        $year = $setting->CentralYear();
+        $now = Carbon::create($setting->CentralYear()-1);
+        $today = Carbon::create($setting->CurrentYear());
+        $firstYear = Carbon::create($setting->CentralYear()-1);
         
-        $now = Carbon::now();
+        $oldDates= Holiday::Where('user_id','=',$user->id)->Where('dateto','>=',$firstYear)->Where('dateto','<',$today)->get();
         
-        $dates= Holiday::Where('user_id','=',$user->id)->Where('dateto','>',$now)->get();
+        $dates= Holiday::Where('user_id','=',$user->id)->Where('dateto','>=',$today)->get();
+        
+        $today = $today->timestamp;
         
         $numdays = 0;
         
@@ -28,7 +37,7 @@ class HolidayController extends Controller
             $date->datetoStr = strtotime($date->dateto);
             $numdays = $numdays+$date->days;
         }
-        return view('holiday.index', compact('dates','numdays','user'));         
+        return view('holiday.index', compact('dates','numdays','user','setting','year','today','oldDates'));         
     }
     
     public function store(HolidayRequest $request)
@@ -36,9 +45,10 @@ class HolidayController extends Controller
         $user = Auth::user();
         $id = $user->id;
         
-        $now = Carbon::now();
+        $setting = new Setting;
+        $today = Carbon::create($setting->CurrentYear());
         
-        Holiday::Where('user_id','=',$id)->Where('allow','=','0')->Where('datefrom','>',$now)->delete();
+        Holiday::Where('user_id','=',$id)->Where('allow','=','0')->Where('dateto','>=',$today)->delete();
         
         if (isset($request['data'])){
                 foreach ($request['data'] as $date){
@@ -67,11 +77,19 @@ class HolidayController extends Controller
         
         $user = Auth::user();
         
+        $setting = new Setting;
+        $year = $setting->CentralYear();
+        $now = Carbon::create($setting->CentralYear()-1);
+        $today = Carbon::create($setting->CurrentYear());
+        $firstYear = Carbon::create($setting->CentralYear()-1);
+        
+        $oldDates= Holiday::Where('user_id','=',$user->id)->Where('dateto','>=',$firstYear)->Where('dateto','<',$today)->get();
+        
         $id = $user->id;
         
-        $now = Carbon::now();
+        $dates= Holiday::Where('user_id','=',$user->id)->Where('dateto','>=',$today)->get();
         
-        $dates= Holiday::Where('user_id','=',$id)->Where('dateto','>',$now)->get();
+        $today = $today->timestamp;
         
         $color = Holidesign::Where('user_id','=',$id)->first();
         if (!isset($color)){
@@ -84,7 +102,7 @@ class HolidayController extends Controller
             $numdays = $numdays+$date->days;
         }
         
-        return view('holiday.colors.index', compact('dates','numdays','color','user'));         
+        return view('holiday.colors.index', compact('dates','numdays','color','user','year','today','oldDates'));         
     }
     
     public function addcolors(Request $request) {

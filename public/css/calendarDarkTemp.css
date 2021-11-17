@@ -171,3 +171,11 @@ td{
         width:1000px;
     }
 }
+
+.old-dchecked{
+    background-color: [.chosen_color.];
+}
+
+.old-dop-days{
+    background-color: [.chosen_dop_color.];
+}
