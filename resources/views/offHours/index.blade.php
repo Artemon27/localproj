@@ -3,8 +3,9 @@
 
 @section('content')
 @php
-
-$year=2022;
+$months = array( 1 => 'Январь' , 'Февраль' , 'Март' , 'Апрель' , 'Май' , 'Июнь' , 'Июль' , 'Август' , 'Сентябрь' , 'Октябрь' , 'Ноябрь' , 'Декабрь' );
+$year = date('Y');
+$month = date('m');
 @endphp
 
 
@@ -40,48 +41,42 @@ $year=2022;
         <div class="card-body d-flex justify-content-center align-items-start" id="holiday">
             <div id="carouselExampleControls" class="carousel slide holiday-slider" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="carousel-inner">
-                    @for ($curyear=$year-1; $curyear<$year+2; $curyear++)
-                        @if ($curyear==$year)
+
+                  @for ($curyear=2021; $curyear<=2023; $curyear++)
+                    @for ($n=1;$n<13;$n++)
+                        @if ($curyear==$year and $month==$n)
                         <div class="carousel-item active">
                         @else
                         <div class="carousel-item">
                         @endif
-                            <div class="d-flex justify-content-center year-num">
-                            {{$curyear}}
+                            <div class="d-flex justify-content-center year-num h2">
+                            {{$months[$n]." ".$curyear}}
                             </div>
                             <div class="d-flex flex-wrap justify-content-center" id="calendar">
-                                @php
-                                    $n=0;
-                                @endphp
-                                @for ($l=0;$l<3;$l++)
-                                    @if ($l==0)
-                                        <div class="d-flex flex-wrap flex-column cal-col-1">
-                                    @else
+
                                         <div class="d-flex flex-wrap flex-column">
-                                    @endif
+
                                         <table>
                                             <tr>
-                                                <td width="100px"></td>
-                                                <td class="wd-name p-2" width="40px">ПН</td>
-                                                <td class="wd-name p-2" width="40px">ВТ</td>
-                                                <td class="wd-name p-2" width="40px">СР</td>
-                                                <td class="wd-name p-2" width="40px">ЧТ</td>
-                                                <td class="wd-name p-2" width="40px">ПТ</td>
-                                                <td class="wd-name p-2" width="40px">СБ</td>
-                                                <td class="wd-name p-2" width="40px">ВС</td>
+                                                <td class="wd-name p-2 h4" width="90px">ПН</td>
+                                                <td class="wd-name p-2 h4" width="90px">ВТ</td>
+                                                <td class="wd-name p-2 h4" width="90px">СР</td>
+                                                <td class="wd-name p-2 h4" width="90px">ЧТ</td>
+                                                <td class="wd-name p-2 h4" width="90px">ПТ</td>
+                                                <td class="wd-name p-2 h4" width="90px">СБ</td>
+                                                <td class="wd-name p-2 h4" width="90px">ВС</td>
                                             </tr>
                                         </table>
-                                        @for ($n++;$n<13;$n++)
-                                                @include ('holiday.calendar',['month'=>$n,'year'=>$curyear])
-                                                @if ($n%4 == 0)
-                                                    @break
-                                                @endif
-                                        @endfor
+
+                                                @include ('offHours.calendar',['month'=>$n,'year'=>$curyear])
+
+
                                     </div>
 
-                                @endfor
+
                             </div>
                         </div>
+                    @endfor
                     @endfor
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -93,7 +88,9 @@ $year=2022;
                     <span class="visually-hidden">Следующий</span>
                 </button>
             </div>
+
             @include ('offHours.table',['dates'=>$dates])
+
         </div>
     </div>
 </form>
@@ -106,7 +103,7 @@ $year=2022;
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/daterangepicker.css') }}">
 <link rel="stylesheet" disabled="1" href="{{ asset('css/calendar.css') }}">
-<link rel="stylesheet" href="{{ asset('css/calendarDark.css') }}">
+<link rel="stylesheet" href="{{ asset('css/calendarDark2.css') }}">
 @endpush
 
 @push('scripts')

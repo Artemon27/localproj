@@ -43,6 +43,6 @@ class offHoursController extends Controller
             }
         }
 
-        return back()->with('success', 'Запись на вечер создана .. Не сделаны проверки');
+        return back()->with('success', 'Запись на вечер создана');
     }
 }

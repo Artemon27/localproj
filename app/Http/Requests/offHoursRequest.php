@@ -24,7 +24,7 @@ class offHoursRequest extends FormRequest
      */
     public function rules()
     {
-      if(isset($this->data))
+      if(isset($this->data))//******************************************************
         return $this->data;
         return [
             //

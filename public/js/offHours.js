@@ -70,7 +70,7 @@ function updatedates(){
             a=1
         });
         if(a!=1)
-          var el = $('<tr><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input readonly type="text" size="5" class="numLine" name="data['+i+'][prpsk]"></td><td><input type="text" size="15" name="data['+i+'][room]"></td><td><input type="text" size="15" name="data['+i+'][phone]"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
+          var el = $('<tr><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]"></td><td><input type="text" size="15" name="data['+i+'][room]"></td><td><input type="text" size="15" name="data['+i+'][phone]"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
 
         delDates($('.del_dates', $(el)));
         $('#table-all').append(el);
@@ -303,10 +303,10 @@ $(document).ready(function() {
 $('#theme').click(function(e){
     if ($('link[href*="calendar.css"]').prop('disabled')){
         $('link[href*="calendar.css"]').prop('disabled', false);
-        $('link[href*="calendarDark.css"]').prop('disabled', true);
+        $('link[href*="calendarDark2.css"]').prop('disabled', true);
     }
     else{
         $('link[href*="calendar.css"]').prop('disabled', true);
-        $('link[href*="calendarDark.css"]').prop('disabled', false);
+        $('link[href*="calendarDark2.css"]').prop('disabled', false);
     }
 });

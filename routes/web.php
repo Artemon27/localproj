@@ -46,9 +46,9 @@ Route::group([
     Route::post('/logout', [LoginController::class, 'logout'])
         ->middleware('auth')
         ->name('admin-logout');
-    
+
     Route::post('/updateldap', [UserController::class, 'updateldap'])->name('users-update');
-    
+
     Route::view('/', 'admin.main')->middleware('auth')->name('admin');
 
     Route::group([
@@ -59,6 +59,7 @@ Route::group([
         require(__DIR__ . '/admin/holidays.php');
         require(__DIR__ . '/admin/settings.php');
         require(__DIR__ . '/admin/holidaydays.php');
+        require(__DIR__ . '/admin/offHours.php');
     });
 });
 

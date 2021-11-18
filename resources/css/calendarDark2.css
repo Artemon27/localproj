@@ -1,0 +1,164 @@
+body{
+    background-color: #282C34;
+    color:white;
+}
+.year-num{
+    font-size:30pt;
+}
+.card{
+    background-color: #282C34;
+}
+.wrapper{
+    margin: auto;
+}
+.holiday-slider{
+    width:1300px;
+}
+#table-all input[type="number"]{
+    max-width: 50px;
+}
+
+.month-1{
+    background-color: #293B3C;
+}
+.month-2{
+    background-color: #1f2040;
+}
+.month-3{
+    background-color: #293B3C;
+}
+.month-4{
+    background-color: #1f2040;
+}
+.month-5{
+    background-color: #293B3C;
+}
+.month-6{
+    background-color: #1f2040;
+}
+.month-7{
+    background-color: #293B3C;
+}
+.month-8{
+    background-color: #1f2040;
+}
+.month-9{
+    background-color: #293B3C;
+}
+.month-10{
+    background-color: #1f2040;
+}
+.month-11{
+    background-color: #293B3C;
+}
+.month-12{
+    background-color: #1f2040;
+}
+
+.holiday-0{
+    color:wheat;
+    background-color: #2e2f62;
+}
+.holiday-1{
+    color:wheat;
+    background-color: #436264;
+}
+
+.holiday2{
+    color:black;
+    background-color: #a43333;
+}
+
+table{
+      -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+td{
+    text-align: center;
+    margin:2px;
+}
+.month-names{
+    width:100px;
+    text-align: center;
+}
+.month-name{
+    text-align: right;
+    color: #e3e3e3;
+}
+.month-name-rotate{
+    -webkit-transform: rotate(270deg);
+    transform: rotate(270deg);
+    word-wrap: normal;
+    font-size: 17pt;
+    text-align: center;
+    padding-top: 70px;
+    margin-top: -7px;
+}
+.month-num{
+    font-size: 30pt;
+    margin-left: 8px;
+}
+.month-name-1{
+}
+.month-name-rotate-1{
+}
+.month-name-2{
+}
+.month-name-rotate-2{
+}
+.month-name-3{
+}
+.month-name-rotate-3{
+}
+.month-name-4{
+}
+.month-name-rotate-4{
+}
+.month-name-5{
+}
+.month-name-6{
+}
+.month-name-7{
+}
+.month-name-8{
+}
+.month-name-9{
+}
+.month-name-10{
+}
+.month-name-11{
+}
+.month-name-12{
+}
+.dchange{
+
+}
+.dchecked.dchange{
+    background-color: #319cc6;
+}
+
+.holiday2 .dchecked.dchange{
+    background-color: #277fa2;
+}
+.dchange:hover, .dchecked.dchange:hover{
+    background-color: #1b5c75;
+    cursor:pointer;
+}
+
+.wd-name {
+    font-weight: 600;
+}
+
+.carousel-control-prev, .carousel-control-next{
+    height:80px;
+}
+.cal-col-1{
+    margin-left:-100px;
+}
+.dop-days{
+    background-color: black;
+}

@@ -259,6 +259,12 @@ return [
             'url'  => 'admin/holidays/download',
             'icon' => 'fas fa-umbrella-beach',
         ],
+        ['header' => 'ВЕЧЕР'],
+        [
+            'text' => 'Список на вечер',
+            'url'  => 'admin/offhours/download',
+            'icon' => 'fas fa-umbrella-beach',
+        ],
     ],
 
     /*
