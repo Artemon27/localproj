@@ -25,11 +25,16 @@ class User extends Authenticatable
     const ROLE_USER = 1;  
 
     protected $fillable = [
-        'name',
-        'email',
+        'name',         //ФИО
+        'email',        //Почта
         'password',
-        'role',
-        'objectguid', 'pager', 'department', 'sAMAccountName','physicalDeliveryOfficeName','telephoneNumber'
+        'role',         //Роль
+        'objectguid',   //Идентификатор
+        'pager',        //Табельный номер
+        'department',   //Отдел
+        'sAMAccountName',//Имя пользователя
+        'physicalDeliveryOfficeName', //Номер помещения
+        'telephoneNumber' //Номер телефона в помещении
     ];
 
     /**

@@ -42,8 +42,7 @@
 @push('styles')
 <style>
 #container {
-    max-width: 1200px;
-    min-width: 800px;
+    max-width: 1300px;
     margin: 1em auto;
 }
 
@@ -59,7 +58,7 @@
 <script src="{{ asset('js/popper.min.js') }}"></script>
 @endpush
 @push('scripts')
-<script src="{{ asset('js/highcharts-gantt.js') }}"></script>
+<script src="{{ asset('js/highcharts-gantt.src.js') }}"></script>
 <script src="{{ asset('js/exporting.js') }}"></script>
 
 <script>
@@ -79,191 +78,114 @@ function logout(){
       });
 }
 
-var today = new Date(),
-    day = 1000 * 60 * 60 * 24,
+var day = 1000 * 60 * 60 * 24,
     map = Highcharts.map,
     dateFormat = Highcharts.dateFormat,
     series,
     cars;
 
 // Set to 00:00:00:000 today
-today.setUTCHours(0);
-today.setUTCMinutes(0);
-today.setUTCSeconds(0);
-today.setUTCMilliseconds(0);
-today = today.getTime();
 
 
-cars = [{
-    model: 'Nissan Leaf',
-    current: 0,
-    deals: [{
-        rentedTo: 'Lisa Star',
-        from: today - 1 * day,
-        to: today + 2 * day
-    }, {
-        rentedTo: 'Shane Long',
-        from: today - 3 * day,
-        to: today - 2 * day
-    }, {
-        rentedTo: 'Jack Coleman',
-        from: today + 5 * day,
-        to: today + 6 * day
-    }]
-}, {
-    model: 'Jaguar E-type',
-    current: 0,
-    deals: [{
-        rentedTo: 'Martin Hammond',
-        from: today - 10 * day,
-        to: today + 1 * day
-    }, {
-        rentedTo: 'Linda Jackson',
-        from: today - 2 * day,
-        to: today + 1 * day
-    }, {
-        rentedTo: 'Robert Sailor',
-        from: today + 2 * day,
-        to: today + 6 * day
-    }]
-}, {
-    model: 'Volvo V60',
-    current: 0,
-    deals: [{
-        rentedTo: 'Mona Ricci',
-        from: today + 0 * day,
-        to: today + 3 * day
-    }, {
-        rentedTo: 'Jane Dockerman',
-        from: today + 3 * day,
-        to: today + 4 * day
-    }, {
-        rentedTo: 'Bob Shurro',
-        from: today + 6 * day,
-        to: today + 8 * day
-    }]
-}, {
-    model: 'Volkswagen Golf',
-    current: 0,
-    deals: [{
-        rentedTo: 'Hailie Marshall',
-        from: today - 1 * day,
-        to: today + 1 * day
-    }, {
-        rentedTo: 'Morgan Nicholson',
-        from: today - 3 * day,
-        to: today - 2 * day
-    }, {
-        rentedTo: 'William Harriet',
-        from: today + 2 * day,
-        to: today + 3 * day
-    }]
-}, {
-    model: 'Peugeot 208',
-    current: 0,
-    deals: [{
-        rentedTo: 'Harry Peterson',
-        from: today - 1 * day,
-        to: today + 2 * day
-    }, {
-        rentedTo: 'Emma Wilson',
-        from: today + 3 * day,
-        to: today + 4 * day
-    }, {
-        rentedTo: 'Ron Donald',
-        from: today + 5 * day,
-        to: today + 6 * day
-    }]
-}];
+cars = [];
 
-@foreach ($users as $user)
-    @if (count ($user->holidaysYear(2022)))
-            cars.push({
-            model: '{{$user->name}}',
-            current: 0,
-            deals: [{
-                from: today - 1 * day,
-                to: today + 2 * day
-            }, {
-                from: today - 3 * day,
-                to: today - 2 * day
-            }, {
-                from: today + 5 * day,
-                to: today + 6 * day
-            }]
-        });
+var dateint;
+var utc = new Date();
+var data =[];
+
+@foreach ($users as $user)    
+    @if (count ($user->holidaysYear(2022)))            
+            @forelse ($user->holidaysYear(2022) as $holiday)
+                dateint = new Date('{{$holiday->datefrom}}').getTime();
+                data.push({
+                    name: '{{$user->name}}',
+                    start: dateint,
+                    end: dateint + {{$holiday->days}}*day
+                });                
+            @empty    
+            @endforelse
     @endif
 @endforeach
-    
 
 // Parse car data into series.
-series = cars.map(function (car, i) {
-    var data = car.deals.map(function (deal) {
-        return {
-            id: 'deal-' + i,
-            rentedTo: deal.rentedTo,
-            start: deal.from,
-            end: deal.to,
-            y: i
-        };
-    });
-    return {
-        name: car.model,
-        data: data,
-        current: car.deals[car.current]
-    };
+series = [{
+    name:'График отпусков',
+    data:data
+}]
+
+Highcharts.setOptions({
+    lang: {
+            loading: 'Загрузка...',
+            months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+            weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+            shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+            exportButtonTitle: "Экспорт",
+            printButtonTitle: "Печать",
+            rangeSelectorFrom: "С",
+            rangeSelectorTo: "По",
+            rangeSelectorZoom: "Период",
+            downloadPNG: 'Скачать PNG',
+            downloadJPEG: 'Скачать JPEG',
+            downloadPDF: 'Скачать PDF',
+            downloadSVG: 'Скачать SVG',
+            printChart: 'Напечатать график'   
+        }        
 });
 
 
-
-
+Highcharts.dateFormats = {
+        W: function (timestamp) {
+        var date = new Date(timestamp);
+        var firstDay = new Date(date.getFullYear(), 0, 1); 
+        var day = firstDay.getDay() == 0 ? 7 : firstDay.getDay();
+        var days = Math.floor((date.getTime() - firstDay)/86400000) + day; // day numbers from the first Monday of the year to current date
+        return Math.ceil(days/7);
+    },
+}
 
 Highcharts.ganttChart('container', {
-    series: series,
+
     title: {
-        text: 'График отпусков'
+        text: 'Gantt Chart with Navigation'
     },
-    tooltip: {
-        pointFormat: '<span>Rented To: {point.rentedTo}</span><br/><span>From: {point.start:%e. %b}</span><br/><span>To: {point.end:%e. %b}</span>'
+
+    yAxis: {
+        uniqueNames: true
+    },
+
+    navigator: {
+        enabled: true,
+        liveRedraw: true,
+        series: {
+            type: 'gantt',
+            pointPlacement: 0.5,
+            pointPadding: 0.25
+        },
+        yAxis: {
+            min: 0,
+            max: 3,
+            reversed: true,
+            categories: []
+        }
+    },
+    scrollbar: {
+        enabled: true
+    },
+    rangeSelector: {
+        enabled: true,
+        selected: 0
     },
     xAxis: {
-        currentDateIndicator: true
-    },
-    yAxis: {
-        type: 'category',
-        grid: {
-            columns: [{
-                title: {
-                    text: 'Model'
-                },
-                categories: map(series, function (s) {
-                    return s.name;
-                })
-            }, {
-                title: {
-                    text: 'Rented To'
-                },
-                categories: map(series, function (s) {
-                    return s.current.rentedTo;
-                })
-            }, {
-                title: {
-                    text: 'From'
-                },
-                categories: map(series, function (s) {
-                    return dateFormat('%e. %b', s.current.from);
-                })
-            }, {
-                title: {
-                    text: 'To'
-                },
-                categories: map(series, function (s) {
-                    return dateFormat('%e. %b', s.current.to);
-                })
-            }]
+        minTickInterval: 1000 * 60 * 60 * 24, // 1 day
+        dateTimeLabelFormats: {
+            
+            week: {list: ['%W Неделя', '%W Нед.']},
+            day: '%e',
         }
-    }
+    },
+    series: series
 });
+
 
 </script>
 @endpush
