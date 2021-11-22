@@ -96,8 +96,10 @@ class HolidayController extends Controller
     public function holiTable(holiTableRequest $request)
     {        
         $year = $request['year'];
-
-        $users=User::orderBy('department')->orderBy('name')->get();
+        
+        $users2=User::Where('department','=','НИЦ-1')->orderBy('name')->get();
+        $users=User::Where('department','!=','НИЦ-1')->orderBy('department')->orderBy('name')->get();
+        $users = $users->merge($users2);
         
         $merges = ["25", "29", "12", "19", "11", "10", "12", "13", "13", "13" ];
         $style = [
