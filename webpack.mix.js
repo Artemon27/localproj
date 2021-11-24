@@ -19,6 +19,8 @@ mix.js('resources/js/app.js', 'public/js')
     .copy('resources/css/admin/calendarDark.css', 'public/css/admin')
     .copy('resources/css/calendarDark2.css', 'public/css')
     .copy('resources/css/admin/calendarDark2.css', 'public/css/admin')
+    .copy('resources/css/calendarDark3.css', 'public/css')
+    .copy('resources/css/admin/calendarDark3.css', 'public/css/admin')
     .copy('resources/css/admin/calendar.css', 'public/css/admin')
 
     .copy('resources/js/bootstrap.min.js', 'public/js')

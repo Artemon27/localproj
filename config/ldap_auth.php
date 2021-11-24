@@ -292,18 +292,22 @@ return [
         'email' => 'userprincipalname',
 
         'name' => 'cn',
-        
+
         'pager' => 'pager',
-        
+
         'department' => 'department',
-        
+
         'homePhone' => 'homePhone',
-        
+
         'mail' => 'mail',
-        
+
         'sAMAccountName' => 'sAMAccountName',
-        
-        'title' => 'title'
+
+        'title' => 'title',
+
+        'physicalDeliveryOfficeName' => 'physicalDeliveryOfficeName',
+
+        'telephoneNumber' => 'telephoneNumber'
     ],
 
     /*

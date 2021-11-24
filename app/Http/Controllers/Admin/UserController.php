@@ -27,12 +27,12 @@ class UserController extends Controller
      * @return View
      */
     public function index(Request $request): View
-    {                    
+    {
         $name = $request->get('name') ?? 'name';
         $sort = $request->get('sort') ?? 'asc';
         
         $users = User::query()
-                ->select(['id', 'name', 'email', 'role','department','pager','title'])                
+                ->select(['id', 'name', 'email', 'role','department','pager','title','physicalDeliveryOfficeName','telephoneNumber'])
                 ->orderBy($name, $sort)
                 ->paginate('30');        
         
@@ -40,8 +40,6 @@ class UserController extends Controller
         $users->appends(['sort' => $sort]);
         
         return view('admin.users.index', [
-            'users' => $users
-        , 'name' => $name, 'sort' => $sort]);
     }
 
     /**
@@ -94,42 +92,42 @@ class UserController extends Controller
 
         return redirect()->route('admin.users.index')->with('success', 'Пользователь обновлён');
     }
-    
-    
+
+
     public function updateldap() {
         $wheres = [
             'objectClass' => 'person',
             'memberOf' => 'CN=ВСЕ-НИЦ-1,OU=NIC-1,DC=nic1,DC=elavt,DC=spb,DC=ru'
         ];
-        $users=Adldap::search()->users()->where($wheres)->select('name','password','objectguid','department','homePhone','userprincipalname','mail','sAMAccountName','title','pager')->get();
-        
+        $users=Adldap::search()->users()->where($wheres)->select('name','password','objectguid','department','homePhone','userprincipalname','mail','sAMAccountName','title','pager','physicalDeliveryOfficeName','telephoneNumber')->get();
+        dd($users);
         if (count($users)){
-            foreach ($users as $user){   
+            foreach ($users as $user){
                 $objectguid = (string) new Guid($user->getObjectGuid());
                 $newUser = User::Where('objectguid','=',$objectguid)->first();
-                
+
                 if (empty($newUser)){
                     $newUser = new User;
-                }                
+                }
                 $newUser->name = $user->getName();
                 $newUser->objectguid = (string) new Guid($user->getObjectGuid());
                 $newUser->sAMAccountName = $user->getAccountName();
-                
-                $polouts = ['pager','department','homePhone','userprincipalname','mail','title'];
-                $polin = ['pager','department','homePhone','email','mail','title'];
-                
+
+                $polouts = ['pager','department','homePhone','userprincipalname','mail','title','physicalDeliveryOfficeName','telephoneNumber'];
+                $polin = ['pager','department','homePhone','email','mail','title','physicalDeliveryOfficeName','telephoneNumber'];
+
                 foreach($polouts as $index => $polout){
                     if (isset($user[$polout][0])){
-                        $newUser->{$polin[$index]} = $user[$polout][0];         
+                        $newUser->{$polin[$index]} = $user[$polout][0];
                     }
                 }
-                $newUser->password=Hash::make('Elavt123');                
-                
+                $newUser->password=Hash::make('Elavt123');
+
                 $newUser->save();
             }
         }
         return back()->with('success', 'Обновлено');
-        
+
     }
     /**
      * Remove the specified resource from storage.
@@ -144,8 +142,8 @@ class UserController extends Controller
             if (count ($user->holidays)){
                 foreach ($user->holidays as $holiday){
                     $holiday->delete;
-                }                
-            }   
+                }
+            }
             $user->delete();
         } catch (\Throwable $e) {
             return new JsonResponse(['message' => 'Ошибка удаление'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);

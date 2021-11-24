@@ -1,5 +1,6 @@
 @php
     $weekday = mktime(0, 0, 0, $month, 1, $year);
+
     $weekday = getdate($weekday);
     $today  = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
 
@@ -18,21 +19,15 @@
 @endphp
 <table cellspacing="0" cellpadding="0">
     <tr>
-
-    </tr>
-    <tr>
         @for ($i = 1; $i < 8; $i++)
+
             @if ($i==$weekday['wday'])
                 @break
             @endif
             <td class="p-2"></td>
         @endfor
         @for (; $i < 8; $i++)
-            @if ($today < mktime(0, 0, 0, $month, $j, $year))
-                @include ('offHours.days')
-            @else
-                @include ('offHours.days-inactive')
-            @endif
+                @include ('timeSheet.days')
             @php
                 $j++;
             @endphp
@@ -48,11 +43,7 @@
             @endphp
         @endif
         @if ($end!=1)
-            @if ($today < mktime(0, 0, 0, $month, $j, $year))
-                @include ('offHours.days')
-            @else
-                @include ('offHours.days-inactive')
-            @endif
+                @include ('timeSheet.days')
             @php
                 $j++;
             @endphp

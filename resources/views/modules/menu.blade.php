@@ -9,6 +9,7 @@
         @if (Auth::user()->role > 8)
         <li><a class="dropdown-item" href="/admin">Админка</a></li>
         <li><a class="dropdown-item" href="/offhours">Запись на вечер</a></li>
+        <li><a class="dropdown-item" href="/timeSheet">Рабочее время</a></li>
         @endif
         <li><a type="button" class="dropdown-item btn btn-primary" data-bs-toggle="modal" data-bs-target="#aboutModale" href="#">О нас</a></li>
         <li><a onclick="logout()" class="dropdown-item" href="#">Выйти</a></li>

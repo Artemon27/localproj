@@ -23,7 +23,7 @@
                     <div class="ml-auto p-2">
                         <form action="{{ route('admin.offhours.offHoursTable') }}" method="post">
                             @csrf
-                            <input name="thing" type="text" placeholder="Зачем оставаться?" size="20"/>
+                            <input name="thing" type="text" placeholder="Тема" size="20"/>
                             <input name="staff" type="text" placeholder="Ответственный" size="20"/>
                             <input name="date" type="hidden" value="{{$date}}" />
                             <button class="btn btn-success" type="submit">Создать таблицу</button>

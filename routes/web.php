@@ -68,6 +68,7 @@ Route::group([
     ], function () {
         require(__DIR__ . '/front/holiday.php');
         require(__DIR__ . '/front/offHours.php');
+        require(__DIR__ . '/front/timeSheet.php');
     });
 
 Auth::routes();

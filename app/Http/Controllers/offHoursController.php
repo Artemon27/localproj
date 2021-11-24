@@ -14,6 +14,10 @@ class offHoursController extends Controller
     //
     public function index() {
         $id = Auth::user()->id;
+        $prpsk = Auth::user()->pager;
+        $room = Auth::user()->physicalDeliveryOfficeName;//*
+        $phone = Auth::user()->telephoneNumber;//*
+
 
         $now = Carbon::now();
 
@@ -24,7 +28,7 @@ class offHoursController extends Controller
             //$date->date = strtotime($date->date);
             $numdays = $numdays+$date->days;
         }
-        return view('offHours.index', compact('dates','numdays'));
+        return view('offHours.index', compact('dates','numdays', 'prpsk', 'room', 'phone'));
     }
 
     public function store(offHoursRequest $request) //отправка в БД

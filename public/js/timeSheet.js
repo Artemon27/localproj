@@ -4,82 +4,10 @@ var strDays = [];
 
 //Кнопка очистки (очищает календарь)
 $('#btn-off').click(function(){
-    $('body .dchange').each(function() {
-        if ($(this).hasClass('dchecked')){
-            $(this).removeClass('dchecked');
-            numdays--;
-        }
+   $('.active input').each(function(index, value){
+     value.value=0
    });
-   updatenum(numdays);
-   $('#table-all').empty();
 });
-
-//Клик по календарю (выделяет или снимает выделение)
-$('body .dchange').mousedown(function(e) {
-    mouse=1;
-    if ($(this).hasClass('dchecked')){
-        $(this).removeClass('dchecked');
-        numdays--;
-        updatenum(numdays);
-        $('body .dchange').on('mouseenter',function(){
-            if (($(this).hasClass('dchecked'))&&(numdays>0)){
-                $(this).removeClass('dchecked');
-                numdays--;
-                updatenum(numdays);
-            }
-        });
-    }
-    else{
-        $(this).addClass('dchecked');
-        $(this).removeClass('dop-days PVT INV OB');
-        numdays++;
-        updatenum(numdays);
-        $('body .dchange').on('mouseenter',function(){
-            if (!$(this).hasClass('dchecked')){
-                $(this).addClass('dchecked');
-                $(this).removeClass('dop-days PVT INV OB');
-                numdays++;
-                updatenum(numdays);
-            }
-        });
-    }
-})
-    .click(function(e){
-         e.preventDefault();
-     });
-
-
-//Обновляет данные в таблице по рисованному календарю
-function updatedates(){
-    var i = $('#table-all tr .curDate').length;
-
-    $('#table-all tr').each(function( index ) {
-      if(index>=i){
-        $(this).remove();
-      }
-    });
-
-    $('#calendar .dchange').each(function( index ) {
-
-      if ($(this).hasClass('dchecked')){
-        curDateVal = formatDateVal(new Date ($(this).attr('cur-date')*1000));
-        curIndex = index;
-        a=0
-        $('#table-all tr .curDate').each(function( index ) {
-          if(curDateVal == $('#table-all tr .curDate')[index].value)
-            a=1
-        });
-        if(a!=1)
-          var el = $('<tr><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]" value="'+prpsk+'"></td><td><input type="text" size="15" name="data['+i+'][room]" value="'+room+'"></td><td><input type="text" size="15" name="data['+i+'][phone]" value="'+phone+'"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
-
-        delDates($('.del_dates', $(el)));
-        $('#table-all').append(el);
-        updatenum(numdays);
-        //console.log($('.del_dates', $(el)));
-        i++;
-      }
-    });
-}
 
 
 //Добавляет change функцию на input в таблице (отслеживание изменений+рисование)
@@ -303,10 +231,48 @@ $(document).ready(function() {
 $('#theme').click(function(e){
     if ($('link[href*="calendar.css"]').prop('disabled')){
         $('link[href*="calendar.css"]').prop('disabled', false);
-        $('link[href*="calendarDark2.css"]').prop('disabled', true);
+        $('link[href*="calendarDark3.css"]').prop('disabled', true);
     }
     else{
         $('link[href*="calendar.css"]').prop('disabled', true);
-        $('link[href*="calendarDark2.css"]').prop('disabled', false);
+        $('link[href*="calendarDark3.css"]').prop('disabled', false);
     }
+});
+
+$('.carousel-control-next').click(function(e){
+  if($('#monthIn')[0].value == 12 && $('#yearIn')[0].value == 2023){
+    $('#monthIn')[0].value = 1;
+    $('#yearIn')[0].value = 2021;
+    $('.monthIn')[0].value = 1;
+    $('.yearIn')[0].value = 2021;
+  }else{
+    if(Number($('#monthIn')[0].value)+1 >12){
+        $('#monthIn')[0].value = 1;
+        $('#yearIn')[0].value = Number($('#yearIn')[0].value) + 1;
+        $('.monthIn')[0].value = 1;
+        $('.yearIn')[0].value = Number($('.yearIn')[0].value)+1;
+    }else{
+        $('#monthIn')[0].value = Number($('#monthIn')[0].value)+1;
+        $('.monthIn')[0].value = Number($('.monthIn')[0].value)+1;
+    }
+  }
+});
+
+$('.carousel-control-prev').click(function(e){
+  if($('#monthIn')[0].value == 1 && $('#yearIn')[0].value == 2021){
+    $('#monthIn')[0].value = 12;
+    $('#yearIn')[0].value = 2023;
+    $('.monthIn')[0].value = 12;
+    $('.yearIn')[0].value = 2023;
+  }else{
+    if(Number($('#monthIn')[0].value)-1 <1){
+        $('#monthIn')[0].value = 12;
+        $('#yearIn')[0].value = Number($('#yearIn')[0].value) - 1;
+        $('.monthIn')[0].value = 12;
+        $('.yearIn')[0].value = Number($('.yearIn')[0].value)-1;
+    }else{
+        $('#monthIn')[0].value = Number($('#monthIn')[0].value)-1;
+        $('.monthIn')[0].value = Number($('.monthIn')[0].value)-1;
+    }
+  }
 });

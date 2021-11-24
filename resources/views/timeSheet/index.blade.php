@@ -9,7 +9,7 @@ $month = date('m');
 @endphp
 
 
-<form action="{{ route('offhours.store') }}" method="post">
+<form action="{{ route('timeSheet.store') }}" method="post">
     @csrf
     <div class="card">
       <div class="card-header">
@@ -21,10 +21,13 @@ $month = date('m');
                   <div id="btn-off" class="btn btn-sm btn-outline-primary">Очистить</div>
               </div>
               <div class="col-1">
+
               </div>
               <div class="col-2 text-center">
                   <div id="numdays"></div>
                   <input id="numdaysIn" type="hidden" value="{{old('numdays') ?? 0}}" name="numdays">
+                  <input id="monthIn" type="hidden" value="{{$month}}" name="month">
+                  <input id="yearIn" type="hidden" value="{{$year}}" name="year">
               </div>
               <div class="col-3 text-end">
                   <div class="row">
@@ -41,7 +44,7 @@ $month = date('m');
         <div class="card-body d-flex justify-content-center align-items-start" id="holiday">
             <div id="carouselExampleControls" class="carousel slide holiday-slider" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="carousel-inner">
-
+                  <div class="d-flex justify-content-center year-num h2">Табель учета рабочего времени</div>
                   @for ($curyear=2021; $curyear<=2023; $curyear++)
                     @for ($n=1;$n<13;$n++)
                         @if ($curyear==$year and $month==$n)
@@ -49,7 +52,7 @@ $month = date('m');
                         @else
                         <div class="carousel-item">
                         @endif
-                            <div class="d-flex justify-content-center year-num h2">
+                            <div class="d-flex justify-content-center year-num">
                             {{$months[$n]." ".$curyear}}
                             </div>
                             <div class="d-flex flex-wrap justify-content-center" id="calendar">
@@ -58,42 +61,34 @@ $month = date('m');
 
                                         <table>
                                             <tr>
-                                                <td class="wd-name p-2 h4" width="90px">ПН</td>
-                                                <td class="wd-name p-2 h4" width="90px">ВТ</td>
-                                                <td class="wd-name p-2 h4" width="90px">СР</td>
-                                                <td class="wd-name p-2 h4" width="90px">ЧТ</td>
-                                                <td class="wd-name p-2 h4" width="90px">ПТ</td>
-                                                <td class="wd-name p-2 h4" width="90px">СБ</td>
-                                                <td class="wd-name p-2 h4" width="90px">ВС</td>
+                                                <td class="wd-name p-2 h4" width="150px">ПН</td>
+                                                <td class="wd-name p-2 h4" width="150px">ВТ</td>
+                                                <td class="wd-name p-2 h4" width="150px">СР</td>
+                                                <td class="wd-name p-2 h4" width="150px">ЧТ</td>
+                                                <td class="wd-name p-2 h4" width="150px">ПТ</td>
+                                                <td class="wd-name p-2 h4" width="150px">СБ</td>
+                                                <td class="wd-name p-2 h4" width="150px">ВС</td>
                                             </tr>
                                         </table>
 
-                                                @include ('offHours.calendar',['month'=>$n,'year'=>$curyear])
-
-
+                                                @include ('timeSheet.calendar',['month'=>$n,'year'=>$curyear])
                                     </div>
-
-
                             </div>
                         </div>
                     @endfor
                     @endfor
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Предыдущий</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Следующий</span>
-                </button>
             </div>
-
-            @include ('offHours.table',['dates'=>$dates])
-
         </div>
     </div>
 </form>
+<form action="{{ route('timeSheet.store') }}" method="post" align="center">
+  @csrf
+  <input class="monthIn" type="hidden" value="{{$month}}" name="month">
+  <input class="yearIn" type="hidden" value="{{$year}}" name="year">
+  <button class="btn btn-sm btn-outline-primary" type="submit" style="width: 25%;  height: 80px; font-size: 14pt;">Сформировать табель</button>
+</form>
+
 @endsection
 
 @push('beforescripts')
@@ -103,17 +98,14 @@ $month = date('m');
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/daterangepicker.css') }}">
 <link rel="stylesheet" disabled="1" href="{{ asset('css/calendar.css') }}">
-<link rel="stylesheet" href="{{ asset('css/calendarDark2.css') }}">
+<link rel="stylesheet" href="{{ asset('css/calendarDark3.css') }}">
 @endpush
 
 @push('scripts')
 <script src="{{ asset('js/moment.min.js') }}"></script>
 <script src="{{ asset('js/daterangepicker.js') }}"></script>
-<script src="{{ asset('js/offHours.js') }}"></script>
+<script src="{{ asset('js/timeSheet.js') }}"></script>
 <script>
 var numdays = {{old('numdays') ?? $numdays}};
-var prpsk = '{{$prpsk}}'
-var room = '{{$room}}'
-var phone = '{{$phone}}'
 </script>
 @endpush
