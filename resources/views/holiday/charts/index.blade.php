@@ -92,15 +92,19 @@ cars = [];
 var dateint;
 var utc = new Date();
 var data =[];
-
+var days;
+var dateto
 @foreach ($users as $user)    
     @if (count ($user->holidaysYear(2022)))            
             @forelse ($user->holidaysYear(2022) as $holiday)
-                dateint = new Date('{{$holiday->datefrom}}').getTime();
+                dateint = new Date('{{$holiday->datefrom}}');
+                dateto = new Date('{{$holiday->dateto}}');
+                console.log (dateint);
                 data.push({
                     name: '{{$user->name}}',
-                    start: dateint,
-                    end: dateint + {{$holiday->days}}*day
+                    range:' с ' + (dateint.getUTCDate()+1) + '.' + (dateint.getMonth()+1) + ' по ' + dateto.getUTCDate() + '.' + (dateto.getMonth()+1),
+                    start: dateint.getTime(),
+                    end: dateint.getTime() + {{$holiday->days}}*day
                 });                
             @empty    
             @endforelse
@@ -110,8 +114,19 @@ var data =[];
 // Parse car data into series.
 series = [{
     name:'График отпусков',
-    data:data
+    data:data,
+    dataLabels: {
+        enabled: true,
+        format: '{point.range}',
+        align: 'left',
+        style: {
+            cursor: 'default',
+            pointerEvents: 'none'
+        }
+    }
 }]
+
+
 
 Highcharts.setOptions({
     lang: {
@@ -175,14 +190,20 @@ Highcharts.ganttChart('container', {
         enabled: true,
         selected: 0
     },
-    xAxis: {
+    xAxis: [{
         minTickInterval: 1000 * 60 * 60 * 24, // 1 day
         dateTimeLabelFormats: {
             
             week: {list: ['%W Неделя', '%W Нед.']},
             day: '%e',
         }
-    },
+    },{
+    minTickInterval: 1000 * 60 * 60 * 24, // 1 day
+        dateTimeLabelFormats: {            
+            week: {list: ['%B, %W Неделя', '%B, %W Нед.','%b, %W Нед.']},
+            day: '%e',
+        }
+    }],
     series: series
 });
 

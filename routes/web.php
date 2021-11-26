@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UserController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,6 +61,7 @@ Route::group([
         require(__DIR__ . '/admin/settings.php');
         require(__DIR__ . '/admin/holidaydays.php');
         require(__DIR__ . '/admin/offHours.php');
+        require(__DIR__ . '/admin/menu.php');
     });
 });
 
