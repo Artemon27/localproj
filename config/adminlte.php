@@ -270,6 +270,12 @@ return [
             'url'  => 'admin/offhours/download',
             'icon' => 'fas fa-moon',
         ],
+        ['header' => 'КЛЮЧИ'],
+        [
+            'text' => 'Выдача ключей',
+            'url'  => 'admin/createkey/download',
+            'icon' => 'fas fa-umbrella-beach',
+        ],
     ],
 
     /*

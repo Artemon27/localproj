@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Carbon\Carbon;
 
-class timeSheetRequest extends FormRequest
+class CreateKeyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,12 @@ class timeSheetRequest extends FormRequest
      */
     public function rules()
     {
-      if(isset($this->time)){
-        return $this->time;
-      }
-      return [
-            //
+
+        return [
+            'otdel'=> ['required'],
+            'penal'=> ['integer'],
+            'corpus_room'=> ['required'],
+            'phone'=> ['required'],
         ];
 
     }

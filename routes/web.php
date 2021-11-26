@@ -58,6 +58,7 @@ Route::group([
         require(__DIR__ . '/admin/settings.php');
         require(__DIR__ . '/admin/holidaydays.php');
         require(__DIR__ . '/admin/offHours.php');
+        require(__DIR__ . '/admin/CreateKey.php');
         require(__DIR__ . '/admin/menu.php');
     });
 });

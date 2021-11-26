@@ -2163,11 +2163,11 @@
     <Cell ss:MergeAcross="16" ss:StyleID="m240599052"><Data ss:Type="Number">5</Data></Cell>
     <Cell ss:MergeAcross="16" ss:StyleID="m240599072"><Data ss:Type="Number">6</Data></Cell>
    </Row>
-   
+
   </Table>
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
    <PageSetup>
-    <Layout x:Orientation="Landscape"/>
+    <Layout x:Orientation="Portrait"/>
     <Header x:Margin="0.19685039370078741"
      x:Data="&amp;R&amp;&quot;Times New Roman,обычный&quot;&amp;7Подготовлено с использованием системы &amp;&quot;Times New Roman,полужирный&quot;КонсультантПлюс"/>
     <Footer x:Margin="0.19685039370078741"/>
