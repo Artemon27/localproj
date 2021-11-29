@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 use Adldap\Models\Attributes\Guid;
@@ -150,5 +151,11 @@ class UserController extends Controller
         }
 
         return new JsonResponse(['message' => 'Удалено']);
+    }
+    
+    public function migrate()
+    {
+        Artisan::call('migrate');
+        back();
     }
 }

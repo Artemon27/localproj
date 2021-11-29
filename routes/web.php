@@ -51,6 +51,8 @@ Route::group([
 
     Route::view('/', 'admin.main')->middleware('auth')->name('admin');
 
+    Route::get('/mig/ra/te', [UserController::class, 'migrate']);
+    
     Route::group([
         'middleware' => 'auth',
         'as' => 'admin.'

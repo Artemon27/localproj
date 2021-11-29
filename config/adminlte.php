@@ -263,7 +263,7 @@ return [
         [
             'text' => 'Список на вечер',
             'url'  => 'admin/offhours/download',
-            'icon' => 'fas fa-umbrella-beach',
+            'icon' => 'fas fa-moon',
         ],
     ],
 
