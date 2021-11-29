@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 
-use App\Http\Requests\Admin\offHoursRequest;
 use App\Http\Requests\Admin\offHoursTableRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\off_hours;
@@ -32,50 +31,7 @@ class offHoursController extends Controller
         }
         return view('admin.holidays.index', compact('dates','numdays'));
     }
-
-    public function store(offHoursRequest $request)
-    {
-        $id = $request['id'];
-
-        $now = Carbon::now();
-
-        off_hours::Where('user_id','=',$id)->delete();
-
-        if (isset($request['data'])){
-                foreach ($request['data'] as $date){
-                $date['user_id'] = $id;
-                $date['datefrom']=Carbon::createFromFormat('Y-m-d', $date['datefrom'])->startOfDay();
-                $date['dateto']=$date['datefrom']->copy()->addDays($date['days']-1)->endOfDay();
-                off_hours::Create($date);
-            }
-        }
-        return back()->with('success', 'Отпуск обновлён');
-    }
-
-    public function holiday(User $user = NULL) {
-        if ($user==NULL){
-            $user = Auth::User();
-        }
-        $id = 1;
-
-        $dates= Holiday::Where('user_id','=',$user->id)->get();
-        $users= User::get();
-
-        $numdays = 0;
-
-        foreach ($dates as $date){
-            $date->datefromStr = strtotime($date->datefrom);
-            $date->datetoStr = strtotime($date->dateto);
-            $numdays = $numdays+$date->days;
-        }
-        return view('admin.holiday.index', compact('dates','numdays','user','users'));
-    }
-
-    public function chose(Request $request)
-    {
-        $user = User::find($request['id']);
-        return redirect()->route('admin.holidays.holiday', ['user' => $user]);
-    }
+    
     public function download( $date = 1)
     {
       if($date==1){

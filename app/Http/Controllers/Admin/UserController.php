@@ -40,7 +40,8 @@ class UserController extends Controller
         $users->appends(['sort' => $sort]);
         
         return view('admin.users.index', [
-    }
+            'users' => $users
+        , 'name' => $name, 'sort' => $sort]);    }
 
     /**
      * Show the form for creating a new resource.
@@ -100,7 +101,6 @@ class UserController extends Controller
             'memberOf' => 'CN=ВСЕ-НИЦ-1,OU=NIC-1,DC=nic1,DC=elavt,DC=spb,DC=ru'
         ];
         $users=Adldap::search()->users()->where($wheres)->select('name','password','objectguid','department','homePhone','userprincipalname','mail','sAMAccountName','title','pager','physicalDeliveryOfficeName','telephoneNumber')->get();
-        dd($users);
         if (count($users)){
             foreach ($users as $user){
                 $objectguid = (string) new Guid($user->getObjectGuid());

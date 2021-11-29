@@ -25,11 +25,6 @@ class offHoursRequest extends FormRequest
     public function rules()
     {
         return [
-            'id'=>'exists:users,id',
-            'data.*.days'=> ['integer'],
-            'data.*.PVT'=> ['integer'],
-            'data.*.INV'=> ['integer'],
-            'data.*.OB'=> ['integer'],
         ];
     }
 }
