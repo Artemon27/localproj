@@ -125,6 +125,8 @@ class CreateKeyController extends Controller
                   $staff = User::Where('id','=',$pers->user_id)->get();
                   $cells[4]->Data = $staff[0]->name." ".$staff[0]->title;
                   $cells[5]->Data = $staff[0]->pager;
+                  $cells[6]->Data = $staff[0]->pechat;
+                  $cells[7]->Data = $staff[0]->mobile;
                 } else {
                   for( $i=0; $i < 5; $i++ ) {
                       $cell = $newrow->addChild('Cell');
@@ -139,6 +141,8 @@ class CreateKeyController extends Controller
                   $staff = User::Where('id','=',$pers->user_id)->get();
                   $cells[0]->Data = $staff[0]->name." ".$staff[0]->title;
                   $cells[1]->Data = $staff[0]->pager;
+                  $cells[2]->Data = $staff[0]->pechat;
+                  $cells[3]->Data = $staff[0]->mobile;
                 }
         }
 
