@@ -243,6 +243,11 @@ return [
             'url'  => 'admin/settings',
             'icon' => 'fas fa-cog',
         ],
+        [
+            'text' => 'Главное меню',
+            'url'  => 'admin/main',
+            'icon' => 'fas fa-bars',
+        ],
         ['header' => 'ОТПУСК'],
         [
             'text' => 'Изменить отпуска',
