@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 
+use App\Http\Requests\Admin\offHoursRequest;
 use App\Http\Requests\Admin\offHoursTableRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\off_hours;
@@ -15,23 +16,25 @@ use Symfony\Component\HttpFoundation\Request;
 
 class offHoursController extends Controller
 {
-    public function index() {
-        $id = 1;
+        public function store(offHoursRequest $request)
+    {
+        $id = $request['id'];
 
         $now = Carbon::now();
 
-        $dates= off_hours::Where('user_id','=',$id)->Where('dateto','>',$now)->get();
+        off_hours::Where('user_id','=',$id)->delete();
 
-        $numdays = 0;
-
-        foreach ($dates as $date){
-            $date->datefromStr = strtotime($date->datefrom);
-            $date->datetoStr = strtotime($date->dateto);
-            $numdays = $numdays+$date->days;
+        if (isset($request['data'])){
+                foreach ($request['data'] as $date){
+                $date['user_id'] = $id;
+                $date['datefrom']=Carbon::createFromFormat('Y-m-d', $date['datefrom'])->startOfDay();
+                $date['dateto']=$date['datefrom']->copy()->addDays($date['days']-1)->endOfDay();
+                off_hours::Create($date);
+            }
         }
-        return view('admin.holidays.index', compact('dates','numdays'));
+        return back()->with('success', 'Отпуск обновлён');
     }
-    
+
     public function download( $date = 1)
     {
       if($date==1){
@@ -48,7 +51,12 @@ class offHoursController extends Controller
 
         $date = $request['date'];
         $thing = $request['thing'];
-        $staff = $request['staff'];
+        if($request['staff'] != 'other'){
+          $staff = $request['staff'];
+        }
+        else{
+          $staff = $request['other_val'];
+        }
 
         $users=User::orderBy('department')->orderBy('name')->get();
 

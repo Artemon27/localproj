@@ -28,6 +28,8 @@ class CreateUsersTable extends Migration
           $table->string('mail')->nullable();
           $table->string('sAMAccountName');
           $table->string('title')->nullable();
+          $table->string('physicalDeliveryOfficeName')->nullable();
+          $table->string('telephoneNumber')->nullable();
           $table->rememberToken();
           $table->timestamps();
 

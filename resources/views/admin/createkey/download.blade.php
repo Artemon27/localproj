@@ -28,8 +28,21 @@
               <div class="ml-auto p-2">
                   <form action="{{ route('admin.createkey.CreateKeyTable') }}" method="post">
                       @csrf
-                      <input type='hidden' name='room_id' value='{{$data[0]->id}}'>
-                      <button class="btn btn-success" type="submit">Создать таблицу</button>
+                      <div class="m-10" style="float:left">
+                        <div class='select'>
+                          Выберите ответственного \/
+                        </div>
+                        <div class='select_body'>
+                          <input type='radio' name='staff' value="Козлов Михаил Вячеславович"> <span>Козлов М.В.</span><br>
+                          <input type='radio' name='staff' value="Пластинина Светлана Владимировна"> <span>Пластинина С.В.</span><br>
+                          <input type='radio' name='staff' value="Костишин Максим Олегович"> <span>Костишин М.О.</span><br>
+                          <input type='radio' name='staff' value="other"> <span><input type='text' name='other_val' placeholder="Другой" size='18'/></span>
+                        </div>
+                    </div>
+                      <div style="float:left">
+                        <input type='hidden' name='room_id' value='{{$data[0]->id}}'>
+                        <button class="btn btn-success" style="margin-left:20px" type="submit">Создать таблицу</button>
+                      </div>
                   </form>
               </div>
           </div>
@@ -49,7 +62,7 @@
                         <th class="p-1 text-center" width="5%">№ пенала</th>
                         <th class="p-1 text-center" width="15%">№ корпуса<br>№ помещения</th>
                         <th class="p-1 text-center" width="10%">Местный телефон</th>
-                        <th class="p-1 text-center" width="10%">Важность</th>
+                        <th class="p-1 text-center" width="10%">Режимное помещение</th>
                         <th class="p-1 text-center" width="15%">Действие</th>
                     </tr>
                 </thead>
@@ -87,7 +100,29 @@
                 $i=1;
             @endphp
             <table class=" table-bordered align-middle  mb-0" width="800px">
-                <thead>
+              <thead>
+              <tr>
+                <form method='post' action="{{route('admin.createkey.storepers')}}">
+                  @csrf
+                  <td class="p-1 text-center" colspan="5">
+                      <div class='select'>
+                        Выбрать пользователей \/
+                      </div>
+                      <div class='select_body'>
+                        <input type='text' name='srch' placeholder='Поиск' size='18' id='srch'>
+                        <div>
+                          @forelse ($users as $i => $value)
+                          <div><input type='checkbox' name='pers[{{$i}}]' value="{{$value->id}}"> <span>{{$value->shortName()}}</span></div>
+                          @empty
+                          @endforelse
+                        </div>
+                      </div>
+                    <input type='hidden' name='room' value='{{$data[0]->id}}'>
+                  </td>
+                  <td class="p-1 text-center"><button class="btn btn-success" type="submit">Добавить</button></td>
+                </form>
+              </tr>
+
                     <tr>
                         <th class="p-1 text-center">ФИО, должность</th>
                         <th class="p-1 text-center">Таб.Номер</th>
@@ -98,23 +133,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                      <form method='post' action="{{route('admin.createkey.storepers')}}">
-                        @csrf
-                        <td class="p-1 text-center" colspan="5">
-                          <input type='text' name='srch' placeholder='Поиск' size='15' id='srch'>
-                          <select name='pers'>
-                            <option value='g'>Выберите кого добавить</option>
-                            @forelse ($users as $value)
-                              <option value='{{$value->id}}'>{{$value->shortName()}}</option>
-                            @empty
-                            @endforelse
-                          </select>
-                          <input type='hidden' name='room' value='{{$data[0]->id}}'>
-                        </td>
-                        <td class="p-1 text-center"><button class="btn btn-success" type="submit">Добавить</button></td>
-                      </form>
-                    </tr>
                     @forelse ($staff as $pers)
                       @forelse ($users as $value)
                         @if($value->id == $pers->user_id)
@@ -153,48 +171,5 @@
 @push('css')
 @endpush
 @push('js')
-<script>
-$('#srch').keyup(function(){
-  let val = this.value;
-  if(val != ''){
-    $('option').each(function(i){
-      $(this).css('display','none')
-      if(find(this.text, val)>=0){
-        $(this).css('display','block')
-      }
-    });
-  }else{
-    $('option').each(function(i){
-      $(this).css('display','block')
-    });
-  }
-
-});
-
-function find (text, pattern){
-  t = 0
-  last = pattern.length-1
-  while (t < pattern.length-last){
-    p=0
-    while(p<=last && text[t+p] == pattern[p]){
-      p++
-    }
-    if(p==pattern.length){
-      return t
-    }
-    t++
-  }
-  return -1
-}
-
-function goToDate(){
-    var date = $('#date').val();
-    if (Date.parse(date)>=Date.now()-3600*1000*24)
-    {
-        console.log(date);
-        window.location.href = "{{ route('admin.offhours.download') }}/" + date;
-    }
-}
-
-</script>
+<script src="{{asset('js/adminjs.js')}}"></script>
 @endpush

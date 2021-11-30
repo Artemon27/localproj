@@ -25,7 +25,7 @@ class CreateKeyPersRequest extends FormRequest
     public function rules()
     {
         return [
-            'pers'=> ['integer']
+            'pers.*'=> ['integer']
         ];
     }
 }

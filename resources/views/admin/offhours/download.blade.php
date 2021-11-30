@@ -23,10 +23,22 @@
                     <div class="ml-auto p-2">
                         <form action="{{ route('admin.offhours.offHoursTable') }}" method="post">
                             @csrf
-                            <input name="thing" type="text" placeholder="Тема" size="20"/>
-                            <input name="staff" type="text" placeholder="Ответственный" size="20"/>
-                            <input name="date" type="hidden" value="{{$date}}" />
-                            <button class="btn btn-success" type="submit">Создать таблицу</button>
+                            <div style="float:left"><input name="thing" type="text" placeholder="Тема" size="20"/></div>
+                            <div style="float:left">
+                              <div class='select'>
+                                Выберите ответственного \/
+                              </div>
+                              <div class='select_body'>
+                                <input type='radio' name='staff' value="Козлов М.В."> <span>Козлов М.В.</span><br>
+                                <input type='radio' name='staff' value="Пластинина С.В."> <span>Пластинина С.В.</span><br>
+                                <input type='radio' name='staff' value="Костишин М.О."> <span>Костишин М.О.</span><br>
+                                <input type='radio' name='staff' value="other"> <span><input type='text' name='other_val' placeholder="Другой" size='18'/></span>
+                              </div>
+                            </div>
+                            <div style="float:left">
+                              <input name="date" type="hidden" value="{{$date}}" />
+                              <button class="btn btn-success" style="margin-left:20px" type="submit">Создать таблицу</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -76,6 +88,7 @@
 @push('css')
 @endpush
 @push('js')
+<script src="{{asset('js/adminjs.js')}}"></script>
 <script>
 function goToDate(){
     var date = $('#date').val();

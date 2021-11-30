@@ -1,0 +1,29 @@
+.select{
+  width: 220px;
+  height:30px;
+  background-color:#FFF;
+  padding: 5px;
+  border: 1px solid #777;
+}
+
+.select_body{
+  position: absolute;
+  width: 220px;
+  background-color:#FFF;
+  display: none;
+  padding: 5px;
+  border: 1px solid #777;
+}
+
+.select:hover{
+  cursor: pointer;
+  background-color:#DDD;
+}
+
+.select_body span:hover{
+  cursor: pointer;
+}
+
+.select_body div{
+  text-align:left; 
+}

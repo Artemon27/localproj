@@ -36,13 +36,16 @@ class CreateKeyController extends Controller
 
     public function storepers(CreateKeyPersRequest $request)
     {
-      $date['user_id'] = $request['pers'];
-      $date['room_id'] = $request['room'];
+      foreach ($request['pers'] as $key => $value){
 
-      RoomPersons::Where('user_id','=',$date['user_id'])->Where('room_id','=',$date['room_id'])->delete();
-      RoomPersons::Create($date);
+        $date['user_id'] = $value;
+        $date['room_id'] = $request['room'];
 
-      return back()->with('success', 'Запись добавлена');
+        RoomPersons::Where('user_id','=',$date['user_id'])->Where('room_id','=',$date['room_id'])->delete();
+        RoomPersons::Create($date);
+      }
+
+      return back()->with('success', 'Записи добавлена');
     }
 
     public function delpers(CreateKeyDelPersRequest $request)
@@ -74,11 +77,17 @@ class CreateKeyController extends Controller
     {
 
         $data = $request['room_id'];
-
+        if($request['staff'] != 'other'){
+          $staff_ = $request['staff'];
+          $staff_=User::Where('name','=',$staff_)->get();
+        }else{
+          $staff_ = $request['other_val'];
+        }
         $room_pers=RoomPersons::Where('room_id','=',$data)->get();
         $room=Rooms::Where('id','=',$data)->get();
 
         $merges = ["11", "11", "23", "9", "33", "9", "9", "22", "16"];//Кол-во ячеек в столбце
+        $merges_user = ["33", "9", "9", "22", "16"];//Кол-во ячеек в столбце
         $style = 'm377539832';
 
 
@@ -95,24 +104,42 @@ class CreateKeyController extends Controller
         foreach ($room_pers as $id => $pers){
 
                 $newrow = $sxe->Worksheet->Table->addChild('Row');
-                for( $i=0; $i < 9; $i++ ) {
-                    $cell = $newrow->addChild('Cell');
-                    $cell->addAttribute('xmlns:ss:MergeAcross',$merges[$i] );
-                    $cell->addAttribute('xmlns:ss:StyleID',$style );
-                    $data = $cell->addChild('Data');
-                    $data->addAttribute('xmlns:ss:Type',"String" );
-                }
+                 $newrow->addAttribute('xmlns:ss:AutoFitHeight','0' );
+                 $newrow->addAttribute('xmlns:ss:Height','25' );
                 $cells = $newrow->children();
                 if($id == 0){
+                  for( $i=0; $i < 9; $i++ ) {
+                      $cell = $newrow->addChild('Cell');
+                      if($i<4){
+                        $cell->addAttribute('xmlns:ss:MergeDown',count($room_pers)-1);
+                      }
+                      $cell->addAttribute('xmlns:ss:MergeAcross',$merges[$i] );
+                      $cell->addAttribute('xmlns:ss:StyleID',$style );
+                      $data = $cell->addChild('Data');
+                      $data->addAttribute('xmlns:ss:Type',"String" );
+                  }
                   $cells[0]->Data = $room[0]->otdel;
                   $cells[1]->Data = $room[0]->penal;
                   $cells[2]->Data = $room[0]->corpus_room;
                   $cells[3]->Data = $room[0]->phone;
+                  $staff = User::Where('id','=',$pers->user_id)->get();
+                  $cells[4]->Data = $staff[0]->name." ".$staff[0]->title;
+                  $cells[5]->Data = $staff[0]->pager;
+                } else {
+                  for( $i=0; $i < 5; $i++ ) {
+                      $cell = $newrow->addChild('Cell');
+                      if ( $i == 0 ) {
+                        $cell->addAttribute('xmlns:ss:Index',"59" );
+                      }
+                      $cell->addAttribute('xmlns:ss:MergeAcross',$merges_user[$i] );
+                      $cell->addAttribute('xmlns:ss:StyleID',$style );
+                      $data = $cell->addChild('Data');
+                      $data->addAttribute('xmlns:ss:Type',"String" );
+                  }
+                  $staff = User::Where('id','=',$pers->user_id)->get();
+                  $cells[0]->Data = $staff[0]->name." ".$staff[0]->title;
+                  $cells[1]->Data = $staff[0]->pager;
                 }
-                $staff = User::Where('id','=',$pers->user_id)->get();
-                $cells[4]->Data = $staff[0]->name." ".$staff[0]->title;
-                $cells[5]->Data = $staff[0]->pager;
-
         }
 
         $allchild->Worksheet->Table->addChild('Row')->addChild('Cell')->addAttribute('xmlns:ss:MergeAcross',"145" );
@@ -144,7 +171,12 @@ class CreateKeyController extends Controller
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','21' );
         $cell1->addAttribute('xmlns:ss:StyleID',"s101" );
-        $cell1->addChild('Data','М.О. Костишин')->addAttribute('xmlns:ss:Type',"String" );
+        if(isset($staff_[0]->name)){
+          $cell1->addChild('Data',$staff_[0]->shortName())->addAttribute('xmlns:ss:Type',"String" );
+        }else{
+          $cell1->addChild('Data',$staff_)->addAttribute('xmlns:ss:Type',"String" );
+        }
+
 
         $endrow = $allchild->Worksheet->Table->addChild('Row');
         $cell1 = $endrow->addChild('Cell');
@@ -153,7 +185,9 @@ class CreateKeyController extends Controller
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','21' );
         $cell1->addAttribute('xmlns:ss:StyleID',"s101" );
-        $cell1->addChild('Data','М.тел 26-44')->addAttribute('xmlns:ss:Type',"String" );
+        if(isset($staff_[0]->telephoneNumber)){
+          $cell1->addChild('Data','м.тел '.$staff_[0]->telephoneNumber)->addAttribute('xmlns:ss:Type',"String" );
+        }
 
         $sxe->asXML('Table.xml');
 
