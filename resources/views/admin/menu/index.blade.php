@@ -7,12 +7,18 @@
 @endsection
 
 @section('content')
+<form action="{{ route('admin.main.store') }}" method="post">
 <div id="fordelete" class="row">
     <div class="col">        
         <div class="card">
+            @include ('modules.messages')
             <div class="card-header">
-                 <div class="row">                    
-                    <div class="col-xs-12 col-md-12 col-12 text-right">
+                 <div class="row">     
+                    <div class="col">
+                        @csrf    
+                        <button class="btn btn-primary" type="submit">Сохранить</button>
+                    </div>  
+                    <div class="col col col text-right">
                         <div class="input-group">              
                             <div class="col text-right">
                               <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
@@ -28,7 +34,6 @@
                 <table class="table table-striped table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th width="5%">ID</th>
                             <th width="10%">Картинка</th>
                             <th width="30%">Название</th>
                             <th width="30%">Ссылка</th>
@@ -39,11 +44,11 @@
                     <tbody id="gallery">
                     @forelse($menus as $menu)
                         <tr id="elem{{$menu->id}}">
-                            <input type="hidden" name="menu[][id]" value="{{$menu->id}}">
-                            <td class="text-center"><a class="fm-edit"><input type="hidden" name="menu[][src]" value="{{ $menu->src }}"><img src="{{ $menu->url }}" height="100px"></a></td>
+                            <input type="hidden" name="menu[{{$menu->id}}][id]" value="{{$menu->id}}">
+                            <td class="text-center"><a class="fm-edit"><input type="hidden" name="menu[{{$menu->id}}][src]" value="{{ $menu->src }}"><img src="{{ getThumbs($menu->src) }}" height="100px"></a></td>
                             <td>
                                 <div class="row">
-                                    <input class="col-11 image-title ignore-elements" type="hidden" name="image[][title]" value="{{$menu->title}} ">      
+                                    <input class="col-11 image-title ignore-elements" type="hidden" name="menu[{{$menu->id}}][title]" value="{{$menu->title}} ">      
                                     <div class="col-11" onclick="editOne(this)">
                                         {{ $menu->title }}
                                     </div>                                    
@@ -51,8 +56,19 @@
                                         <i class="far fa-edit"></i>
                                     </a>
                                 </div>
-                            </td>                        
-                            <td><input type="hidden" name="image[][status]" value="{{$menu->status}}">
+                            </td>        
+                            <td>
+                                <div class="row">
+                                    <input class="col-11 image-title ignore-elements" type="hidden" name="menu[{{$menu->id}}][url]" value="{{$menu->url}} ">      
+                                    <div class="col-11" onclick="editOne(this)">
+                                        {{ $menu->url }}
+                                    </div>                                    
+                                    <a class="edit col-1 text-right" onclick="editOne(this)">                          
+                                        <i class="far fa-edit"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            <td><input type="hidden" name="menu[{{$menu->id}}][status]" value="{{$menu->status}}">
                                 @if ($menu->status)
                                 <div class="oea-status bg-success text-white p-1 text-center" onclick="statuschange(this)">Готово</div>
                                 @else
@@ -97,7 +113,7 @@
     </div>  
     </div>
 </div>
-
+</form>
 @endsection
 
 @push('js')
@@ -106,7 +122,7 @@
 <script>
       
     
-var maxId = +{{$item->images->max('id')}} + 0;
+var maxId = {{$maxid}};
 
     
 (function( $ ){
@@ -120,39 +136,49 @@ $.fn.filemanager = function(type, options) {
       var target_input = $('#gallery');
       var target_preview = $('#' + $(this).data('preview'));
       window.open(route_prefix + '?type=' + type, 'FileManager', 'width=900,height=600');
+      
       window.SetUrl = function (items) {
+          console.log(items);
         num_images = items.length;
         for (i=0;i<num_images;i++)
         {
-            number ++;
             maxId ++;
             // set the value of the desired input to image url                                                
             var elem = target_input.append('\
-            <tr id="elem'+number+'">\
-                <td class="text-center"><a class="fm-edit"><input type="hidden" name="menu[][url]" value="'+items[i].url+'"><img src="'+items[i].thumb_url+'" height="100px"></a></td>\
+            <tr id="elem'+maxId+'">\
+                <td class="text-center"><a class="fm-edit"><input type="hidden" name="menu['+maxId+'][src]" value="'+items[i].url+'"><img src="'+items[i].thumb_url+'" height="100px"></a></td>\
                 <td>\
                     <div class="row">\
-                        <input class="col-11 image-title ignore-elements" type="hidden" name="menu[][title]" value="Введите название">\
+                        <input class="col-11 image-title ignore-elements" type="hidden" name="menu['+maxId+'][title]" value="Введите название">\
                         <div class="col-11" onclick="editOne(this)">Введите название</div>\
                         <a class="edit col-1 text-right" onclick="editOne(this)">\
                             <i class="far fa-edit"></i>\
                         </a>\
                     </div>\
+                </td>\\n\
+                <td>\
+                    <div class="row">\
+                        <input class="col-11 image-title ignore-elements" type="hidden" name="menu['+maxId+'][url]" value="Введите ссылку">\
+                        <div class="col-11" onclick="editOne(this)">Введите ссылку</div>\
+                        <a class="edit col-1 text-right" onclick="editOne(this)">\
+                            <i class="far fa-edit"></i>\
+                        </a>\
+                    </div>\
                 </td>\
-                <td><input type="hidden" name="menu[][status]" value="1">\
-                <div class="oea-status bg-success text-white p-1 text-center" onclick="statuschange(this)">Опубликована</div>\
+                <td><input type="hidden" name="menu['+maxId+'][status]" value="1">\
+                <div class="oea-status bg-success text-white p-1 text-center" onclick="statuschange(this)">Готово</div>\
                 </td>\
                 <td class="text-center">\
                 <a class="delete text-red" data-id="'+maxId+'" type="button" data-bs-toggle="modal" data-bs-target="#delete_modal" onclick="deleteButton(this)">\
                 <i class="far fa-trash-alt"></i></a>\
             </td>\
                                     ').trigger('change');    
-            $('#elem'+number+' .image-title').keydown(function(event){
+            $('#elem'+maxId+' .image-title').keydown(function(event){
                 if(event.keyCode == 13) {
                   editOk(this);
                 }
             }) 
-            $('#elem'+number+' .fm-edit').filemanagerIm('image');
+            $('#elem'+maxId+' .fm-edit').filemanagerIm('image');
         }
         
                                     
@@ -196,7 +222,7 @@ $.fn.filemanagerIm = function(type, options) {
         // set the value of the desired input to image url                  
 
         target_input.children('img').attr("src", file_thuml_path);
-        target_input.children('input').attr("value", file_thuml_path);
+        target_input.children('input').attr("value", file_path);
         
         // clear previous preview
         target_preview.html('');
@@ -272,13 +298,13 @@ function statuschange (elem){
         $(elem).parent().children('input').attr('value',0);
         $(elem).addClass('bg-danger text-nowrap');
         $(elem).removeClass('bg-success text-white');
-        $(elem).text('Не опубликована');
+        $(elem).text('В разработке');
     }  
     else {
         $(elem).parent().children('input').attr('value',1);
         $(elem).addClass('bg-success text-white');
         $(elem).removeClass('bg-danger text-nowrap');
-        $(elem).text('Опубликована');
+        $(elem).text('Готово');
     }
   }
 </script>

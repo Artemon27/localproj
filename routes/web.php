@@ -15,9 +15,6 @@ use App\Http\Controllers\Admin\UserController;
 |
 */
 
-Route::get('/', function () {
-    return redirect('/holiday');
-});
 Route::get('/home', function () {
     return redirect('/holiday');
 });
@@ -65,12 +62,17 @@ Route::group([
     });
 });
 
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth','admin']], function () {
+     \UniSharp\LaravelFilemanager\Lfm::routes();
+ });
+ 
 Route::group([
         'middleware' => 'auth'
     ], function () {
         require(__DIR__ . '/front/holiday.php');
         require(__DIR__ . '/front/offHours.php');
         require(__DIR__ . '/front/timeSheet.php');
+        require(__DIR__ . '/front/menu.php');
     });
 
 Auth::routes();

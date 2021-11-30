@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ asset('css/all.css') }}">
 @if ($user->settings)
 <link rel="stylesheet" 
       @if ($user->settings->design != 1)
