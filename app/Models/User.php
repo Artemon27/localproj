@@ -34,7 +34,9 @@ class User extends Authenticatable
         'department',   //Отдел
         'sAMAccountName',//Имя пользователя
         'physicalDeliveryOfficeName', //Номер помещения
-        'telephoneNumber' //Номер телефона в помещении
+        'telephoneNumber', //Номер телефона в помещении
+        'pechat',       //Печать
+        'mobile'        //мобильный
     ];
 
     /**

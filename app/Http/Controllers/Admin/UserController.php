@@ -101,7 +101,7 @@ class UserController extends Controller
             'objectClass' => 'person',
             'memberOf' => 'CN=ВСЕ-НИЦ-1,OU=NIC-1,DC=nic1,DC=elavt,DC=spb,DC=ru'
         ];
-        $users=Adldap::search()->users()->where($wheres)->select('name','password','objectguid','department','homePhone','userprincipalname','mail','sAMAccountName','title','pager','physicalDeliveryOfficeName','telephoneNumber')->get();
+        $users=Adldap::search()->users()->where($wheres)->select('name','password','objectguid','department','homePhone','userprincipalname','mail','sAMAccountName','title','pager','physicalDeliveryOfficeName','telephoneNumber','facsimileTelephoneNumber','mobile')->get();
         if (count($users)){
             foreach ($users as $user){
                 $objectguid = (string) new Guid($user->getObjectGuid());
@@ -114,8 +114,8 @@ class UserController extends Controller
                 $newUser->objectguid = (string) new Guid($user->getObjectGuid());
                 $newUser->sAMAccountName = $user->getAccountName();
 
-                $polouts = ['pager','department','homePhone','userprincipalname','mail','title','physicalDeliveryOfficeName','telephoneNumber'];
-                $polin = ['pager','department','homePhone','email','mail','title','physicalDeliveryOfficeName','telephoneNumber'];
+                $polouts = ['pager','department','homePhone','userprincipalname','mail','title','physicalDeliveryOfficeName','telephoneNumber','facsimileTelephoneNumber','mobile'];
+                $polin = ['pager','department','homePhone','email','mail','title','physicalDeliveryOfficeName','telephoneNumber','pechat','mobile'];
 
                 foreach($polouts as $index => $polout){
                     if (isset($user[$polout][0])){

@@ -307,7 +307,11 @@ return [
 
         'physicalDeliveryOfficeName' => 'physicalDeliveryOfficeName',
 
-        'telephoneNumber' => 'telephoneNumber'
+        'telephoneNumber' => 'telephoneNumber',
+        
+        'pechat' => 'facsimileTelephoneNumber',
+        
+        'mobile' => 'mobile'
     ],
 
     /*

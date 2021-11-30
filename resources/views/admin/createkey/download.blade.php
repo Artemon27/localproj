@@ -146,8 +146,8 @@
                       <tr>
                           <td class="p-1 text-center">{{$dates->shortName()}}</td>
                           <td class="p-1 text-center">{{$dates->pager}}</td>
-                          <td class="p-1 text-center"></td>
-                          <td class="p-1 text-center"></td>
+                          <td class="p-1 text-center">{{$dates->pechat}}</td>
+                          <td class="p-1 text-center">{{$dates->mobile}}</td>
                           <td class="p-1 text-center"></td>
                           <td class="p-1 text-center">
                             <form method="post" action="{{route('admin.createkey.delpers')}}">
