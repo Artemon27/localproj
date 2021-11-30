@@ -122,7 +122,7 @@
 <script>
       
     
-var maxId = {{$maxid}};
+var maxId = {{$maxid ?? 1}};
 
     
 (function( $ ){
