@@ -11,15 +11,7 @@
                 <label for="parent_id">Имя пользователя</label>
             </div>
             <div class="col">
-                <select class="chosen-select form-select ml-2 " name="id">
-                    @foreach ($users as $selUser)                    
-                        <option value="{{$selUser->id}}"
-                                @if (($selUser->id ?? old('parent_id')) == $user->id)
-                                selected
-                                @endif
-                                >{{$selUser->name}}</option>
-                    @endforeach  
-                </select>
+                @include('modules.choseUser')
             </div>
             <div class="col"><button href="" class="btn btn-btn btn-sm btn-outline-primary">Выбрать</button></div>
         </div>
@@ -120,7 +112,6 @@
 
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('vendor/chosen/chosen.min.css') }}">
     @include ('modules.theme')
 @endpush
 
@@ -129,11 +120,8 @@
 @endpush
 @push('scripts')
 <script src="{{ asset('js/holiday.js') }}"></script>
-<script src="{{ asset('vendor/chosen/chosen.jquery.min.js') }}"></script>
 <script>
-$(".chosen-select").chosen();
 var numdays = {{old('numdays') ?? $numdays}};   
-
 
 function logout(){
     $.ajax({
