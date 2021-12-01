@@ -185,6 +185,7 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Http\\Requests\\Admin\\CreateKeyDelPersRequest' => $baseDir . '/app/Http/Requests/Admin/CreateKeyDelPersRequest.php',
+    'App\\Http\\Requests\\Admin\\CreateKeyDeleteRoomRequest' => $baseDir . '/app/Http/Requests/Admin/CreateKeyDeleteRoomRequest.php',
     'App\\Http\\Requests\\Admin\\CreateKeyPersRequest' => $baseDir . '/app/Http/Requests/Admin/CreateKeyPersRequest.php',
     'App\\Http\\Requests\\Admin\\CreateKeyRequest' => $baseDir . '/app/Http/Requests/Admin/CreateKeyRequest.php',
     'App\\Http\\Requests\\Admin\\CreateKeyTableRequest' => $baseDir . '/app/Http/Requests/Admin/CreateKeyTableRequest.php',

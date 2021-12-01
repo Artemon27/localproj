@@ -16,7 +16,7 @@ use App\Http\Controllers\Admin\UserController;
 */
 
 Route::get('/home', function () {
-    return redirect('/holiday');
+    return redirect('/');
 });
 
 

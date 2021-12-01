@@ -158,6 +158,7 @@
               </tr>
 
                     <tr>
+                        <th class="p-1 text-center"></th>
                         <th class="p-1 text-center">ФИО, должность</th>
                         <th class="p-1 text-center">Таб.Номер</th>
                         <th class="p-1 text-center">№ печати</th>
@@ -177,7 +178,10 @@
                         @endif
                       @empty
                       @endforelse
-                      <tr>
+                      <tr>           
+                          <td class="p-1 text-center">
+                              @include('modules.toggle', ['model' => $pers, 'toggle' => 'main'])
+                          </td>
                           <td class="p-1 text-center">{{$dates->shortName()}}</td>
                           <td class="p-1 text-center">{{$dates->pager}}</td>
                           <td class="p-1 text-center">{{$dates->pechat}}</td>

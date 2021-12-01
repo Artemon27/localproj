@@ -10,6 +10,7 @@ use App\Http\Requests\Admin\CreateKeyTableRequest;
 use App\Http\Requests\Admin\CreateKeyDeleteRoomRequest;
 use App\Http\Requests\Admin\CreateKeyPersRequest;
 use App\Http\Requests\Admin\CreateKeyDelPersRequest;
+use App\Http\Controllers\Admin\Traits\ToggleTrait;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Rooms;
 use App\Models\RoomPersons;
@@ -20,7 +21,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CreateKeyController extends Controller
 {
-
+    use ToggleTrait;
+    
+    protected $modelName = RoomPersons::class;
+    
     public function store(CreateKeyRequest $request)
     {
         if(isset($request['imp']))  $date['imp'] = 1;
@@ -89,7 +93,7 @@ class CreateKeyController extends Controller
         }else{
           $staff_ = $request['other_val'];
         }
-        $room_pers=RoomPersons::Where('room_id','=',$data)->get();
+        $room_pers=RoomPersons::Where('room_id','=',$data)->orderByDesc('main')->get();
         $room=Rooms::Where('id','=',$data)->get();
 
         $merges = ["11", "11", "23", "9", "41", "9", "9", "22", "16"];//Кол-во ячеек в столбце

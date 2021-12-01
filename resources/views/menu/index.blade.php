@@ -37,6 +37,9 @@
                         <img src="{{getThumbs($menu->src)}}" alt="{{$menu->title}}">
                     </a>
                 </div>
+                <div>
+                    {{$menu->title}}
+                </div>
                 @if ($loop->iteration%3 == 0)
                 </div>
                 <div class="d-flex justify-content-center">

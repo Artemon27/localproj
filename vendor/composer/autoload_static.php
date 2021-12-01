@@ -749,6 +749,7 @@ class ComposerStaticInit77236d1be32714789821060452a4803d
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\Admin\\CreateKeyDelPersRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Admin/CreateKeyDelPersRequest.php',
+        'App\\Http\\Requests\\Admin\\CreateKeyDeleteRoomRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Admin/CreateKeyDeleteRoomRequest.php',
         'App\\Http\\Requests\\Admin\\CreateKeyPersRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Admin/CreateKeyPersRequest.php',
         'App\\Http\\Requests\\Admin\\CreateKeyRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Admin/CreateKeyRequest.php',
         'App\\Http\\Requests\\Admin\\CreateKeyTableRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Admin/CreateKeyTableRequest.php',
