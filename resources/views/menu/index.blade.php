@@ -32,13 +32,15 @@
         <div class="container">
             <div class="d-flex justify-content-center" id="main-table">
                 @forelse ($menus as $menu)
-                <div class="main-table-item">
-                    <a href="{{$menu->url}}">
-                        <img src="{{getThumbs($menu->src)}}" alt="{{$menu->title}}">
-                    </a>
-                </div>
-                <div>
-                    {{$menu->title}}
+                <div>                
+                    <div class="main-table-item">
+                        <a href="{{$menu->url}}">
+                            <img src="{{getThumbs($menu->src)}}" alt="{{$menu->title}}">
+                        </a>
+                    </div>
+                    <div class="text-center menu-text">
+                        {{$menu->title}}
+                    </div>
                 </div>
                 @if ($loop->iteration%3 == 0)
                 </div>
