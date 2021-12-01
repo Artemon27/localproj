@@ -13,4 +13,5 @@ Route::post('createkey/store', [CreateKeyController::class, 'store'])->name('cre
 Route::post('createkey/storepers', [CreateKeyController::class, 'storepers'])->name('createkey.storepers');
 Route::post('createkey/delpers', [CreateKeyController::class, 'delpers'])->name('createkey.delpers');
 Route::post('createkey/CreateKeyTable', [CreateKeyController::class, 'CreateKeyTable'])->name('createkey.CreateKeyTable');
+Route::post('createkey/deleteRoom', [CreateKeyController::class, 'deleteRoom'])->name('createkey.deleteRoom');
 //Route::post('offhours/holiday/chose', [offHoursController::class, 'chose'])->name('holiday.chose');

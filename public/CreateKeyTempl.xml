@@ -33,7 +33,7 @@
    <NumberFormat/>
    <Protection/>
   </Style>
-  <Style ss:ID="m377540088">
+  <Style ss:ID="m407576864">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -43,7 +43,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman" ss:Size="9"/>
   </Style>
-  <Style ss:ID="m377540108">
+  <Style ss:ID="m407576884">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -53,7 +53,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman" ss:Size="9"/>
   </Style>
-  <Style ss:ID="m377540504">
+  <Style ss:ID="m407574992">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -63,7 +63,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman"/>
   </Style>
-  <Style ss:ID="m377540524">
+  <Style ss:ID="m407575012">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -73,7 +73,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman"/>
   </Style>
-  <Style ss:ID="m377540544">
+  <Style ss:ID="m407575032">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -83,7 +83,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman"/>
   </Style>
-  <Style ss:ID="m377540564">
+  <Style ss:ID="m407575052">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -93,7 +93,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman" ss:Size="9"/>
   </Style>
-  <Style ss:ID="m377540584">
+  <Style ss:ID="m407575072">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -103,7 +103,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman" ss:Size="9"/>
   </Style>
-  <Style ss:ID="m377540604">
+  <Style ss:ID="m407575092">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -113,7 +113,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman" ss:Size="9"/>
   </Style>
-  <Style ss:ID="m377540624">
+  <Style ss:ID="m407575112">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -123,7 +123,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman" ss:Size="9"/>
   </Style>
-  <Style ss:ID="m377540644">
+  <Style ss:ID="m407575132">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -133,7 +133,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman" ss:Size="9"/>
   </Style>
-  <Style ss:ID="m377540664">
+  <Style ss:ID="m407575152">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -143,7 +143,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman" ss:Size="9"/>
   </Style>
-  <Style ss:ID="m377540684">
+  <Style ss:ID="m407575172">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -153,7 +153,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman" ss:Size="9"/>
   </Style>
-  <Style ss:ID="m377539752">
+  <Style ss:ID="m407577568">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -163,7 +163,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman"/>
   </Style>
-  <Style ss:ID="m377539772">
+  <Style ss:ID="m407577588">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -173,7 +173,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman"/>
   </Style>
-  <Style ss:ID="m377539792">
+  <Style ss:ID="m407577608">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -183,7 +183,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman"/>
   </Style>
-  <Style ss:ID="m377539812">
+  <Style ss:ID="m407577628">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -193,7 +193,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman"/>
   </Style>
-  <Style ss:ID="m377539832">
+  <Style ss:ID="m407577648">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -203,7 +203,7 @@
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman"/>
   </Style>
-  <Style ss:ID="m377539852">
+  <Style ss:ID="m407577668">
    <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
    <Borders>
     <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
@@ -290,30 +290,117 @@
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman" ss:Size="9"/>
   </Style>
   <Style ss:ID="s95">
-   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Borders>
     <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
    </Borders>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman"/>
   </Style>
-  <Style ss:ID="s97">
+  <Style ss:ID="s98">
    <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman"/>
   </Style>
-  <Style ss:ID="s99">
-   <Alignment ss:Horizontal="Center" ss:Vertical="Bottom"/>
-   <Borders/>
-   <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman"/>
-  </Style>
-  <Style ss:ID="s101">
+  <Style ss:ID="s100">
    <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
    <Font ss:FontName="Times New Roman" x:CharSet="204" x:Family="Roman"/>
   </Style>
  </Styles>
  <Worksheet ss:Name="стр1">
-  <Table ss:ExpandedColumnCount="173" ss:ExpandedRowCount="140" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="181" ss:ExpandedRowCount="140" x:FullColumns="1"
    x:FullRows="1" ss:StyleID="s62" ss:DefaultColumnWidth="4.5">
-   <Row ss:Index="2">
+   <Row>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:MergeAcross="30" ss:StyleID="s65"><Data ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:Index="124" ss:MergeAcross="30" ss:StyleID="s66"><Data
+      ss:Type="String"></Data></Cell>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s68"/>
+    <Cell ss:StyleID="s68"/>
+    <Cell ss:StyleID="s68"/>
+    <Cell ss:StyleID="s68"/>
+    <Cell ss:StyleID="s68"/>
+    <Cell ss:StyleID="s68"/>
+    <Cell ss:StyleID="s68"/>
+    <Cell ss:StyleID="s68"/>
+    <Cell ss:StyleID="s68"/>
+    <Cell ss:StyleID="s68"/>
+    <Cell ss:StyleID="s68"/>
+    <Cell ss:StyleID="s68"/>
+    <Cell ss:StyleID="s68"/>
+    <Cell ss:StyleID="s68"/>
+    <Cell ss:StyleID="s68"/>
+    <Cell ss:StyleID="s68"/>
+    <Cell ss:StyleID="s68"/>
+   </Row>
+   <Row>
     <Cell ss:StyleID="s63"/>
     <Cell ss:StyleID="s63"/>
     <Cell ss:StyleID="s63"/>
@@ -368,7 +455,15 @@
     <Cell ss:StyleID="s63"/>
     <Cell ss:StyleID="s63"/>
     <Cell ss:StyleID="s63"/>
-    <Cell ss:Index="116" ss:MergeAcross="30" ss:StyleID="s66"><Data
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:Index="124" ss:MergeAcross="30" ss:StyleID="s66"><Data
       ss:Type="String">Начальнику ОВР</Data></Cell>
     <Cell ss:StyleID="s63"/>
     <Cell ss:StyleID="s63"/>
@@ -453,7 +548,15 @@
     <Cell ss:StyleID="s63"/>
     <Cell ss:StyleID="s63"/>
     <Cell ss:StyleID="s63"/>
-    <Cell ss:Index="116" ss:MergeAcross="30" ss:StyleID="s66"><Data
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:Index="124" ss:MergeAcross="30" ss:StyleID="s66"><Data
       ss:Type="String">В.В. Голубкову</Data></Cell>
     <Cell ss:StyleID="s63"/>
     <Cell ss:StyleID="s63"/>
@@ -533,6 +636,14 @@
     <Cell ss:StyleID="s71"/>
     <Cell ss:StyleID="s71"/>
     <Cell ss:StyleID="s71"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
+    <Cell ss:StyleID="s63"/>
     <Cell ss:StyleID="s63"/>
     <Cell ss:StyleID="s63"/>
     <Cell ss:StyleID="s63"/>
@@ -796,6 +907,14 @@
     <Cell ss:StyleID="s73"/>
     <Cell ss:StyleID="s73"/>
     <Cell ss:StyleID="s73"/>
+    <Cell ss:StyleID="s73"/>
+    <Cell ss:StyleID="s73"/>
+    <Cell ss:StyleID="s73"/>
+    <Cell ss:StyleID="s73"/>
+    <Cell ss:StyleID="s73"/>
+    <Cell ss:StyleID="s73"/>
+    <Cell ss:StyleID="s73"/>
+    <Cell ss:StyleID="s73"/>
     <Cell ss:StyleID="s76"/>
     <Cell ss:StyleID="s76"/>
     <Cell ss:StyleID="s76"/>
@@ -834,6 +953,14 @@
     <Cell ss:StyleID="s76"/>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="12">
+    <Cell ss:StyleID="s77"/>
+    <Cell ss:StyleID="s77"/>
+    <Cell ss:StyleID="s77"/>
+    <Cell ss:StyleID="s77"/>
+    <Cell ss:StyleID="s77"/>
+    <Cell ss:StyleID="s77"/>
+    <Cell ss:StyleID="s77"/>
+    <Cell ss:StyleID="s77"/>
     <Cell ss:StyleID="s77"/>
     <Cell ss:StyleID="s77"/>
     <Cell ss:StyleID="s77"/>
@@ -1009,33 +1136,32 @@
     <Cell ss:StyleID="s77"/>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="24.9375">
-    <Cell ss:MergeAcross="11" ss:StyleID="m377539752"><Data ss:Type="String">Отдел</Data></Cell>
-    <Cell ss:MergeAcross="11" ss:StyleID="m377539772"><Data ss:Type="String">№ пенала</Data></Cell>
-    <Cell ss:MergeAcross="23" ss:StyleID="m377539792"><Data ss:Type="String">№ корпуса&#10;№ помещения</Data></Cell>
-    <Cell ss:MergeAcross="9" ss:StyleID="m377539812"><Data ss:Type="String">Мест. Телефон</Data></Cell>
-    <Cell ss:MergeAcross="33" ss:StyleID="m377539832"><Data ss:Type="String">ФИО, должность</Data></Cell>
-    <Cell ss:MergeAcross="9" ss:StyleID="m377539852"><Data ss:Type="String">Таб. Номер</Data></Cell>
-    <Cell ss:MergeAcross="9" ss:StyleID="m377540504"><Data ss:Type="String">№ печати</Data></Cell>
-    <Cell ss:MergeAcross="22" ss:StyleID="m377540524"><Data ss:Type="String">Домашний телефон</Data></Cell>
-    <Cell ss:MergeAcross="16" ss:StyleID="m377540544"><Data ss:Type="String">Образец подписи</Data></Cell>
+    <Cell ss:MergeAcross="11" ss:StyleID="m407577568"><Data ss:Type="String">Отдел</Data></Cell>
+    <Cell ss:MergeAcross="11" ss:StyleID="m407577588"><Data ss:Type="String">№ пенала</Data></Cell>
+    <Cell ss:MergeAcross="23" ss:StyleID="m407577608"><Data ss:Type="String">№ корпуса&#10;№ помещения</Data></Cell>
+    <Cell ss:MergeAcross="9" ss:StyleID="m407577628"><Data ss:Type="String">Мест. Телефон</Data></Cell>
+    <Cell ss:MergeAcross="41" ss:StyleID="m407577648"><Data ss:Type="String">ФИО, должность</Data></Cell>
+    <Cell ss:MergeAcross="9" ss:StyleID="m407577668"><Data ss:Type="String">Таб. Номер</Data></Cell>
+    <Cell ss:MergeAcross="9" ss:StyleID="m407574992"><Data ss:Type="String">№ печати</Data></Cell>
+    <Cell ss:MergeAcross="22" ss:StyleID="m407575012"><Data ss:Type="String">Домашний телефон</Data></Cell>
+    <Cell ss:MergeAcross="16" ss:StyleID="m407575032"><Data ss:Type="String">Образец подписи</Data></Cell>
    </Row>
    <Row ss:AutoFitHeight="0" ss:Height="12" ss:StyleID="s86">
-    <Cell ss:MergeAcross="11" ss:StyleID="m377540564"><Data ss:Type="Number">1</Data></Cell>
-    <Cell ss:MergeAcross="11" ss:StyleID="m377540584"><Data ss:Type="Number">2</Data></Cell>
-    <Cell ss:MergeAcross="23" ss:StyleID="m377540604"><Data ss:Type="Number">3</Data></Cell>
-    <Cell ss:MergeAcross="9" ss:StyleID="m377540624"><Data ss:Type="Number">4</Data></Cell>
-    <Cell ss:MergeAcross="33" ss:StyleID="m377540644"><Data ss:Type="Number">5</Data></Cell>
-    <Cell ss:MergeAcross="9" ss:StyleID="m377540664"><Data ss:Type="Number">6</Data></Cell>
-    <Cell ss:MergeAcross="9" ss:StyleID="m377540684"><Data ss:Type="Number">7</Data></Cell>
-    <Cell ss:MergeAcross="22" ss:StyleID="m377540088"><Data ss:Type="Number">8</Data></Cell>
-    <Cell ss:MergeAcross="16" ss:StyleID="m377540108"><Data ss:Type="Number">9</Data></Cell>
+    <Cell ss:MergeAcross="11" ss:StyleID="m407575052"><Data ss:Type="Number">1</Data></Cell>
+    <Cell ss:MergeAcross="11" ss:StyleID="m407575072"><Data ss:Type="Number">2</Data></Cell>
+    <Cell ss:MergeAcross="23" ss:StyleID="m407575092"><Data ss:Type="Number">3</Data></Cell>
+    <Cell ss:MergeAcross="9" ss:StyleID="m407575112"><Data ss:Type="Number">4</Data></Cell>
+    <Cell ss:MergeAcross="41" ss:StyleID="m407575132"><Data ss:Type="Number">5</Data></Cell>
+    <Cell ss:MergeAcross="9" ss:StyleID="m407575152"><Data ss:Type="Number">6</Data></Cell>
+    <Cell ss:MergeAcross="9" ss:StyleID="m407575172"><Data ss:Type="Number">7</Data></Cell>
+    <Cell ss:MergeAcross="22" ss:StyleID="m407576864"><Data ss:Type="Number">8</Data></Cell>
+    <Cell ss:MergeAcross="16" ss:StyleID="m407576884"><Data ss:Type="Number">9</Data></Cell>
    </Row>
   </Table>
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
    <PageSetup>
     <Layout x:Orientation="Landscape"/>
-    <Header x:Margin="0.19685039370078741"
-     x:Data="&amp;R&amp;&quot;Times New Roman,обычный&quot;&amp;7Подготовлено с использованием системы &amp;&quot;Times New Roman,полужирный&quot;КонсультантПлюс"/>
+    <Header x:Margin="0.19685039370078741"/>
     <Footer x:Margin="0.19685039370078741"/>
     <PageMargins x:Bottom="0.39370078740157483" x:Left="0.39370078740157483"
      x:Right="0.39370078740157483" x:Top="0.59055118110236227"/>
@@ -1049,12 +1175,11 @@
    <ShowPageBreakZoom/>
    <PageBreakZoom>190</PageBreakZoom>
    <Selected/>
-   <LeftColumnVisible>30</LeftColumnVisible>
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveCol>88</ActiveCol>
-     <RangeSelection>C84:C89</RangeSelection>
+     <ActiveCol>10</ActiveCol>
+     <RangeSelection>R1C11:R1C41</RangeSelection>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>

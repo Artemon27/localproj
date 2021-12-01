@@ -10,8 +10,14 @@ $('.select').click(function(){
 $('.select_body span').click(function(){
   if($($(this)[0].previousElementSibling)[0].checked == false){
     $($(this)[0].previousElementSibling)[0].checked = true;
+    if($(this)[0].parentElement.className == 'select_body'){
+      $(this)[0].parentElement.previousElementSibling.textContent = this.textContent;
+    }
   }else{
     $($(this)[0].previousElementSibling)[0].checked = false;
+    if($(this)[0].parentElement.className == 'select_body'){
+      $(this)[0].parentElement.previousElementSibling.textContent = 'Выберите ответственного'
+    }
   }
 });
 
@@ -50,4 +56,8 @@ function find (text, pattern){
     t++
   }
   return -1
+}
+
+function Reload(){
+  location.reload();
 }
