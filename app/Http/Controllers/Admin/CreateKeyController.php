@@ -27,16 +27,30 @@ class CreateKeyController extends Controller
     
     public function store(CreateKeyRequest $request)
     {
+        if(Rooms::Where('penal','=',$request['penal'])->count() == 0 ) {
+          if(isset($request['imp']))  $date['imp'] = 1;
+          $date['otdel'] = $request['otdel'];
+          $date['penal'] = $request['penal'];
+          $date['corpus_room'] = $request['corpus_room'];
+          $date['phone'] = $request['phone'];
+  
+          Rooms::Create($date);
+          return back()->with('success', 'Комната добавлена');
+        } else {
+          return back()->with('warning', 'Номер пенала существует');
+        }
+    }
+
+    public function change(CreateKeyRequest $request)
+    {
         if(isset($request['imp']))  $date['imp'] = 1;
         $date['otdel'] = $request['otdel'];
         $date['penal'] = $request['penal'];
         $date['corpus_room'] = $request['corpus_room'];
         $date['phone'] = $request['phone'];
+        Rooms::Where('id','=',$request['id'])->update($date);
 
-        Rooms::Where('penal','=',$date['penal'])->delete();
-        Rooms::Create($date);
-
-        return back()->with('success', 'Комната добавлена');
+        return back()->with('success', 'Данные комнаты изменены');
     }
 
     public function storepers(CreateKeyPersRequest $request)
@@ -52,6 +66,7 @@ class CreateKeyController extends Controller
 
       return back()->with('success', 'Записи добавлена');
     }
+
     public function deleteRoom(CreateKeyDeleteRoomRequest $request){
       $date['room_id'] = $request['room_id'];
       Rooms::Where('id','=',$date['room_id'])->delete();
@@ -73,7 +88,9 @@ class CreateKeyController extends Controller
     {
       $a=$data;
       $users=User::orderBy('department')->orderBy('name')->get();
-      $rooms=Rooms::orderBy('otdel')->get(); $staff=0;
+      //$rooms=Rooms::orderBy('otdel')->paginate('30')->get();
+      $rooms=Rooms::orderBy('otdel')->get();
+      $staff=0;
       if($data != -1){
         $data=Rooms::Where('id','=',$a)->get();
         $staff=RoomPersons::Where('room_id','=',$a)->get();
@@ -98,7 +115,7 @@ class CreateKeyController extends Controller
 
         $merges = ["11", "11", "23", "9", "41", "9", "9", "22", "16"];//Кол-во ячеек в столбце
         $merges_user = ["41", "9", "9", "22", "16"];//Кол-во ячеек в столбце
-        $style = 'm407577648';
+        $style = 'm2193654196820';
 
 
         $sxe = new SimpleXMLElement('CreateKeyTempl.xml', NULL, TRUE);//создание файла
@@ -108,10 +125,11 @@ class CreateKeyController extends Controller
         if(isset($room[0]->imp)){
           $allchild->Worksheet->Table->Row[0]->Cell[10]->Data = 'СОГЛАСОВАНО';
           $allchild->Worksheet->Table->Row[1]->Cell[10]->Data = 'Генеральный директор';
-          $allchild->Worksheet->Table->Row[2]->Cell[10]->Data = 'А.В. Гурьянов';
-        }
-        
-        $allchild->Worksheet->Table->Row[5]-Cell[56]->Data = "Служебная записка на выдачу ключей в 2021 г.";
+          $allchild->Worksheet->Table->Row[2]->Cell[11]->Data = 'А.В. Гурьянов';
+          $allchild->Worksheet->Table->Row[4]->Cell[0]->Data = 'Список сотрудников НИЦ-1, имеющих право на вскрытие и получение пеналов от режимного помешения, на '.date('Y').' г.';
+        } else {
+          $allchild->Worksheet->Table->Row[4]->Cell[0]->Data = 'Список сотрудников НИЦ-1, имеющих право на вскрытие и получение пеналов на '.date('Y').' г.';
+        }       
 
         foreach ($room_pers as $id => $pers){
 
@@ -135,7 +153,7 @@ class CreateKeyController extends Controller
                   $cells[2]->Data = $room[0]->corpus_room;
                   $cells[3]->Data = $room[0]->phone;
                   $staff = User::Where('id','=',$pers->user_id)->get();
-                  $cells[4]->Data = $staff[0]->name."&#10;".$staff[0]->title;
+                  $cells[4]->Data = $staff[0]->name."\r".$staff[0]->title;
                   $cells[5]->Data = $staff[0]->pager;
                   $cells[6]->Data = $staff[0]->pechat;
                   $cells[7]->Data = $staff[0]->mobile;
@@ -151,7 +169,7 @@ class CreateKeyController extends Controller
                       $data->addAttribute('xmlns:ss:Type',"String" );
                   }
                   $staff = User::Where('id','=',$pers->user_id)->get();
-                  $cells[0]->Data = $staff[0]->name."&#10;".$staff[0]->title;
+                  $cells[0]->Data = $staff[0]->name."\r".$staff[0]->title;
                   $cells[1]->Data = $staff[0]->pager;
                   $cells[2]->Data = $staff[0]->pechat;
                   $cells[3]->Data = $staff[0]->mobile;
@@ -205,8 +223,9 @@ class CreateKeyController extends Controller
           $cell1->addChild('Data','м.тел '.$staff_[0]->telephoneNumber)->addAttribute('xmlns:ss:Type',"String" );
         }
 
-        $sxe->asXML('Table.xml');
-
-        return response()->download('Table.xml');
+        // Идем на хитрость нужно найти более простой способ сохранения переноса строки
+        $out_str = str_replace("&#xD;","&#10;", $sxe->asXML()); // преобразуем в xml и делаем замену символа
+        file_put_contents('KeysTable.xml', $out_str);
+        return response()->download('KeysTable.xml');
     }
 }

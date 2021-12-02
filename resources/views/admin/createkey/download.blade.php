@@ -5,7 +5,13 @@
 @section('content_header')
 
 @if($data === -1)
-  <h1>Выдача ключей</h1>
+   <div class="row">
+      <div class="col">
+         <h1>Выдача ключей</h1>
+      </div>
+         <div class="col">
+      </div>
+   </div>
 @else
   <h1>Выдача ключей {{$data[0]->corpus_room}}</h1>
 @endif
@@ -17,7 +23,6 @@
 <div class="card">
       @if($data === -1)
         <div class="card-header">
-
         </div>
         @else
         <div class="card-header">
@@ -73,56 +78,44 @@
                         <td class="p-1 text-center"><input type='text' name='penal'></td>
                         <td class="p-1 text-center"><input type='text' name='corpus_room'></td>
                         <td class="p-1 text-center"><input type='text' name='phone'></td>
-                        <td class="p-1 text-center"><input type='checkbox' style="width:40px; height:40px;" name='imp'></td>
+                        <td class="p-1 text-center"><input type='checkbox' name='imp'></td>
                         <td class="p-1 text-center" colspan="3"><button class="btn btn-success" type="submit">Создать комнату</button></td>
                       </form>
                     </tr>
                     @forelse ($rooms as $room)
-                      @if(isset($_GET['room_id']) && $room->id == $_GET['room_id'])
-                        <tr>
-                          <form method="post" action="{{route('admin.createkey.store')}}">
-                            @csrf
-                            <td class="p-1 text-center">{{$i++}}</td>
-                            <td class='p-1 text-center'><input value="{{$room->otdel}}" name="otdel"></td>
-                            <td class='p-1 text-center'><input value="{{$room->penal}}" name="penal"></td>
-                            <td class='p-1 text-center'><input value="{{$room->corpus_room}}" name="corpus_room"></td>
-                            <td class='p-1 text-center'><input value="{{$room->phone}}" name="phone"></td>
-                            @if($room->imp=='1')
-                              <td class='p-1 text-center'><input type='checkbox' name="imp" style='width:40px; height:40px;' checked></input></td>
-                            @else
-                              <td class='p-1 text-center'><input type='checkbox' name="imp" style='width:40px; height:40px;'></input></td>
-                            @endif
-                            <td class='p-1 text-center' colspan="2"><button class='btn btn-success' type='submit'>Сохранить</button></td>
-                            <td class='p-1 text-center'><button class='btn btn-danger' onclick='Reload()'>Отмена</button></td>
-                          </form>
-                        </tr>
-                      @else
-                        <tr>
-                            <td class="p-1 text-center">{{$i++}}</td>
-                            <td class="p-1 text-center">{{$room->otdel}}</td>
-                            <td class="p-1 text-center">{{$room->penal}}</td>
-                            <td class="p-1 text-center">{{$room->corpus_room}}</td>
-                            <td class="p-1 text-center">{{$room->phone}}</td>
-                            <td class="p-1 text-center">{{$room->imp}}</td>
-                            <td class="p-1 text-center">
-                              <a href="/admin/createkey/download/{{$room->id}}">
+                      <tr id='room{{$room->id}}'>
+                        <form method="post" action="{{route('admin.createkey.change')}}">
+                          @csrf
+                          <td class="p-1 text-center">{{$i++}}<input type='hidden' value="{{$room->id}}" name="id" readonly="readonly" style="border: none;"></td>
+                          <td class='p-1 text-center'><input value="{{$room->otdel}}" name="otdel" readonly="readonly" style="border: none;"></td>
+                          <td class='p-1 text-center'><input value="{{$room->penal}}" name="penal" readonly="readonly" style="border: none;"></td>
+                          <td class='p-1 text-center'><input value="{{$room->corpus_room}}" name="corpus_room" readonly="readonly" style="border: none;"></td>
+                          <td class='p-1 text-center'><input value="{{$room->phone}}" name="phone" readonly="readonly" style="border: none;"></td>
+                          @if($room->imp=='1')
+                            <td class='p-1 text-center'><input type='checkbox' name="imp" checked readonly="readonly" style="border: none;" onclick="return false;"></input></td>
+                          @else
+                            <td class='p-1 text-center'><input type='checkbox' name="imp" readonly="readonly" style="border: none;" onclick="return false;"></input></td>
+                          @endif
+                          <td class='p-1 text-center editable' style="display:none;" colspan="2"><button class='btn btn-success' type='submit'>Сохранить</button></td>
+                          <td class='p-1 text-center editable' style="display:none;"><button class='btn btn-danger' onclick='Reload()'>Отмена</button></td>
+                        </form>
+                        <td class="p-1 text-center">
+                                <a href="/admin/createkey/download/{{$room->id}}">
                                 <button class="btn btn-success">Просмотр</button>
                               </a>
-                            </td>
-                            <td class="p-1 text-center">
-                              <form method='post' action="{{route('admin.createkey.deleteRoom')}}">
+                        </td>
+                        <td class="p-1 text-center">
+                              <form method='post' action="{{route('admin.createkey.deleteRoom')}}" style="display: inline-table;">
                                 @csrf
                                 <input type='hidden' value="{{$room->id}}" name='room_id'>
                                 <button class="btn btn-danger" type="submit">Удалить</button>
                               </form>
-                            </td>
-                            <td class="p-1 text-center">
-                              <a href="/admin/createkey/download?room_id={{$room->id}}">
-                              <button class="btn btn-primary changer">Редактировать</button>
+                        </td>
+                        <td class="p-1 text-center">
+                              <button class="btn btn-primary changer room{{$room->id}}" >Редактировать</button>
                               </a>
                             </td>
                         </tr>
-                      @endif
                     @empty
                     @endforelse
                 </tbody>
