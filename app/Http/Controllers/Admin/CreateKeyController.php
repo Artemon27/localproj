@@ -134,7 +134,7 @@ class CreateKeyController extends Controller
                   $cells[2]->Data = $room[0]->corpus_room;
                   $cells[3]->Data = $room[0]->phone;
                   $staff = User::Where('id','=',$pers->user_id)->get();
-                  $cells[4]->Data = $staff[0]->name." ".$staff[0]->title;
+                  $cells[4]->Data = $staff[0]->name."&#10;".$staff[0]->title;
                   $cells[5]->Data = $staff[0]->pager;
                   $cells[6]->Data = $staff[0]->pechat;
                   $cells[7]->Data = $staff[0]->mobile;
@@ -150,7 +150,7 @@ class CreateKeyController extends Controller
                       $data->addAttribute('xmlns:ss:Type',"String" );
                   }
                   $staff = User::Where('id','=',$pers->user_id)->get();
-                  $cells[0]->Data = $staff[0]->name." ".$staff[0]->title;
+                  $cells[0]->Data = $staff[0]->name."&#10;".$staff[0]->title;
                   $cells[1]->Data = $staff[0]->pager;
                   $cells[2]->Data = $staff[0]->pechat;
                   $cells[3]->Data = $staff[0]->mobile;
