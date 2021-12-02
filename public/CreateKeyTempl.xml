@@ -1178,8 +1178,6 @@
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveCol>10</ActiveCol>
-     <RangeSelection>R1C11:R1C41</RangeSelection>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>
