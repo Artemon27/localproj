@@ -111,7 +111,7 @@ class CreateKeyController extends Controller
           $allchild->Worksheet->Table->Row[2]->Cell[10]->Data = 'А.В. Гурьянов';
         }
         
-        $allchild->Worksheet->Table->Row[5]-Cell[56]->Data = "Служебная записка на выдачу ключей в ".date("Y")."г.";
+        $allchild->Worksheet->Table->Row[5]-Cell[56]->Data = "Служебная записка на выдачу ключей в 2021 г.";
 
         foreach ($room_pers as $id => $pers){
 
