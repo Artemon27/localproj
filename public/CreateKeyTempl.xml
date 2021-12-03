@@ -1173,7 +1173,7 @@
    <Row ss:AutoFitHeight="0" ss:Height="24.9375">
     <Cell ss:MergeAcross="11" ss:StyleID="m384756652"><Data ss:Type="String">Отдел</Data></Cell>
     <Cell ss:MergeAcross="11" ss:StyleID="m384756672"><Data ss:Type="String">№ пенала</Data></Cell>
-    <Cell ss:MergeAcross="16" ss:StyleID="s84"><Data ss:Type="String">№ корпуса       № помещения</Data></Cell>
+    <Cell ss:MergeAcross="16" ss:StyleID="s84"><Data ss:Type="String">№ корпуса&#10;№ помещения</Data></Cell>
     <Cell ss:MergeAcross="9" ss:StyleID="m384756712"><Data ss:Type="String">Мест. Телефон</Data></Cell>
     <Cell ss:MergeAcross="41" ss:StyleID="m384756732"><Data ss:Type="String">ФИО, должность</Data></Cell>
     <Cell ss:MergeAcross="9" ss:StyleID="m384756752"><Data ss:Type="String">Таб. Номер</Data></Cell>
