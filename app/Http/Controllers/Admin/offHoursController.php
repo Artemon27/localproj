@@ -51,12 +51,7 @@ class offHoursController extends Controller
 
         $date = $request['date'];
         $thing = $request['thing'];
-        if($request['staff'] != 'other'){
-          $staff = $request['staff'];
-        }
-        else{
-          $staff = $request['other_val'];
-        }
+        $staff = $request['staff'];
 
         $users=User::orderBy('department')->orderBy('name')->get();
 

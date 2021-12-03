@@ -34,12 +34,17 @@
                   <form action="{{ route('admin.createkey.CreateKeyTable') }}" method="post">
                       @csrf
                       <div class="m-10" style="float:left">
-                        <div class='select'>Выберите ответственного</div>
+                        <div class='select'>
+                          Выбрать ответственного
+                        </div>
                         <div class='select_body'>
-                          <input type='radio' name='staff' value="Козлов Михаил Вячеславович"> <span>Козлов М.В.</span><br>
-                          <input type='radio' name='staff' value="Пластинина Светлана Владимировна"> <span>Пластинина С.В.</span><br>
-                          <input type='radio' name='staff' value="Костишин Максим Олегович"> <span>Костишин М.О.</span><br>
-                          <input type='radio' name='staff' value="other"> <span><input type='text' name='other_val' placeholder="Другой" size='18'/></span>
+                          <input type='text' name='srch' placeholder='Поиск' size='18' id='srch'>
+                          <div>
+                            @forelse ($users as $i => $value)
+                            <div><input type='radio' name='staff' value="{{$value->id}}"><span>{{$value->shortName()}}</span></div>
+                            @empty
+                            @endforelse
+                          </div>
                         </div>
                     </div>
                       <div style="float:left">
@@ -63,7 +68,9 @@
                         <th class="p-1 text-center" width="5%">№</th>
                         <th class="p-1 text-center" width="15%">Отдел</th>
                         <th class="p-1 text-center" width="5%">№ пенала</th>
-                        <th class="p-1 text-center" width="15%">№ корпуса<br>№ помещения</th>
+                        <!--<th class="p-1 text-center" width="15%">№ корпуса<br>№ помещения</th>-->
+                        <th class="p-1 text-center" width="7%">№ корпуса</th>
+                        <th class="p-1 text-center" width="8%">№ помещения</th>
                         <th class="p-1 text-center" width="10%">Местный телефон</th>
                         <th class="p-1 text-center" width="10%">Режимное помещение</th>
                         <th class="p-1 text-center" width="15%" colspan="3">Действие</th>
@@ -76,7 +83,9 @@
                         <td class="p-1 text-center">0</td>
                         <td class="p-1 text-center" ><input type='text' name='otdel'></td>
                         <td class="p-1 text-center"><input type='text' name='penal'></td>
-                        <td class="p-1 text-center"><input type='text' name='corpus_room'></td>
+                        <!-- <td class="p-1 text-center"><input type='text' name='corpus_room'></td> -->
+                        <td class="p-1 text-center"><input type='number' name='id_corp'></td>
+                        <td class="p-1 text-center"><input type='text' name='id_room' maxlength='5'></td>
                         <td class="p-1 text-center"><input type='text' name='phone'></td>
                         <td class="p-1 text-center"><input type='checkbox' name='imp'></td>
                         <td class="p-1 text-center" colspan="3"><button class="btn btn-success" type="submit">Создать комнату</button></td>
@@ -89,16 +98,22 @@
                           <td class="p-1 text-center">{{$i++}}<input type='hidden' value="{{$room->id}}" name="id" readonly="readonly" style="border: none;"></td>
                           <td class='p-1 text-center'><input value="{{$room->otdel}}" name="otdel" readonly="readonly" style="border: none;"></td>
                           <td class='p-1 text-center'><input value="{{$room->penal}}" name="penal" readonly="readonly" style="border: none;"></td>
-                          <td class='p-1 text-center'><input value="{{$room->corpus_room}}" name="corpus_room" readonly="readonly" style="border: none;"></td>
+                          <!-- <td class='p-1 text-center'><input value="{{$room->corpus_room}}" name="corpus_room" readonly="readonly" style="border: none;"></td> -->
+                          <td class='p-1 text-center'><input value="{{$room->id_corp}}" name="id_corp" readonly="readonly" style="border: none;" type='number'></td>
+                          <td class='p-1 text-center'><input value="{{$room->id_room}}" name="id_room" readonly="readonly" style="border: none;" maxlength='5'></td>
                           <td class='p-1 text-center'><input value="{{$room->phone}}" name="phone" readonly="readonly" style="border: none;"></td>
                           @if($room->imp=='1')
                             <td class='p-1 text-center'><input type='checkbox' name="imp" checked readonly="readonly" style="border: none;" onclick="return false;"></input></td>
                           @else
                             <td class='p-1 text-center'><input type='checkbox' name="imp" readonly="readonly" style="border: none;" onclick="return false;"></input></td>
                           @endif
-                          <td class='p-1 text-center editable' style="display:none;" colspan="2"><button class='btn btn-success' type='submit'>Сохранить</button></td>
-                          <td class='p-1 text-center editable' style="display:none;"><button class='btn btn-danger' onclick='Reload()'>Отмена</button></td>
+                          <td class="p-1 text-center" style="display:none;" colspan="2">
+                                  <button class="btn btn-success" type='submit'>Сохранить</button>
+                          </td>
                         </form>
+                        <td class="p-1 text-center" style="display:none;">
+                                <button class="btn btn-danger" onclick='Reload()'>Отмена</button>
+                        </td>
                         <td class="p-1 text-center">
                                 <a href="/admin/createkey/download/{{$room->id}}">
                                 <button class="btn btn-success">Просмотр</button>
@@ -114,8 +129,8 @@
                         <td class="p-1 text-center">
                               <button class="btn btn-primary changer room{{$room->id}}" >Редактировать</button>
                               </a>
-                            </td>
-                        </tr>
+                        </td>
+                      </tr>
                     @empty
                     @endforelse
                 </tbody>
@@ -171,7 +186,7 @@
                         @endif
                       @empty
                       @endforelse
-                      <tr>           
+                      <tr>
                           <td class="p-1 text-center">
                               @include('modules.toggle', ['model' => $pers, 'toggle' => 'main'])
                           </td>

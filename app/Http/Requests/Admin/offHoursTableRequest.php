@@ -25,7 +25,8 @@ class offHoursTableRequest extends FormRequest
     {
         return [
             'date' => ['required'], //****************************************************
-            'thing' => ['required']
+            'thing' => ['required'],
+            'staff' => ['required'],
         ];
     }
 }

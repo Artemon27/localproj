@@ -24,8 +24,8 @@ class CreateKeyTableRequest extends FormRequest
     public function rules()
     {
         return [
-            'room_id' => ['required'], 
-
+            'room_id' => ['required'],
+            'staff' => ['required'], 
         ];
     }
 }

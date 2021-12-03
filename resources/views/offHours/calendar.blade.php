@@ -28,7 +28,7 @@
             <td class="p-2"></td>
         @endfor
         @for (; $i < 8; $i++)
-            @if ($today < mktime(0, 0, 0, $month, $j, $year))
+            @if ($today < mktime(9, 30, 0, $month, $j, $year))
                 @include ('offHours.days')
             @else
                 @include ('offHours.days-inactive')
@@ -48,7 +48,7 @@
             @endphp
         @endif
         @if ($end!=1)
-            @if ($today < mktime(0, 0, 0, $month, $j, $year))
+            @if ($today < mktime(9, 30, 0, $month, $j, $year))
                 @include ('offHours.days')
             @else
                 @include ('offHours.days-inactive')

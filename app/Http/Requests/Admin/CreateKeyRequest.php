@@ -24,11 +24,11 @@ class CreateKeyRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
             'otdel'=> ['required'],
             'penal'=> ['integer'],
-            'corpus_room'=> ['required'],
+            'id_corp'=> ['required'],
+            'id_room'=> ['required'],
             'phone'=> ['required'],
         ];
 

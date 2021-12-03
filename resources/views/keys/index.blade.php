@@ -37,19 +37,24 @@ $month = date('m');
         <div class="card-body d-flex justify-content-center align-items-start" id="holiday">
             <div id="carouselExampleControls" class="carousel slide holiday-slider" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="carousel-inner">
-                  <div class="d-flex justify-content-center year-num h2">Доступ к ключам</div>
+                  <div class="d-flex justify-content-center year-num h5 p-5">Вам предоставлен доступ в следующие помещения</div>
                   <table>
                     <thead>
                       <tr>
-                        <th class="p-1 text-center" width="75%">Расположение помещения</td>
-                        <th class="p-1 text-center" width="25%">№ пенала</td>
+                        <th class="h5 text-center" width="50%">Расположение помещения</td>
+                        <th class="h5 text-center" width="25%">№ пенала</td>
+                          <th class="h5 text-center" width="25%">Телефон</td>
                       </tr>
                     </thead>
                     <tbody>
                         @forelse ($room_pers as $rp)
                           @forelse ($rooms as $room)
                             @if($rp->room_id == $room->id)
-                              <tr><td class="p-1 text-center">{{$room->corpus_room}}</td><td class="p-1 text-center">{{$room->penal}}</td></tr>
+                              <tr>
+                                <td class="h5 month-11 p-2">Корпус {{$room->id_corp}} Помещение {{$room->id_room}}</td>
+                                <td class="h5 month-11 p-2">{{$room->penal}}</td>
+                                <td class="h5 month-11 p-2">{{$room->phone}}</td>
+                              </tr>
                               @break
                             @endif
                           @empty
@@ -75,6 +80,7 @@ $month = date('m');
 @endpush
 
 @push('scripts')
+<script src="{{ asset('js/timeSheet.js') }}"></script>
 <script src="{{ asset('js/moment.min.js') }}"></script>
 <script src="{{ asset('js/daterangepicker.js') }}"></script>
 @endpush

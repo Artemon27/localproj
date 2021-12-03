@@ -26,13 +26,16 @@
                             <div style="float:left"><input name="thing" type="text" placeholder="Тема" size="20"/></div>
                             <div style="float:left">
                               <div class='select'>
-                                Выберите ответственного \/
+                                Выбрать ответственного
                               </div>
                               <div class='select_body'>
-                                <input type='radio' name='staff' value="Козлов М.В."> <span>Козлов М.В.</span><br>
-                                <input type='radio' name='staff' value="Пластинина С.В."> <span>Пластинина С.В.</span><br>
-                                <input type='radio' name='staff' value="Костишин М.О."> <span>Костишин М.О.</span><br>
-                                <input type='radio' name='staff' value="other"> <span><input type='text' name='other_val' placeholder="Другой" size='18'/></span>
+                                <input type='text' name='srch' placeholder='Поиск' size='18' id='srch'>
+                                <div>
+                                  @forelse ($users as $i => $value)
+                                  <div><input type='radio' name='staff' value="{{$value->shortName()}}"><span>{{$value->shortName()}}</span></div>
+                                  @empty
+                                  @endforelse
+                                </div>
                               </div>
                             </div>
                             <div style="float:left">

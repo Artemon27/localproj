@@ -22,18 +22,21 @@ use Symfony\Component\HttpFoundation\Request;
 class CreateKeyController extends Controller
 {
     use ToggleTrait;
-    
+
     protected $modelName = RoomPersons::class;
-    
+
     public function store(CreateKeyRequest $request)
     {
+
         if(Rooms::Where('penal','=',$request['penal'])->count() == 0 ) {
+
           if(isset($request['imp']))  $date['imp'] = 1;
           $date['otdel'] = $request['otdel'];
           $date['penal'] = $request['penal'];
-          $date['corpus_room'] = $request['corpus_room'];
+          $date['id_corp'] = $request['id_corp'];
+          $date['id_room'] = $request['id_room'];
+          $date['corpus_room'] = 1;
           $date['phone'] = $request['phone'];
-  
           Rooms::Create($date);
           return back()->with('success', 'Комната добавлена');
         } else {
@@ -43,10 +46,16 @@ class CreateKeyController extends Controller
 
     public function change(CreateKeyRequest $request)
     {
-        if(isset($request['imp']))  $date['imp'] = 1;
+        if(isset($request['imp'])){
+          $date['imp'] = 1;
+        }else{
+          $date['imp'] = null;
+        }
         $date['otdel'] = $request['otdel'];
         $date['penal'] = $request['penal'];
-        $date['corpus_room'] = $request['corpus_room'];
+        $date['id_corp'] = $request['id_corp'];
+        $date['id_room'] = $request['id_room'];
+        $date['corpus_room'] = 1;
         $date['phone'] = $request['phone'];
         Rooms::Where('id','=',$request['id'])->update($date);
 
@@ -104,32 +113,28 @@ class CreateKeyController extends Controller
     {
 
         $data = $request['room_id'];
-        if($request['staff'] != 'other'){
-          $staff_ = $request['staff'];
-          $staff_=User::Where('name','=',$staff_)->get();
-        }else{
-          $staff_ = $request['other_val'];
-        }
+        $staff_=User::Where('id','=',$request['staff'])->get();
         $room_pers=RoomPersons::Where('room_id','=',$data)->orderByDesc('main')->get();
         $room=Rooms::Where('id','=',$data)->get();
 
-        $merges = ["11", "11", "23", "9", "41", "9", "9", "22", "16"];//Кол-во ячеек в столбце
+        $merges = ["11", "11", "16", "9", "41", "9", "9", "22", "16"];//Кол-во ячеек в столбце
         $merges_user = ["41", "9", "9", "22", "16"];//Кол-во ячеек в столбце
-        $style = 'm2193654196820';
+        $style = 'm384756732';
 
 
         $sxe = new SimpleXMLElement('CreateKeyTempl.xml', NULL, TRUE);//создание файла
 
         $allchild = $sxe->children();
         $allchild->Worksheet->Table->Row[1]->Cell[10]->Data = '';
+        $y=(int)date('Y')+1;
         if(isset($room[0]->imp)){
           $allchild->Worksheet->Table->Row[0]->Cell[10]->Data = 'СОГЛАСОВАНО';
           $allchild->Worksheet->Table->Row[1]->Cell[10]->Data = 'Генеральный директор';
           $allchild->Worksheet->Table->Row[2]->Cell[11]->Data = 'А.В. Гурьянов';
-          $allchild->Worksheet->Table->Row[4]->Cell[0]->Data = 'Список сотрудников НИЦ-1, имеющих право на вскрытие и получение пеналов от режимного помешения, на '.date('Y').' г.';
+          $allchild->Worksheet->Table->Row[4]->Cell[0]->Data = 'Список сотрудников НИЦ-1, имеющих право на вскрытие и получение пеналов от режимного помешения, на '.$y.' г.';
         } else {
-          $allchild->Worksheet->Table->Row[4]->Cell[0]->Data = 'Список сотрудников НИЦ-1, имеющих право на вскрытие и получение пеналов на '.date('Y').' г.';
-        }       
+          $allchild->Worksheet->Table->Row[4]->Cell[0]->Data = 'Список сотрудников НИЦ-1, имеющих право на вскрытие и получение пеналов на '.$y.' г.';
+        }
 
         foreach ($room_pers as $id => $pers){
 
@@ -150,7 +155,8 @@ class CreateKeyController extends Controller
                   }
                   $cells[0]->Data = $room[0]->otdel;
                   $cells[1]->Data = $room[0]->penal;
-                  $cells[2]->Data = $room[0]->corpus_room;
+                  //$cells[2]->Data = $room[0]->corpus_room;
+                  $cells[2]->Data = "Корпус ".$room[0]->id_corp."\rПомещение ".$room[0]->id_room;
                   $cells[3]->Data = $room[0]->phone;
                   $staff = User::Where('id','=',$pers->user_id)->get();
                   $cells[4]->Data = $staff[0]->name."\r".$staff[0]->title;
@@ -161,7 +167,7 @@ class CreateKeyController extends Controller
                   for( $i=0; $i < 5; $i++ ) {
                       $cell = $newrow->addChild('Cell');
                       if ( $i == 0 ) {
-                        $cell->addAttribute('xmlns:ss:Index',"59" );
+                        $cell->addAttribute('xmlns:ss:Index',"52" );
                       }
                       $cell->addAttribute('xmlns:ss:MergeAcross',$merges_user[$i] );
                       $cell->addAttribute('xmlns:ss:StyleID',$style );
@@ -176,7 +182,7 @@ class CreateKeyController extends Controller
                 }
         }
 
-        $allchild->Worksheet->Table->addChild('Row')->addChild('Cell')->addAttribute('xmlns:ss:MergeAcross',"145" );
+        $allchild->Worksheet->Table->addChild('Row')->addChild('Cell')->addAttribute('xmlns:ss:MergeAcross',"138" );
 
         $endrow = $allchild->Worksheet->Table->addChild('Row');
         $cell1 = $endrow->addChild('Cell');
@@ -184,7 +190,7 @@ class CreateKeyController extends Controller
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','21' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s98" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s107" );
         $cell1->addChild('Data','Начальник НИЦ-1')->addAttribute('xmlns:ss:Type',"String" );
 
         $cell1 = $endrow->addChild('Cell');
@@ -192,11 +198,11 @@ class CreateKeyController extends Controller
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','30' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s98" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s107" );
         $cell1->addChild('Data','В.А. Нечаев')->addAttribute('xmlns:ss:Type',"String" );
 
-        $allchild->Worksheet->Table->addChild('Row')->addChild('Cell')->addAttribute('xmlns:ss:MergeAcross',"145" );
-        $allchild->Worksheet->Table->addChild('Row')->addChild('Cell')->addAttribute('xmlns:ss:MergeAcross',"145" );
+        $allchild->Worksheet->Table->addChild('Row')->addChild('Cell')->addAttribute('xmlns:ss:MergeAcross',"138" );
+        $allchild->Worksheet->Table->addChild('Row')->addChild('Cell')->addAttribute('xmlns:ss:MergeAcross',"138" );
 
         $endrow = $allchild->Worksheet->Table->addChild('Row');
         $cell1 = $endrow->addChild('Cell');
@@ -204,7 +210,7 @@ class CreateKeyController extends Controller
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','21' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s100" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s107" );
         if(isset($staff_[0]->name)){
           $cell1->addChild('Data',$staff_[0]->shortName())->addAttribute('xmlns:ss:Type',"String" );
         }else{
@@ -218,7 +224,7 @@ class CreateKeyController extends Controller
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','21' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s100" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s107" );
         if(isset($staff_[0]->telephoneNumber)){
           $cell1->addChild('Data','м.тел '.$staff_[0]->telephoneNumber)->addAttribute('xmlns:ss:Type',"String" );
         }

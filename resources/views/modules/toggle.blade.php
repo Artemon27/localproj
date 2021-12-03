@@ -1,11 +1,11 @@
 <div class="toggle-form" route ='{{ route('admin.'.\Str::plural(strtolower(class_basename($model))).'.toggle', $model->id) }}'>
     <div class="toggle-value d-none" value="{{(int)(!$model->getAttribute($toggle))}}"></div>
     <div class="toggle-field d-none" value="{{$toggle}}"></div>
-    <a class="btn btn-{{$model->getAttribute($toggle) ? 'success' : 'danger'}} btn-xs"
+    <a class="btn btn-{{$model->getAttribute($toggle) ? 'success' : 'danger'}} btn-sm"
        data-loading-text="..." title="{{@$title}}">
         <i class="fa fa-{{$model->getAttribute($toggle) ? 'check' : 'times'}}"></i>
     </a>
-</div>  
+</div>
 @once
     @push('css')
     <link rel="stylesheet" href="{{ asset('js/plugins/toastr/toastr.css') }}">
