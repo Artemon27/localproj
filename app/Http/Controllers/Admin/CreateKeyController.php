@@ -28,7 +28,7 @@ class CreateKeyController extends Controller
     public function store(CreateKeyRequest $request)
     {
 
-        if(Rooms::Where('penal','=',$request['penal'])->count() == 0 ) {
+        if(Rooms::Where('id_corp','=',$request['id_corp'])->count() == 0 && Rooms::Where('id_room','=',$request['id_room'])->count() == 0 ) {
 
           if(isset($request['imp']))  $date['imp'] = 1;
           $date['otdel'] = $request['otdel'];
@@ -40,7 +40,7 @@ class CreateKeyController extends Controller
           Rooms::Create($date);
           return back()->with('success', 'Комната добавлена');
         } else {
-          return back()->with('warning', 'Номер пенала существует');
+          return back()->with('warning', 'Комната уже добавлена');
         }
     }
 
