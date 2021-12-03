@@ -48,7 +48,7 @@ Route::group([
     Route::view('/', 'admin.main')->middleware('auth')->name('admin');
 
     Route::get('/mig/ra/te', [UserController::class, 'migrate']);
-    
+
     Route::group([
         'middleware' => 'auth',
         'as' => 'admin.'
@@ -66,13 +66,14 @@ Route::group([
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth','admin']], function () {
      \UniSharp\LaravelFilemanager\Lfm::routes();
  });
- 
+
 Route::group([
         'middleware' => 'auth'
     ], function () {
         require(__DIR__ . '/front/holiday.php');
         require(__DIR__ . '/front/offHours.php');
         require(__DIR__ . '/front/timeSheet.php');
+        require(__DIR__ . '/front/keys.php');
         require(__DIR__ . '/front/menu.php');
     });
 
