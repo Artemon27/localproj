@@ -1,7 +1,7 @@
 @php
     $weekday = mktime(0, 0, 0, $month, 1, $year);
     $weekday = getdate($weekday);
-    $today  = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
+    $today  = mktime(date("H"), date("i"), date("s"), date("m")  , date("d"), date("Y"));
 
 
 
