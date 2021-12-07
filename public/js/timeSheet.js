@@ -106,40 +106,14 @@ $('#theme').click(function(e){
     }
 });
 
-$('.carousel-control-next').click(function(e){
-  if($('#monthIn')[0].value == 12 && $('#yearIn')[0].value == 2023){
-    $('#monthIn')[0].value = 1;
-    $('#yearIn')[0].value = 2021;
-    $('.monthIn')[0].value = 1;
-    $('.yearIn')[0].value = 2021;
-  }else{
-    if(Number($('#monthIn')[0].value)+1 >12){
-        $('#monthIn')[0].value = 1;
-        $('#yearIn')[0].value = Number($('#yearIn')[0].value) + 1;
-        $('.monthIn')[0].value = 1;
-        $('.yearIn')[0].value = Number($('.yearIn')[0].value)+1;
-    }else{
-        $('#monthIn')[0].value = Number($('#monthIn')[0].value)+1;
-        $('.monthIn')[0].value = Number($('.monthIn')[0].value)+1;
-    }
-  }
+$('#carouselExampleControls')[0].addEventListener('slid.bs.carousel',function(){
+  $('#monthIn')[0].value = $('.active')[0].firstElementChild.attributes['num-mon'].value;
+  $('#yearIn')[0].value = $('.active')[0].firstElementChild.attributes['num-year'].value;
+  $('.monthIn')[0].value = $('.active')[0].firstElementChild.attributes['num-mon'].value;
+  $('.yearIn')[0].value = $('.active')[0].firstElementChild.attributes['num-year'].value;
 });
 
-$('.carousel-control-prev').click(function(e){
-  if($('#monthIn')[0].value == 1 && $('#yearIn')[0].value == 2021){
-    $('#monthIn')[0].value = 12;
-    $('#yearIn')[0].value = 2023;
-    $('.monthIn')[0].value = 12;
-    $('.yearIn')[0].value = 2023;
-  }else{
-    if(Number($('#monthIn')[0].value)-1 <1){
-        $('#monthIn')[0].value = 12;
-        $('#yearIn')[0].value = Number($('#yearIn')[0].value) - 1;
-        $('.monthIn')[0].value = 12;
-        $('.yearIn')[0].value = Number($('.yearIn')[0].value)-1;
-    }else{
-        $('#monthIn')[0].value = Number($('#monthIn')[0].value)-1;
-        $('.monthIn')[0].value = Number($('.monthIn')[0].value)-1;
-    }
-  }
-});
+$('input.time').keyup(function(){
+  let a = this.value.split(' ')
+  this.value = a[0]+' ч.'
+})

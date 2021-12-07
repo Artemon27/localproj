@@ -47,7 +47,8 @@ class timeSheetController extends Controller
                 foreach ($request['time'][$request['year']][$request['month']] as $key => $date){
                 $date1['user_id'] = $id;
                 $date1['date']=$request['year']."-".$request['month']."-".$key;
-                $date1['time']=$date;
+
+                $date1['time']=(float) str_replace(',','.',$date);
                 time_sheet::Create($date1);
             }
         }

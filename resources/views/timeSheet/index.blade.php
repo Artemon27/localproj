@@ -3,14 +3,36 @@
 
 @section('content')
 @php
-$months = array( 1 => 'Январь' , 'Февраль' , 'Март' , 'Апрель' , 'Май' , 'Июнь' , 'Июль' , 'Август' , 'Сентябрь' , 'Октябрь' , 'Ноябрь' , 'Декабрь' );
-$year = date('Y');
-$month = date('m');
+  $months = array( 1 => 'Январь' , 'Февраль' , 'Март' , 'Апрель' , 'Май' , 'Июнь' , 'Июль' , 'Август' , 'Сентябрь' , 'Октябрь' , 'Ноябрь' , 'Декабрь' );
+  $dates = array('prev' => array('month'=> '', 'year'=>''), 'cur' => array('month'=> (int) date('m'), 'year'=>(int) date('Y')),'next' => array('month'=> '', 'year'=>''));
+  $year = $dates['cur']['year'];
+  $month = $dates['cur']['month'];
 @endphp
 
+@if($dates['cur']['month']+1 >12)
+  @php
+    $dates['next']['month'] =1;
+    $dates['next']['year'] = $dates['cur']['year']+1;
+  @endphp
+@else
+  @php
+    $dates['next']['month']=$dates['cur']['month'] +1;
+    $dates['next']['year'] = $dates['cur']['year'];
+  @endphp
+@endif
 
-<form action="{{ route('timeSheet.store') }}" method="post">
-    @csrf
+@if($dates['cur']['month']-1 < 1)
+  @php
+    $dates['prev']['month'] =12;
+    $dates['prev']['year'] = $dates['cur']['year']-1;
+  @endphp
+@else
+  @php
+    $dates['prev']['month']=$dates['cur']['month'] -1;
+    $dates['prev']['year'] = $dates['cur']['year'];
+  @endphp
+@endif
+
     <div class="card">
       <div class="card-header">
           <div class="row">
@@ -21,23 +43,31 @@ $month = date('m');
                   <div id="btn-off" class="btn btn-sm btn-outline-primary">Очистить</div>
               </div>
               <div class="col-1">
-
               </div>
               <div class="col-2 text-center">
                   <div id="numdays"></div>
-                  <input id="numdaysIn" type="hidden" value="{{old('numdays') ?? 0}}" name="numdays">
-                  <input id="monthIn" type="hidden" value="{{$month}}" name="month">
-                  <input id="yearIn" type="hidden" value="{{$year}}" name="year">
               </div>
               <div class="col-3 text-end">
-                  <div class="row">
-                      <div class="col"><a target="_blank" href="{{ asset('Instruction.pdf') }}" class="btn btn-sm btn-outline-success">Инструкция</a></div>
-                      <div class="col"><button href="" class="btn btn-btn btn-sm btn-outline-primary">Сохранить</button></div>
-                  </div>
+                <div class="col" style="float:left">
+                  <a target="_blank" href="{{ asset('Instruction.pdf') }}" class="btn btn-sm btn-outline-success">Инструкция</a>
+                </div>
+                <form action="{{ route('timeSheet.store') }}" method="post" align="center" style="float:left; margin-left:50px;">
+                  @csrf
+                  <input class="monthIn" type="hidden" value="{{$month}}" name="month">
+                  <input class="yearIn" type="hidden" value="{{$year}}" name="year">
+                  <button class="btn btn-sm btn-outline-primary" type="submit">Сформировать табель</button>
+                </form>
+                <div class="col" style="float:left">
+                  <form action="{{ route('timeSheet.store') }}" method="post">
+                    @csrf
+                    <input id="monthIn" type="hidden" value="{{$month}}" name="month">
+                    <input id="yearIn" type="hidden" value="{{$year}}" name="year">
+                  <button href="" class="btn btn-btn btn-sm btn-outline-primary">Сохранить</button>
               </div>
-              <div class="col-2 text-end">
-                  @include ('modules.menu')
-              </div>
+            </div>
+            <div class="col-2 text-end">
+                @include ('modules.menu')
+            </div>
           </div>
       </div>
       @include('modules.messages')
@@ -45,15 +75,14 @@ $month = date('m');
             <div id="carouselExampleControls" class="carousel slide holiday-slider" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="carousel-inner">
                   <div class="d-flex justify-content-center year-num h2">Табель учета рабочего времени</div>
-                  @for ($curyear=2021; $curyear<=2023; $curyear++)
-                    @for ($n=1;$n<13;$n++)
-                        @if ($curyear==$year and $month==$n)
+                  @foreach($dates as $key => $curmonth)
+                        @if ($key=='cur')
                         <div class="carousel-item active">
                         @else
                         <div class="carousel-item">
                         @endif
-                            <div class="d-flex justify-content-center year-num">
-                            {{$months[$n]." ".$curyear}}
+                            <div class="d-flex justify-content-center year-num" num-mon="{{$curmonth['month']}}" num-year="{{$curmonth['year']}}">
+                            {{$months[$curmonth['month']]." ".$curmonth['year']}}
                             </div>
                             <div class="d-flex flex-wrap justify-content-center" id="calendar">
 
@@ -71,23 +100,25 @@ $month = date('m');
                                             </tr>
                                         </table>
 
-                                                @include ('timeSheet.calendar',['month'=>$n,'year'=>$curyear])
+                                                @include ('timeSheet.calendar',['month'=>$curmonth['month'],'year'=>$curmonth['year']])
                                     </div>
                             </div>
                         </div>
-                    @endfor
-                    @endfor
+                    @endforeach
                 </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Предыдущий</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Следующий</span>
+                </button>
             </div>
         </div>
     </div>
 </form>
-<form action="{{ route('timeSheet.store') }}" method="post" align="center">
-  @csrf
-  <input class="monthIn" type="hidden" value="{{$month}}" name="month">
-  <input class="yearIn" type="hidden" value="{{$year}}" name="year">
-  <button class="btn btn-sm btn-outline-primary" type="submit" style="width: 25%;  height: 80px; font-size: 14pt;">Сформировать табель</button>
-</form>
+
 
 @endsection
 

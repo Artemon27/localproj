@@ -2,6 +2,18 @@ body{
     background-color: #282C34;
     color:white;
 }
+td{
+  position: relative;
+}
+td div:first-child{
+  position: absolute;
+  top: 10px;
+  right:10px;
+}
+td input{
+    width:60px;
+    margin-top:30px
+}
 .year-num{
     font-size:30pt;
 }
