@@ -42,8 +42,9 @@ $month = date('m');
             <div id="carouselExampleControls" class="carousel slide holiday-slider" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="carousel-inner">
 
-                  @for ($curyear=2021; $curyear<=2023; $curyear++)
+                  @for ($curyear=$year; $curyear<=2023; $curyear++)
                     @for ($n=1;$n<13;$n++)
+                      @if($n>=$month && $curyear==$year || $curyear>$year)
                         @if ($curyear==$year and $month==$n)
                         <div class="carousel-item active">
                         @else
@@ -76,6 +77,7 @@ $month = date('m');
 
                             </div>
                         </div>
+                        @endif
                     @endfor
                     @endfor
                 </div>

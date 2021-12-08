@@ -1,9 +1,11 @@
-
 var mouse=0;
 var strDays = [];
+today = new Date ()
+today = today.getTime()
+endday = today+7*24*60*60*1000
 
 //Кнопка очистки (очищает календарь)
-$('#btn-off').click(function(){
+$('#btn-off').click(function(){//**********************************************************
     $('body .dchange').each(function() {
         if ($(this).hasClass('dchecked')){
             $(this).removeClass('dchecked');
@@ -15,30 +17,46 @@ $('#btn-off').click(function(){
 });
 
 //Клик по календарю (выделяет или снимает выделение)
-$('body .dchange').mousedown(function(e) {
+$('body .dchange').mousedown(function(e) {//*************************************************
     mouse=1;
-    if ($(this).hasClass('dchecked')){
-        $(this).removeClass('dchecked');
+    timestamp = e.currentTarget.attributes[3].value*1000
+    if ($(this).hasClass('dchecked') || $(this).find('div:first-child').css('display') == 'block'){
+        if($(this).hasClass('dchecked')){
+          $(this).removeClass('dchecked');
+        }else{
+          $(this).find('div:first-child').css('display','none');
+        }
         numdays--;
         updatenum(numdays);
         updatedates();
         $('body .dchange').on('mouseenter',function(){
-            if (($(this).hasClass('dchecked'))&&(numdays>0)){
-                $(this).removeClass('dchecked');
+            if (($(this).hasClass('dchecked') || $(this).find('div:first-child').css('display') == 'block')&&(numdays>0)){
+                if($(this).hasClass('dchecked')){
+                  $(this).removeClass('dchecked');
+                }else{
+                  $(this).find('div:first-child').css('display','none');
+                }
                 numdays--;
                 updatenum(numdays);
             }
         });
-    }
-    else{
-        $(this).addClass('dchecked');
-        $(this).removeClass('dop-days PVT INV OB');
+    }else{
+      console.log(today<=timestamp && endday>=timestamp);
+        if(today<=timestamp && endday>=timestamp){
+          $(this).addClass('dchecked');
+        }else{
+          $(this).find('div:first-child').css('display','block');
+        }
         numdays++;
         updatenum(numdays);
+        updatedates();
         $('body .dchange').on('mouseenter',function(){
-            if (!$(this).hasClass('dchecked')){
+            if (!$(this).hasClass('dchecked') || $(this).find('div:first-child').css('display') != 'block'){
+              if(today<=timestamp && endday>=timestamp){
+                $(this).find('div:first-child').css('display','block');
+              }else {
                 $(this).addClass('dchecked');
-                $(this).removeClass('dop-days PVT INV OB');
+              }
                 numdays++;
                 updatenum(numdays);
             }
@@ -51,7 +69,7 @@ $('body .dchange').mousedown(function(e) {
 
 
 //Обновляет данные в таблице по рисованному календарю
-function updatedates(){
+function updatedates(){ //************************************************************
     var i = 0;
 
     $('#table-all tr').each(function( index ) {
@@ -62,8 +80,9 @@ function updatedates(){
 
     $('#calendar .dchange').each(function( index ) {
 
-      if ($(this).hasClass('dchecked')){
-        curDateVal = formatDateVal(new Date ($(this).attr('cur-date')*1000));
+      if ($(this).hasClass('dchecked') || $(this).find('div:first-child').css('display') == 'block'){
+        timestamp = new Date ($(this).attr('cur-date')*1000);
+        curDateVal = formatDateVal(timestamp);
         curIndex = index;
         a=0
         $('#table-all tr .curDate').each(function( index ) {
@@ -71,12 +90,15 @@ function updatedates(){
             a=1
         });
         if(a!=1)
-          var el = $('<tr><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]" value="'+prpsk+'"></td><td><input type="text" size="10" name="data['+i+'][room]" value="'+room+'"></td><td><input type="text" size="10" name="data['+i+'][phone]" value="'+phone+'"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
-
+          console.log(today+' '+timestamp+' '+endday);
+          if(today<=timestamp && endday>=timestamp){
+            var el = $('<tr class="visible"><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]" value="'+prpsk+'"></td><td><input type="text" size="10" name="data['+i+'][room]" value="'+room+'"></td><td><input type="text" size="10" name="data['+i+'][phone]" value="'+phone+'"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
+          }else{
+            var el = $('<tr class="invisible"><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]" value="'+prpsk+'"></td><td><input type="text" size="10" name="data['+i+'][room]" value="'+room+'"></td><td><input type="text" size="10" name="data['+i+'][phone]" value="'+phone+'"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
+          }
         delDates($('.del_dates', $(el)));
         $('#table-all').append(el);
         updatenum(numdays);
-        //console.log($('.del_dates', $(el)));
         i++;
       }
     });
@@ -98,20 +120,20 @@ function formatDateVal(date) {
 }
 
 //Обновление дней на странице
-function updatenum(n){
+function updatenum(n){//******************************************************************
     n = $('#table-all tr').length
     $('#numdays').html('Выбрано дней: '+ n);
     $('#numdaysIn').val(n);
 }
 
 //Рисование календаря по строкам таблицы
-function drawCalendar(){
+function drawCalendar(){//****************************************************************************
     var timestamp, curIndex;
     $('#table-all tr').each(function(index){
         curDateVal = $(this).find('.curDate').val();
         timestamp = new Date (curDateVal);
         timestamp = timestamp.getTime();
-        $('#calendar .dchange').each(function( index ) {
+        $('#calendar .celldate').each(function( index ) {
             if (timestamp == $(this).attr('cur-date')*1000){
                 curIndex = index;
                 return true;
@@ -120,8 +142,11 @@ function drawCalendar(){
         if (!strDays[index]){
             strDays.push({curDateVal:curDateVal, curIndex:curIndex});
         }
-
-        $('#calendar .dchange').eq(curIndex).addClass('dchecked');
+        if(today<=timestamp && endday>=timestamp){
+          $('#calendar .celldate').eq(curIndex).addClass('dchecked');
+        }else{
+          $('#calendar .celldate').eq(curIndex).find('div:first-child').css('display','block');
+        }
     });
 }
 

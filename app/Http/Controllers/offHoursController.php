@@ -21,7 +21,7 @@ class offHoursController extends Controller
 
         $now = Carbon::now();
 
-        $dates= off_hours::Where('user_id','=',$id)->Where('date','>',$now)->get();
+        $dates= off_hours::Where('user_id','=',$id)->get();
         $numdays = 0;
 
         foreach ($dates as $date){
@@ -37,7 +37,7 @@ class offHoursController extends Controller
 
         $now = Carbon::now();
 
-        off_hours::Where('user_id','=',$id)->Where('allow','=','0')->delete();
+        off_hours::Where('user_id','=',$id)->Where('allow','=','0')->Where('date','>',$now)->delete();
 
         if (isset($request['data'])){
                 foreach ($request['data'] as $date){
