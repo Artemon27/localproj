@@ -85,7 +85,7 @@
                         <td class="p-1 text-center"><input type='text' name='penal'></td>
                         <!-- <td class="p-1 text-center"><input type='text' name='corpus_room'></td> -->
                         <td class="p-1 text-center"><input type='number' name='id_corp'></td>
-                        <td class="p-1 text-center"><input type='text' name='id_room' maxlength='5'></td>
+                        <td class="p-1 text-center"><input type='text' name='id_room' maxlength='15'></td>
                         <td class="p-1 text-center"><input type='text' name='phone'></td>
                         <td class="p-1 text-center"><input type='checkbox' name='imp'></td>
                         <td class="p-1 text-center" colspan="3"><button class="btn btn-success" type="submit">Создать комнату</button></td>
@@ -100,7 +100,7 @@
                           <td class='p-1 text-center'><input value="{{$room->penal}}" name="penal" readonly="readonly" style="border: none;"></td>
                           <!-- <td class='p-1 text-center'><input value="{{$room->corpus_room}}" name="corpus_room" readonly="readonly" style="border: none;"></td> -->
                           <td class='p-1 text-center'><input value="{{$room->id_corp}}" name="id_corp" readonly="readonly" style="border: none;" type='number'></td>
-                          <td class='p-1 text-center'><input value="{{$room->id_room}}" name="id_room" readonly="readonly" style="border: none;" maxlength='5'></td>
+                          <td class='p-1 text-center'><input value="{{$room->id_room}}" name="id_room" readonly="readonly" style="border: none;" maxlength='15'></td>
                           <td class='p-1 text-center'><input value="{{$room->phone}}" name="phone" readonly="readonly" style="border: none;"></td>
                           @if($room->imp=='1')
                             <td class='p-1 text-center'><input type='checkbox' name="imp" checked readonly="readonly" style="border: none;" onclick="return false;"></input></td>
