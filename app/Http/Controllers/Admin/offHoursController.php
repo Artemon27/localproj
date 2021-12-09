@@ -51,8 +51,8 @@ class offHoursController extends Controller
 
         $date = $request['date'];
         $thing = $request['thing'];
-        $staff = $request['staff'];
-
+	$staff_id = $request['staff_id'];
+        $staff=User::Where('id', "=", $staff_id)->get();
         $users=User::orderBy('department')->orderBy('name')->get();
 
         $merges = ["6", "40", "16", "16", "16", "16"];//Кол-во ячеек в столбце
@@ -70,14 +70,17 @@ class offHoursController extends Controller
 
         $allchild = $sxe->children();
 
+        $allchild->Worksheet->Table->Row[5]->Cell[78]->Data = $staff[0]->mobile;
+
         $allchild->Worksheet->Table->Row[9]->Cell[7]->Data = $date;
         $allchild->Worksheet->Table->Row[10]->Cell[1]->Data = $thing;
+        $idx = 0;
         foreach ($users as $user){
             if (count ($user->offHoursDate($date))){
                 $offhours=$user->offHoursDate($date);
-                $names = 0; $n=0;
+                $names = 0;
+                $idx++;
                 foreach ($offhours as $num => $offhour){
-                  $n++;
                     $newrow = $sxe->Worksheet->Table->addChild('Row');
                     for( $i=0; $i < 6; $i++ ) {
                         $cell = $newrow->addChild('Cell');
@@ -91,7 +94,7 @@ class offHoursController extends Controller
                     $cells = $newrow->children();
                     if ($names == 0){
                         $names=1;
-                        $cells[0]->Data = $n;
+                        $cells[0]->Data = $idx;
                         $cells[1]->Data = $user->shortName();
                     }
                     if ($offhour->prpsk){
@@ -108,6 +111,21 @@ class offHoursController extends Controller
             }
         }
 
+        for (;$idx < 40; $idx++) {
+	    $newrow = $sxe->Worksheet->Table->addChild('Row');
+                    for( $i=0; $i < 6; $i++ ) {
+                        $cell = $newrow->addChild('Cell');
+                        $cell->addAttribute('xmlns:ss:MergeAcross',$merges[$i] );
+                        $cell->addAttribute('xmlns:ss:StyleID',$style[$i] );
+                        $data = $cell->addChild('Data');
+                        $data->addAttribute('xmlns:ss:Type',"String" );
+                        $print = $cell->addChild('NamedCell');
+                        $print->addAttribute('xmlns:ss:Name',"Print_Area" );
+                    }
+           $cells = $newrow->children();
+           $cells[0]->Data = $idx;
+
+        }
 
         // Конец
         $allchild->Worksheet->Table->addChild('Row')->addChild('Cell')->addAttribute('xmlns:ss:MergeAcross',"115" );
@@ -121,7 +139,7 @@ class offHoursController extends Controller
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','22' );
         $cell1->addAttribute('xmlns:ss:StyleID',"s75" );
-        $cell1->addChild('Data',$staff)->addAttribute('xmlns:ss:Type',"String" );
+        $cell1->addChild('Data',$staff[0]->shortName())->addAttribute('xmlns:ss:Type',"String" );
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','21' );

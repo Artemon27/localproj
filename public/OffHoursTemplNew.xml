@@ -1066,7 +1066,7 @@
     <Cell ss:StyleID="s63"/>
     <Cell ss:StyleID="s63"/>
     <Cell ss:StyleID="s63"/>
-    <Cell ss:MergeAcross="30" ss:StyleID="s64"><Data ss:Type="String">Тел. 8-931-225-65-35</Data></Cell>
+    <Cell ss:MergeAcross="30" ss:StyleID="s64"><Data ss:Type="String">*Мобильный*</Data></Cell>
     <Cell ss:StyleID="s63"/>
     <Cell ss:StyleID="s63"/>
     <Cell ss:StyleID="s63"/>
@@ -2168,8 +2168,7 @@
   <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
    <PageSetup>
     <Layout x:Orientation="Portrait"/>
-    <Header x:Margin="0.19685039370078741"
-     x:Data="&amp;R&amp;&quot;Times New Roman,обычный&quot;&amp;7Подготовлено с использованием системы &amp;&quot;Times New Roman,полужирный&quot;КонсультантПлюс"/>
+    <Header x:Margin="0.19685039370078741"/>
     <Footer x:Margin="0.19685039370078741"/>
     <PageMargins x:Bottom="0.39370078740157483" x:Left="0.39370078740157483"
      x:Right="0.39370078740157483" x:Top="0.59055118110236227"/>

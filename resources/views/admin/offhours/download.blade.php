@@ -32,7 +32,7 @@
                                 <input type='text' name='srch' placeholder='Поиск' size='18' id='srch'>
                                 <div>
                                   @forelse ($users as $i => $value)
-                                  <div><input type='radio' name='staff' value="{{$value->shortName()}}"><span>{{$value->shortName()}}</span></div>
+                                  <div><input type='radio' name='staff_id' value="{{$value->id}}"><span>{{$value->shortName()}}</span></div>
                                   @empty
                                   @endforelse
                                 </div>
