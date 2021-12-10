@@ -96,12 +96,12 @@ $(document).ready(function() {
 
 //Для смены темы
 $('#theme').click(function(e){
-    if ($('link[href*="calendar.css"]').prop('disabled')){
-        $('link[href*="calendar.css"]').prop('disabled', false);
+    if ($('link[href*="calendar3.css"]').prop('disabled')){
+        $('link[href*="calendar3.css"]').prop('disabled', false);
         $('link[href*="calendarDark3.css"]').prop('disabled', true);
     }
     else{
-        $('link[href*="calendar.css"]').prop('disabled', true);
+        $('link[href*="calendar3.css"]').prop('disabled', true);
         $('link[href*="calendarDark3.css"]').prop('disabled', false);
     }
 });

@@ -14,9 +14,9 @@
 
         @forelse ($dates as $date)
           @if($today<strtotime($date->date) && $endday>=strtotime($date->date))
-            <tr class='visible'>
+            <tr>
           @else
-            <tr class='invisible'>
+            <tr class='d-none'>
           @endif
           <td><input class="curDate" type="date" name="data[{{$loop->index}}][date]" value="{{Substr($date->date,0,10)}}" readonly></td>
           <td><input type="text" size="5" name="data[{{$loop->index}}][prpsk]" value="{{$date->prpsk}}"></td>

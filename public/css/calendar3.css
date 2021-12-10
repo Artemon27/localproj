@@ -1,26 +1,26 @@
-body{
-    background-color: #282C34;
-    color:white;
+body {
+    background-color: #fdfdfd;
 }
-td.h4{
+td{
   position: relative;
 }
-td.h4 div:first-child{
+td div:first-child{
   position: absolute;
   top: 10px;
   right:10px;
-  background-color: red;
-  border-radius: 50%;
-  width: 10px;
-  height:10px;
-  display: none;
+}
+td input{
+    width:60px;
+    margin-top:30px
 }
 .year-num{
     font-size:30pt;
 }
 .card{
-    background-color: #282C34;
+    box-shadow: none;
+    background-color: #fdfdfd;
 }
+
 .wrapper{
     margin: auto;
 }
@@ -35,10 +35,15 @@ td.h4 div:first-child{
 }
 
 .month-1, .month-3, .month-5, .month-7, .month-9, .month-11{
-    background-color: #293B3C;
+    background-color: #D9FEFF;
 }
 .month-2, .month-2, .month-4, .month-6, .month-8, .month-10, .month-12{
-    background-color: #1f2040;
+    background-color: #C0E7FF;
+}
+
+.month-1{
+}
+.month-2{
 }
 .month-3{
 }
@@ -62,17 +67,17 @@ td.h4 div:first-child{
 }
 
 .holiday-0{
-    color:wheat;
-    background-color: #2e2f62;
+    color:black;
+    background-color: #95B9CE;
 }
 .holiday-1{
-    color:wheat;
-    background-color: #436264;
+    color:black;
+    background-color: #B3D4D5;
 }
 
 .holiday2{
     color:black;
-    background-color: #a43333;
+    background-color: #ff9191;
 }
 
 table{
@@ -86,6 +91,7 @@ table{
 td{
     text-align: center;
     margin:2px;
+    border:10px solid #fdfdfd
 }
 .month-names{
     width:100px;
@@ -93,7 +99,6 @@ td{
 }
 .month-name{
     text-align: right;
-    color: #e3e3e3;
 }
 .month-name-rotate{
     -webkit-transform: rotate(270deg);
@@ -140,9 +145,6 @@ td{
 }
 .month-name-12{
 }
-.dchange{
-
-}
 .dchecked.dchange{
     background-color: #319cc6;
 }
@@ -151,7 +153,7 @@ td{
     background-color: #277fa2;
 }
 .dchange:hover, .dchecked.dchange:hover{
-    background-color: #1b5c75;
+    background-color: #3ac4f9;
     cursor:pointer;
 }
 
@@ -162,11 +164,14 @@ td{
 .carousel-control-prev, .carousel-control-next{
     height:80px;
 }
+.carousel-control-prev-icon, .carousel-control-next-icon{
+    background-color: black;
+}
 .cal-col-1{
     margin-left:-100px;
 }
 .dop-days{
-    background-color: #257899;
+    background-color: #68b7d7;
 }
 
 @media (max-width: 1550px) {
@@ -176,4 +181,12 @@ td{
     .holiday-slider{
         width:1000px;
     }
+}
+
+.old-dchecked{
+    background-color: #319cc6;
+}
+
+.old-dop-days{
+    background-color: #68b7d7;
 }

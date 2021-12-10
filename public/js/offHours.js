@@ -20,42 +20,43 @@ $('#btn-off').click(function(){//***********************************************
 $('body .dchange').mousedown(function(e) {//*************************************************
     mouse=1;
     timestamp = e.currentTarget.attributes[3].value*1000
-    if ($(this).hasClass('dchecked') || $(this).find('div:first-child').css('display') == 'block'){
+    if ($(this).hasClass('dchecked') || $(this).find('div:first-child').hasClass('d-block')){
         if($(this).hasClass('dchecked')){
           $(this).removeClass('dchecked');
         }else{
-          $(this).find('div:first-child').css('display','none');
+          $(this).find('div:first-child').removeClass().addClass('d-none');
         }
         numdays--;
         updatenum(numdays);
         updatedates();
         $('body .dchange').on('mouseenter',function(){
-            if (($(this).hasClass('dchecked') || $(this).find('div:first-child').css('display') == 'block')&&(numdays>0)){
+          timestamp = this.attributes[3].value*1000
+            if (($(this).hasClass('dchecked') || $(this).find('div:first-child').hasClass('d-block'))&&(numdays>0)){
                 if($(this).hasClass('dchecked')){
                   $(this).removeClass('dchecked');
                 }else{
-                  $(this).find('div:first-child').css('display','none');
+                  $(this).find('div:first-child').removeClass().addClass('d-none');
                 }
                 numdays--;
                 updatenum(numdays);
             }
         });
     }else{
-      console.log(today<=timestamp && endday>=timestamp);
         if(today<=timestamp && endday>=timestamp){
           $(this).addClass('dchecked');
         }else{
-          $(this).find('div:first-child').css('display','block');
+          $(this).find('div:first-child').removeClass().addClass('d-block');
         }
         numdays++;
         updatenum(numdays);
         updatedates();
         $('body .dchange').on('mouseenter',function(){
-            if (!$(this).hasClass('dchecked') || $(this).find('div:first-child').css('display') != 'block'){
+            if (!$(this).hasClass('dchecked') || $(this).find('div:first-child').hasClass('d-none')){
+              timestamp = this.attributes[3].value*1000
               if(today<=timestamp && endday>=timestamp){
-                $(this).find('div:first-child').css('display','block');
-              }else {
                 $(this).addClass('dchecked');
+              }else {
+                $(this).find('div:first-child').removeClass().addClass('d-block');
               }
                 numdays++;
                 updatenum(numdays);
@@ -80,7 +81,7 @@ function updatedates(){ //******************************************************
 
     $('#calendar .dchange').each(function( index ) {
 
-      if ($(this).hasClass('dchecked') || $(this).find('div:first-child').css('display') == 'block'){
+      if ($(this).hasClass('dchecked') || $(this).find('div:first-child').hasClass('d-block')){
         timestamp = new Date ($(this).attr('cur-date')*1000);
         curDateVal = formatDateVal(timestamp);
         curIndex = index;
@@ -90,11 +91,10 @@ function updatedates(){ //******************************************************
             a=1
         });
         if(a!=1)
-          console.log(today+' '+timestamp+' '+endday);
           if(today<=timestamp && endday>=timestamp){
-            var el = $('<tr class="visible"><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]" value="'+prpsk+'"></td><td><input type="text" size="10" name="data['+i+'][room]" value="'+room+'"></td><td><input type="text" size="10" name="data['+i+'][phone]" value="'+phone+'"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
+            var el = $('<tr><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]" value="'+prpsk+'"></td><td><input type="text" size="10" name="data['+i+'][room]" value="'+room+'"></td><td><input type="text" size="10" name="data['+i+'][phone]" value="'+phone+'"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
           }else{
-            var el = $('<tr class="invisible"><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]" value="'+prpsk+'"></td><td><input type="text" size="10" name="data['+i+'][room]" value="'+room+'"></td><td><input type="text" size="10" name="data['+i+'][phone]" value="'+phone+'"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
+            var el = $('<tr class="d-none"><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]" value="'+prpsk+'"></td><td><input type="text" size="10" name="data['+i+'][room]" value="'+room+'"></td><td><input type="text" size="10" name="data['+i+'][phone]" value="'+phone+'"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
           }
         delDates($('.del_dates', $(el)));
         $('#table-all').append(el);
@@ -145,7 +145,7 @@ function drawCalendar(){//******************************************************
         if(today<=timestamp && endday>=timestamp){
           $('#calendar .celldate').eq(curIndex).addClass('dchecked');
         }else{
-          $('#calendar .celldate').eq(curIndex).find('div:first-child').css('display','block');
+          $('#calendar .celldate').eq(curIndex).find('div:first-child').addClass('d-block');
         }
     });
 }
@@ -195,12 +195,12 @@ $(document).ready(function() {
 
 //Для смены темы
 $('#theme').click(function(e){
-    if ($('link[href*="calendar.css"]').prop('disabled')){
-        $('link[href*="calendar.css"]').prop('disabled', false);
+    if ($('link[href*="calendar2.css"]').prop('disabled')){
+        $('link[href*="calendar2.css"]').prop('disabled', false);
         $('link[href*="calendarDark2.css"]').prop('disabled', true);
     }
     else{
-        $('link[href*="calendar.css"]').prop('disabled', true);
+        $('link[href*="calendar2.css"]').prop('disabled', true);
         $('link[href*="calendarDark2.css"]').prop('disabled', false);
     }
 });
