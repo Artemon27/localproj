@@ -49,33 +49,71 @@
         @include ('modules.messages')
         <div class="card-body" id="holiday">
             @php
-                $i=1;
+                $j=1;
             @endphp
             <table class=" table-bordered align-middle  mb-0" width="800px">
                 <thead>
                     <tr>
                         <th width="10px">№</th>
-                        <th class="p-1 text-center">ФИО</th>
+                        <th class="p-1 text-center" width="25%">ФИО</th>
                         <th class="p-1 text-center" width="15%">Пропуск</th>
                         <th class="p-1 text-center" width="10%">Помещение</th>
                         <th class="p-1 text-center" width="10%">Телефон</th>
+                        <th class="p-1 text-center" width="10%" colspan="2">Действие</th>
                     </tr>
                 </thead>
                 <tbody>
+                  <tr>
+                    <form method='post' action="{{route('admin.offhours.storepers')}}">
+                      @csrf
+                      <td class="p-1 text-center" colspan="5">
+                          <div class='select'>
+                            Выбрать пользователей
+                          </div>
+                          <div class='select_body'>
+                            <input type='text' name='srch' placeholder='Поиск' size='18' id='srch'>
+                            <div>
+                              @forelse ($users as $i => $value)
+                              <div><input type='checkbox' name='pers[{{$i}}]' value="{{$value->id}}"> <span>{{$value->shortName()}}</span></div>
+                              @empty
+                              @endforelse
+                            </div>
+                          </div>
+                        <input type='hidden' name='date' value='{{$date}}'>
+                      </td>
+                      <td class="p-1 text-center" colspan="2"><button class="btn btn-success" type="submit">Добавить</button></td>
+                    </form>
+                  </tr>
                     @forelse ($users as $user)
                         @forelse ($user->offHoursDate($date) as $record)
                         <tr>
-                            @if ($loop->first)
-                            <td class="p-1">{{$i++}}</td>
-                            <td class="p-1">{{$user->name}}</td>
-                            @else
-                            <td></td>
-                            <td></td>
-                            @endif
-                            <!--<td class="p-1 text-center">{{date("d.m.Y",strtotime($record->date))}}</td>-->
-                            <td class="p-1 text-center">{{$record->prpsk}}</td>
-                            <td class="p-1 text-center">{{$record->room}}</td>
-                            <td class="p-1 text-center">{{$record->phone}}</td>
+                          <form method="post" action="{{route('admin.offhours.change')}}">
+                            @csrf
+                            <td class="p-1">{{$j++}}</td>
+                            <td class="p-1 text-center"><input value="{{$user->name}}" name="name" readonly="readonly" style="border: none;" size='30'></td>
+                            <td class="p-1 text-center"><input value="{{$record->prpsk}}" name="prpsk" readonly="readonly" style="border: none;"size='10'></td>
+                            <td class="p-1 text-center"><input value="{{$record->room}}" name="room" readonly="readonly" style="border: none;"size='10'></td>
+                            <td class="p-1 text-center"><input value="{{$record->phone}}" name="phone" readonly="readonly" style="border: none;"size='10'></td>
+
+                            <td class="p-1 text-center" style="display:none;">
+                                    <input type='hidden' name='id' value="{{$record->id}}"><button class="btn btn-success" type='submit'>Сохранить</button>
+                            </td>
+                          </form>
+                          <td class="p-1 text-center" style="display:none;">
+                                  <button class="btn btn-danger" onclick='Reload()'>Отмена</button>
+                          </td>
+                          <td class="p-1 text-center">
+                                <form method='post' action="{{route('admin.offhours.delPers')}}" style="display: inline-table;">
+                                  @csrf
+                                  <input type='hidden' value="{{$user->id}}" name='user_id'>
+                                  <input type='hidden' value="{{$date}}" name='date'>
+                                  <button class="btn btn-danger" type="submit">Удалить</button>
+                                </form>
+                          </td>
+                          <td class="p-1 text-center">
+                                <button class="btn btn-primary changer user{{$user->id}}" >Редактировать</button>
+                                </a>
+                          </td>
                         </tr>
                         @empty
                         @endforelse

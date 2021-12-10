@@ -68,7 +68,6 @@
                         <th class="p-1 text-center" width="5%">№</th>
                         <th class="p-1 text-center" width="15%">Отдел</th>
                         <th class="p-1 text-center" width="5%">№ пенала</th>
-                        <!--<th class="p-1 text-center" width="15%">№ корпуса<br>№ помещения</th>-->
                         <th class="p-1 text-center" width="7%">№ корпуса</th>
                         <th class="p-1 text-center" width="8%">№ помещения</th>
                         <th class="p-1 text-center" width="10%">Местный телефон</th>
@@ -83,7 +82,6 @@
                         <td class="p-1 text-center">0</td>
                         <td class="p-1 text-center" ><input type='text' name='otdel'></td>
                         <td class="p-1 text-center"><input type='text' name='penal'></td>
-                        <!-- <td class="p-1 text-center"><input type='text' name='corpus_room'></td> -->
                         <td class="p-1 text-center"><input type='number' name='id_corp'></td>
                         <td class="p-1 text-center"><input type='text' name='id_room' maxlength='15'></td>
                         <td class="p-1 text-center"><input type='text' name='phone'></td>
@@ -98,7 +96,6 @@
                           <td class="p-1 text-center">{{$i++}}<input type='hidden' value="{{$room->id}}" name="id" readonly="readonly" style="border: none;"></td>
                           <td class='p-1 text-center'><input value="{{$room->otdel}}" name="otdel" readonly="readonly" style="border: none;"></td>
                           <td class='p-1 text-center'><input value="{{$room->penal}}" name="penal" readonly="readonly" style="border: none;"></td>
-                          <!-- <td class='p-1 text-center'><input value="{{$room->corpus_room}}" name="corpus_room" readonly="readonly" style="border: none;"></td> -->
                           <td class='p-1 text-center'><input value="{{$room->id_corp}}" name="id_corp" readonly="readonly" style="border: none;" type='number'></td>
                           <td class='p-1 text-center'><input value="{{$room->id_room}}" name="id_room" readonly="readonly" style="border: none;" maxlength='15'></td>
                           <td class='p-1 text-center'><input value="{{$room->phone}}" name="phone" readonly="readonly" style="border: none;"></td>

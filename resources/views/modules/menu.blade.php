@@ -8,7 +8,7 @@
         <li><a class="dropdown-item" href="/">Главная</a></li>
         @if (Auth::user()->role > 8)
         <li><a class="dropdown-item" href="/admin">Админка</a></li>
-        <li><a class="dropdown-item" href="/offhours">Запись на вечер</a></li>
+        <li><a class="dropdown-item" href="/offhours">Запись на вечер и выходной день</a></li>
         <li><a class="dropdown-item" href="/timeSheet">Табель рабочего времени</a></li>
         <li><a class="dropdown-item" href="/keys">Ключи</a></li>
         @endif

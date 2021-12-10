@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 
 use App\Http\Requests\Admin\offHoursRequest;
+use App\Http\Requests\Admin\offHoursChangeRequest;
 use App\Http\Requests\Admin\offHoursTableRequest;
+use App\Http\Requests\Admin\offHoursPersRequest;
+use App\Http\Requests\Admin\offHoursDelPersRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\off_hours;
 use App\Models\User;
@@ -16,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class offHoursController extends Controller
 {
-        public function store(offHoursRequest $request)
+      /*  public function store(offHoursRequest $request)
     {
         $id = $request['id'];
 
@@ -33,7 +36,7 @@ class offHoursController extends Controller
             }
         }
         return back()->with('success', 'Отпуск обновлён');
-    }
+    }*/
 
     public function download( $date = 1)
     {
@@ -45,6 +48,42 @@ class offHoursController extends Controller
         return view('admin.offhours.download', compact('users','date'));
     }
 
+    public function storepers(offHoursPersRequest $request)
+    {
+
+      foreach ($request['pers'] as $key => $value){
+
+        $date['user_id'] = $value;
+        $date['date']=Carbon::createFromFormat('Y-m-d', $request['date'])->startOfDay();
+
+
+        $users=User::Where('id','=',$date['user_id'])->get();
+        $date['prpsk'] = $users[0]['pager'];
+        $date['room'] = $users[0]['physicalDeliveryOfficeName'];
+        $date['phone'] = $users[0]['telephoneNumber'];
+        off_hours::Where('user_id','=',$date['user_id'])->Where('date','=',$date['date'])->delete();
+        off_hours::Create($date);
+      }
+
+      return back()->with('success', 'Записи добавлена');
+    }
+
+    public function change(offHoursChangeRequest $request)
+    {
+        $date['prpsk'] = $request['prpsk'];
+        $date['room'] = $request['room'];
+        $date['phone'] = $request['phone'];
+        off_hours::Where('id','=',$request['id'])->update($date);
+
+        return back()->with('success', 'Данные изменены');
+    }
+
+    public function delPers(offHoursDelPersRequest $request){
+      $date['date'] = $request['date'];
+      $date['user_id'] = $request['user_id'];
+      off_hours::Where('user_id','=',$date['user_id'])->Where('date','=',$date['date'])->delete();
+      return back()->with('success', 'Запись удалена');
+    }
 
     public function offHoursTable(offHoursTableRequest $request)
     {

@@ -266,7 +266,7 @@ return [
         ],
         ['header' => 'ВЕЧЕР'],
         [
-            'text' => 'Список на вечер',
+            'text' => 'Список на вечер и выходной день',
             'url'  => 'admin/offhours/download',
             'icon' => 'fas fa-moon',
         ],
