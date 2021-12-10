@@ -19,25 +19,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class offHoursController extends Controller
 {
-      /*  public function store(offHoursRequest $request)
-    {
-        $id = $request['id'];
-
-        $now = Carbon::now();
-
-        off_hours::Where('user_id','=',$id)->delete();
-
-        if (isset($request['data'])){
-                foreach ($request['data'] as $date){
-                $date['user_id'] = $id;
-                $date['datefrom']=Carbon::createFromFormat('Y-m-d', $date['datefrom'])->startOfDay();
-                $date['dateto']=$date['datefrom']->copy()->addDays($date['days']-1)->endOfDay();
-                off_hours::Create($date);
-            }
-        }
-        return back()->with('success', 'Отпуск обновлён');
-    }*/
-
     public function download( $date = 1)
     {
       if($date==1){
@@ -150,7 +131,7 @@ class offHoursController extends Controller
             }
         }
 
-        for (;$idx < 40; $idx++) {
+        for (;$idx < 33; $idx++) {
 	    $newrow = $sxe->Worksheet->Table->addChild('Row');
                     for( $i=0; $i < 6; $i++ ) {
                         $cell = $newrow->addChild('Cell');
