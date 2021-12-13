@@ -7,8 +7,8 @@ endday = today+7*24*60*60*1000
 //Кнопка очистки (очищает календарь)
 $('#btn-off').click(function(){//**********************************************************
     $('body .dchange').each(function() {
-        if ($(this).hasClass('dchecked')){
-            $(this).removeClass('dchecked');
+        if ($(this).find('div:first-child').hasClass('d-block')){
+            $(this).find('div:first-child').removeClass().addClass('d-none');
             numdays--;
         }
    });
@@ -19,45 +19,26 @@ $('#btn-off').click(function(){//***********************************************
 //Клик по календарю (выделяет или снимает выделение)
 $('body .dchange').mousedown(function(e) {//*************************************************
     mouse=1;
-    timestamp = e.currentTarget.attributes[3].value*1000
-    if ($(this).hasClass('dchecked') || $(this).find('div:first-child').hasClass('d-block')){
-        if($(this).hasClass('dchecked')){
-          $(this).removeClass('dchecked');
-        }else{
-          $(this).find('div:first-child').removeClass().addClass('d-none');
-        }
+    if ($(this).find('div:first-child').hasClass('d-block')){
+        $(this).find('div:first-child').removeClass().addClass('d-none');
         numdays--;
         updatenum(numdays);
         updatedates();
         $('body .dchange').on('mouseenter',function(){
-          timestamp = this.attributes[3].value*1000
-            if (($(this).hasClass('dchecked') || $(this).find('div:first-child').hasClass('d-block'))&&(numdays>0)){
-                if($(this).hasClass('dchecked')){
-                  $(this).removeClass('dchecked');
-                }else{
-                  $(this).find('div:first-child').removeClass().addClass('d-none');
-                }
+            if ($(this).find('div:first-child').hasClass('d-block')&&numdays>0){
+                $(this).find('div:first-child').removeClass().addClass('d-none');
                 numdays--;
                 updatenum(numdays);
             }
         });
     }else{
-        if(today<=timestamp && endday>=timestamp){
-          $(this).addClass('dchecked');
-        }else{
-          $(this).find('div:first-child').removeClass().addClass('d-block');
-        }
+        $(this).find('div:first-child').removeClass().addClass('d-block');
         numdays++;
         updatenum(numdays);
         updatedates();
         $('body .dchange').on('mouseenter',function(){
-            if (!$(this).hasClass('dchecked') || $(this).find('div:first-child').hasClass('d-none')){
-              timestamp = this.attributes[3].value*1000
-              if(today<=timestamp && endday>=timestamp){
-                $(this).addClass('dchecked');
-              }else {
+            if ($(this).find('div:first-child').hasClass('d-none')){
                 $(this).find('div:first-child').removeClass().addClass('d-block');
-              }
                 numdays++;
                 updatenum(numdays);
             }
@@ -80,7 +61,6 @@ function updatedates(){ //******************************************************
     });
 
     $('#calendar .dchange').each(function( index ) {
-
       if ($(this).hasClass('dchecked') || $(this).find('div:first-child').hasClass('d-block')){
         timestamp = new Date ($(this).attr('cur-date')*1000);
         curDateVal = formatDateVal(timestamp);
@@ -91,11 +71,7 @@ function updatedates(){ //******************************************************
             a=1
         });
         if(a!=1)
-          if(today<=timestamp && endday>=timestamp){
-            var el = $('<tr><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]" value="'+prpsk+'"></td><td><input type="text" size="10" name="data['+i+'][room]" value="'+room+'"></td><td><input type="text" size="10" name="data['+i+'][phone]" value="'+phone+'"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
-          }else{
-            var el = $('<tr class="d-none"><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]" value="'+prpsk+'"></td><td><input type="text" size="10" name="data['+i+'][room]" value="'+room+'"></td><td><input type="text" size="10" name="data['+i+'][phone]" value="'+phone+'"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
-          }
+          var el = $('<tr><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]" value="'+prpsk+'"></td><td><input type="text" size="10" name="data['+i+'][room]" value="'+room+'"></td><td><input type="text" size="10" name="data['+i+'][phone]" value="'+phone+'"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
         delDates($('.del_dates', $(el)));
         $('#table-all').append(el);
         updatenum(numdays);
@@ -142,11 +118,7 @@ function drawCalendar(){//******************************************************
         if (!strDays[index]){
             strDays.push({curDateVal:curDateVal, curIndex:curIndex});
         }
-        if(today<=timestamp && endday>=timestamp){
-          $('#calendar .celldate').eq(curIndex).addClass('dchecked');
-        }else{
-          $('#calendar .celldate').eq(curIndex).find('div:first-child').addClass('d-block');
-        }
+        $('#calendar .celldate').eq(curIndex).find('div:first-child').removeClass().addClass('d-block');
     });
 }
 
@@ -170,8 +142,8 @@ function delDates(elem){
         console.log(strDays[1]);
         $(this).parent().parent().detach();
         $('body .dchange').each(function() {
-            if ($(this).hasClass('dchecked')){
-                $(this).removeClass('dchecked');
+            if ($(this).find('div:first-child').hasClass('d-block')){
+                $(this).find('div:first-child').removeClass().addClass('d-none')
             }
             if ($(this).hasClass('dop-days')){
                 $(this).removeClass(' dop-days');

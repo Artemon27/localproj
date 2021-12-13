@@ -38,12 +38,15 @@ class offHoursController extends Controller
         $now = Carbon::now();
 
         off_hours::Where('user_id','=',$id)->Where('allow','=','0')->Where('date','>',$now)->delete();
-
         if (isset($request['data'])){
                 foreach ($request['data'] as $date){
-                $date['user_id'] = $id;
-                $date['date']=Carbon::createFromFormat('Y-m-d', $date['date'])->startOfDay();
-                off_hours::Create($date);
+                  $date['date'] .= " 09:30";
+                  $date['date']=Carbon::createFromFormat('Y-m-d H:i', $date['date'])->startOfDay();
+                  if($date['date']>$now){
+                    $date['user_id'] = $id;
+                    off_hours::Where('user_id','=',$id)->Where('allow','=','0')->Where('date','=',$date['date'])->delete();
+                    off_hours::Create($date);
+                  }
             }
         }
 

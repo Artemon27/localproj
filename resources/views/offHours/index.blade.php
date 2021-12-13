@@ -41,7 +41,6 @@ $month = date('m');
         <div class="card-body d-flex justify-content-center align-items-start" id="holiday">
             <div id="carouselExampleControls" class="carousel slide holiday-slider" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="carousel-inner">
-
                   @for ($curyear=$year; $curyear<=2023; $curyear++)
                     @for ($n=1;$n<13;$n++)
                       @if($n>=$month && $curyear==$year || $curyear>$year)
@@ -54,9 +53,7 @@ $month = date('m');
                             {{$months[$n]." ".$curyear}}
                             </div>
                             <div class="d-flex flex-wrap justify-content-center" id="calendar">
-
                                         <div class="d-flex flex-wrap flex-column">
-
                                         <table>
                                             <tr>
                                                 <td class="wd-name p-2 h4" width="90px">ПН</td>
@@ -68,13 +65,8 @@ $month = date('m');
                                                 <td class="wd-name p-2 h4" width="90px">ВС</td>
                                             </tr>
                                         </table>
-
                                                 @include ('offHours.calendar',['month'=>$n,'year'=>$curyear])
-
-
                                     </div>
-
-
                             </div>
                         </div>
                         @endif
@@ -90,9 +82,11 @@ $month = date('m');
                     <span class="visually-hidden">Следующий</span>
                 </button>
             </div>
-
-            @include ('offHours.table',['dates'=>$dates])
-
+              <div>
+                @include ('offHours.table',['dates'=>$dates])
+              </div>
+              <div id='lists'>
+              </div>
         </div>
     </div>
 </form>
