@@ -10,12 +10,14 @@ $('.select').click(function(){
 $('.select_body span').click(function(){
   if($($(this)[0].previousElementSibling)[0].checked == false){
     $($(this)[0].previousElementSibling)[0].checked = true;
-    if($(this)[0].previousElementSibling.attributes.name.value == 'staff'){
+    let a = $(this)[0].previousElementSibling.attributes.name.value
+    if(a == 'staff_id' || a == 'staff'){
       $(this)[0].parentElement.parentElement.parentElement.previousElementSibling.textContent = this.textContent;
     }
   }else{
     $($(this)[0].previousElementSibling)[0].checked = false;
-    if($(this)[0].previousElementSibling.attributes.name.value == 'staff'){
+    let a = $(this)[0].previousElementSibling.attributes.name.value
+    if(a == 'staff_id' || a == 'staff'){
       $(this)[0].parentElement.parentElement.parentElement.previousElementSibling.textContent = 'Выберите ответственного'
     }
   }
@@ -25,7 +27,7 @@ $('.select_body span input').keyup(function(){
   $($($(this)[0].parentElement)[0].previousElementSibling)[0].checked = true;
 });
 
-$('#srch').keyup(function(){
+$('.srch').keyup(function(){
   let val = this.value;
   if(val != ''){
     $($($(this)[0].nextElementSibling)[0].children).each(function(i){

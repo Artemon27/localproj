@@ -82,10 +82,24 @@ $month = date('m');
                     <span class="visually-hidden">Следующий</span>
                 </button>
             </div>
-              <div>
-                @include ('offHours.table',['dates'=>$dates])
-              </div>
-              <div id='lists'>
+              <div style="width:40%">
+                <div id="carouselExampleControls2" class="carousel slide table-slider p-5" data-bs-ride="carousel" data-bs-interval="false">
+                  <!-- <div id='list'>
+                    <button type='button' data-bs-target="#carouselExampleControls2" data-bs-slide-to='0' class='active' aria-current='true' area-label='Стр.1'></button>
+                    <button type='button' data-bs-target="#carouselExampleControls2" data-bs-slide-to='1' area-label='Стр.2'></button>
+                    <button type='button' data-bs-target="#carouselExampleControls2" data-bs-slide-to='2' area-label='Стр.3'></button>
+                  </div> -->
+                    <div class="carousel-inner ms-5">
+                        @include ('offHours.table',['dates'=>$dates])
+                      </div>
+                      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Предыдущий</span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Следующий</span>
+                      </button>
               </div>
         </div>
     </div>

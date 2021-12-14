@@ -38,7 +38,7 @@
                           Выбрать ответственного
                         </div>
                         <div class='select_body'>
-                          <input type='text' name='srch' placeholder='Поиск' size='18' id='srch'>
+                          <input type='text' name='srch' placeholder='Поиск' size='18' class='srch'>
                           <div>
                             @forelse ($users as $i => $value)
                             <div><input type='radio' name='staff' value="{{$value->id}}"><span>{{$value->shortName()}}</span></div>
@@ -148,7 +148,7 @@
                         Выбрать пользователей
                       </div>
                       <div class='select_body'>
-                        <input type='text' name='srch' placeholder='Поиск' size='18' id='srch'>
+                        <input type='text' name='srch' placeholder='Поиск' size='18' class='srch'>
                         <div>
                           @forelse ($users as $i => $value)
                           <div><input type='checkbox' name='pers[{{$i}}]' value="{{$value->id}}"> <span>{{$value->shortName()}}</span></div>

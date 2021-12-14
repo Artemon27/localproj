@@ -9,11 +9,16 @@ $('#btn-off').click(function(){//***********************************************
     $('body .dchange').each(function() {
         if ($(this).find('div:first-child').hasClass('d-block')){
             $(this).find('div:first-child').removeClass().addClass('d-none');
-            numdays--;
         }
    });
-   updatenum(numdays);
-   $('#table-all').empty();
+   updatenum();
+   console.log($('.table-all tr'));
+   $('.table-all tr').each(function( index ) {
+       $(this).remove();
+   });
+   while($('#carouselExampleControls2 .carousel-item').length !=1){
+     $('#carouselExampleControls2 .carousel-item:last').remove();
+   }
 });
 
 //Клик по календарю (выделяет или снимает выделение)
@@ -21,26 +26,23 @@ $('body .dchange').mousedown(function(e) {//************************************
     mouse=1;
     if ($(this).find('div:first-child').hasClass('d-block')){
         $(this).find('div:first-child').removeClass().addClass('d-none');
-        numdays--;
-        updatenum(numdays);
+        updatenum();
         updatedates();
         $('body .dchange').on('mouseenter',function(){
-            if ($(this).find('div:first-child').hasClass('d-block')&&numdays>0){
+            if ($(this).find('div:first-child').hasClass('d-block')){
                 $(this).find('div:first-child').removeClass().addClass('d-none');
-                numdays--;
-                updatenum(numdays);
+                console.log('dsf');
+                updatenum();
             }
         });
     }else{
         $(this).find('div:first-child').removeClass().addClass('d-block');
-        numdays++;
-        updatenum(numdays);
+        updatenum();
         updatedates();
         $('body .dchange').on('mouseenter',function(){
             if ($(this).find('div:first-child').hasClass('d-none')){
                 $(this).find('div:first-child').removeClass().addClass('d-block');
-                numdays++;
-                updatenum(numdays);
+                updatenum();
             }
         });
     }
@@ -53,31 +55,41 @@ $('body .dchange').mousedown(function(e) {//************************************
 //Обновляет данные в таблице по рисованному календарю
 function updatedates(){ //************************************************************
     var i = 0;
-
-    $('#table-all tr').each(function( index ) {
+    $('.table-all tr').each(function( index ) {
       if(index>=i){
         $(this).remove();
       }
     });
-
+    while($('#carouselExampleControls2 .carousel-item').length !=1){
+      $('#carouselExampleControls2 .carousel-item:last').remove();
+    }
+    $('#carouselExampleControls2 .carousel-item').addClass('active')
     $('#calendar .dchange').each(function( index ) {
       if ($(this).hasClass('dchecked') || $(this).find('div:first-child').hasClass('d-block')){
         timestamp = new Date ($(this).attr('cur-date')*1000);
         curDateVal = formatDateVal(timestamp);
         curIndex = index;
         a=0
-        $('#table-all tr .curDate').each(function( index ) {
-          if(curDateVal == $('#table-all tr .curDate')[index].value)
+        $('.table-all:last tr .curDate').each(function( index ) {
+          if(curDateVal == $('.table-all:last tr .curDate')[index].value)
             a=1
         });
-        if(a!=1)
-          var el = $('<tr><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]" value="'+prpsk+'"></td><td><input type="text" size="10" name="data['+i+'][room]" value="'+room+'"></td><td><input type="text" size="10" name="data['+i+'][phone]" value="'+phone+'"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
-        delDates($('.del_dates', $(el)));
-        $('#table-all').append(el);
-        updatenum(numdays);
+        if(a!=1){
+
+           var el = $('<tr><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]" value="'+prpsk+'"></td><td><input type="text" size="10" name="data['+i+'][room]" value="'+room+'"></td><td><input type="text" size="10" name="data['+i+'][phone]" value="'+phone+'"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
+           delDates($('.del_dates', $(el)));
+           if($('.carousel-item:last .table-all tr').length>=7){
+             var el2 = $('<div class="carousel-item"><table><tr><td class="wd-name p-2" style="width:162px">Дата</td><td class="wd-name p-2" style="width:81px">Пропуск</td><td class="wd-name p-2" style="width:114px">Помещение</td><td class="wd-name p-2" style="width:114px">Телефон</td><td style="width:72px"></td></tr><tbody class="table-all"></tbody></table></div>')
+             $('#carouselExampleControls2 .carousel-inner').append(el2);
+             $('.carousel-item:last .table-all').append(el);
+           }else{
+             $('.carousel-item:last .table-all').append(el);
+           }
+        }
         i++;
       }
     });
+    updatenum();
 }
 
 
@@ -96,8 +108,8 @@ function formatDateVal(date) {
 }
 
 //Обновление дней на странице
-function updatenum(n){//******************************************************************
-    n = $('#table-all tr').length
+function updatenum(){//******************************************************************
+    n = $('.table-all tr[class!="d-none"]').length
     $('#numdays').html('Выбрано дней: '+ n);
     $('#numdaysIn').val(n);
 }
@@ -105,7 +117,7 @@ function updatenum(n){//********************************************************
 //Рисование календаря по строкам таблицы
 function drawCalendar(){//****************************************************************************
     var timestamp, curIndex;
-    $('#table-all tr').each(function(index){
+    $('.table-all tr').each(function(index){
         curDateVal = $(this).find('.curDate').val();
         timestamp = new Date (curDateVal);
         timestamp = timestamp.getTime();
@@ -136,7 +148,6 @@ function delDates(elem){
     elem.click(function(e){
         var index = $(this).parent().parent().index();
         console.log(index);
-        //numdays = numdays - strDays[index].numLine;
         console.log(strDays[1]);
         strDays.splice(index, 1);
         console.log(strDays[1]);
@@ -149,7 +160,7 @@ function delDates(elem){
                 $(this).removeClass(' dop-days');
             }
        });
-        updatenum(numdays);
+        updatenum();
         drawCalendar();
 
     });
@@ -158,7 +169,7 @@ function delDates(elem){
 
 //Функции, запускаемые, при запуске страницы
 $(document).ready(function() {
-   updatenum(numdays);
+   updatenum();
    drawCalendar();
 
    delDates($('.del_dates'));

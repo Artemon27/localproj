@@ -68,32 +68,58 @@ class offHoursController extends Controller
 
     public function offHoursTable(offHoursTableRequest $request)
     {
-
         $date = $request['date'];
         $thing = $request['thing'];
-	$staff_id = $request['staff_id'];
+	      $staff_id = $request['staff_id'];
         $staff=User::Where('id', "=", $staff_id)->get();
         $users=User::orderBy('department')->orderBy('name')->get();
-
-        $merges = ["6", "40", "16", "16", "16", "16"];//Кол-во ячеек в столбце
-        $style = [
-            "m240598220",
-            "m240598240",
-            "m240598260",
-            "m240598280",
-            "m240598300",
-            "m240598952" //стили столбцов
-            ];
-
+        if(Carbon::createFromFormat('Y-m-d', $date)->isWeekend()){
+          $merges = ["6", "23", "16", "16", "16", "16", "16"];//Кол-во ячеек в столбце
+          $style = [
+              "m375228552",
+              "m375228572",
+              "m375228592",
+              "m375228592",
+              "m375228612",
+              "m375228632",
+              "m375228652" //стили столбцов
+              ];
+          $text=["№ п/п","Фамилия И.О.","№ пропуска","№ помещения","Телефон","Время входа","Время выхода"];
+          $week=1;
+        }else{
+          $merges = ["6", "40", "16", "16", "16", "16"];//Кол-во ячеек в столбце
+          $style = [
+              "m375228552",
+              "m375228572",
+              "m375228592",
+              "m375228612",
+              "m375228632",
+              "m375228652" //стили столбцов
+              ];
+          $text=["№ п/п","Фамилия И.О.","№ пропуска","№ помещения","Телефон","Время выхода"];
+          $week=0;
+        }
 
         $sxe = new SimpleXMLElement('OffHoursTemplNew.xml', NULL, TRUE);//создание файла
 
         $allchild = $sxe->children();
-
-        $allchild->Worksheet->Table->Row[5]->Cell[78]->Data = $staff[0]->mobile;
-
-        $allchild->Worksheet->Table->Row[9]->Cell[7]->Data = $date;
+        $allchild->Worksheet->Table->Row[5]->Cell[78]->Data = 'тел.'.$staff[0]->mobile;
+        $allchild->Worksheet->Table->Row[9]->Cell[11]->Data = $date;
         $allchild->Worksheet->Table->Row[10]->Cell[1]->Data = $thing;
+        if(Carbon::createFromFormat('Y-m-d', $date)->isWeekend()){
+          $allchild->Worksheet->Table->Row[9]->Cell[10]->Data = 'Прошу Вас разрешить работы после 8.00  до  23.00';
+        }
+        $newrow = $allchild->Worksheet->Table->addChild('Row');
+        $newrow->addAttribute('xmlns:ss:Height','27');
+        for( $i=0; $i < 6+$week; $i++ ) {
+            $cell = $newrow->addChild('Cell');
+            $cell->addAttribute('xmlns:ss:MergeAcross',$merges[$i] );
+            $cell->addAttribute('xmlns:ss:StyleID','m375223640' );
+            $data = $cell->addChild('Data',$text[$i]);
+            $data->addAttribute('xmlns:ss:Type',"String" );
+        }
+
+
         $idx = 0;
         foreach ($users as $user){
             if (count ($user->offHoursDate($date))){
@@ -102,14 +128,12 @@ class offHoursController extends Controller
                 $idx++;
                 foreach ($offhours as $num => $offhour){
                     $newrow = $sxe->Worksheet->Table->addChild('Row');
-                    for( $i=0; $i < 6; $i++ ) {
+                    for( $i=0; $i < 6+$week; $i++ ) {
                         $cell = $newrow->addChild('Cell');
                         $cell->addAttribute('xmlns:ss:MergeAcross',$merges[$i] );
                         $cell->addAttribute('xmlns:ss:StyleID',$style[$i] );
                         $data = $cell->addChild('Data');
                         $data->addAttribute('xmlns:ss:Type',"String" );
-                        $print = $cell->addChild('NamedCell');
-                        $print->addAttribute('xmlns:ss:Name',"Print_Area" );
                     }
                     $cells = $newrow->children();
                     if ($names == 0){
@@ -131,16 +155,14 @@ class offHoursController extends Controller
             }
         }
 
-        for (;$idx < 33; $idx++) {
+      for (;$idx < 23; $idx++) {
 	    $newrow = $sxe->Worksheet->Table->addChild('Row');
-                    for( $i=0; $i < 6; $i++ ) {
+                    for( $i=0; $i < 6+$week; $i++ ) {
                         $cell = $newrow->addChild('Cell');
                         $cell->addAttribute('xmlns:ss:MergeAcross',$merges[$i] );
                         $cell->addAttribute('xmlns:ss:StyleID',$style[$i] );
                         $data = $cell->addChild('Data');
                         $data->addAttribute('xmlns:ss:Type',"String" );
-                        $print = $cell->addChild('NamedCell');
-                        $print->addAttribute('xmlns:ss:Name',"Print_Area" );
                     }
            $cells = $newrow->children();
            $cells[0]->Data = $idx;
@@ -153,112 +175,107 @@ class offHoursController extends Controller
         $endrow = $allchild->Worksheet->Table->addChild('Row');
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','18' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s64" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s65" );
         $cell1->addChild('Data',"Старший")->addAttribute('xmlns:ss:Type',"String" );
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','22' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s75" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s78" );
         $cell1->addChild('Data',$staff[0]->shortName())->addAttribute('xmlns:ss:Type',"String" );
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','21' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s75" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s78" );
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','30' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s114" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s119" );
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','20' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s75" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s78" );
 
         $endrow = $allchild->Worksheet->Table->addChild('Row');
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','18' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s76" );
-
+        $cell1->addAttribute('xmlns:ss:StyleID',"s121" );
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','22' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s76" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s121" );
         $cell1->addChild('Data',"(ФИО)")->addAttribute('xmlns:ss:Type',"String" );
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','21' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s75" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s78" );
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','30' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s75" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s78" );
         $cell1->addChild('Data',"(подпись старшего)")->addAttribute('xmlns:ss:Type',"String" );
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','20' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s76" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s121" );
 
         $allchild->Worksheet->Table->addChild('Row')->addChild('Cell')->addAttribute('xmlns:ss:MergeAcross',"115" );
 
         $endrow = $allchild->Worksheet->Table->addChild('Row');
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','9' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s76" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s121" );
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','105' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s79" );
-        $cell1->addChild('Data',"Несу персональную ответственность за соблюдение мер противопожарной безопасности и техники")->addAttribute('xmlns:ss:Type',"String" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s83" );
+        $cell1->addChild('Data',"Несу персональную ответственность за соблюдение мер противопожарной безопасности и")->addAttribute('xmlns:ss:Type',"String" );
 
         $endrow = $allchild->Worksheet->Table->addChild('Row');
         $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:MergeAcross','13' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s76" );
-        $cell1->addChild('Data',"безопасности")->addAttribute('xmlns:ss:Type',"String" );
+        $cell1->addAttribute('xmlns:ss:MergeAcross','24' );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s121" );
+        $cell1->addChild('Data',"техники безопасности")->addAttribute('xmlns:ss:Type',"String" );
 
         $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:MergeAcross','60' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s108" );
+        $cell1->addAttribute('xmlns:ss:MergeAcross','49' );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s119" );
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','40' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s76" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s121" );
 
         $endrow = $allchild->Worksheet->Table->addChild('Row');
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','25' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s76" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s121" );
 
         $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:MergeAcross','37' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s76" );
+        $cell1->addAttribute('xmlns:ss:MergeAcross','89' );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s79" );
         $cell1->addChild('Data',"(подпись начальника подразделения)")->addAttribute('xmlns:ss:Type',"String" );
-
-        $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:MergeAcross','51' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s75" );
 
         $allchild->Worksheet->Table->addChild('Row')->addChild('Cell')->addAttribute('xmlns:ss:MergeAcross',"115" );
 
         $endrow = $allchild->Worksheet->Table->addChild('Row');
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','31' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s76" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s121" );
         $cell1->addChild('Data',"Начальник НИЦ-1")->addAttribute('xmlns:ss:Type',"String" );
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','43' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s76" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s121" );
 
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','39' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s76" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s121" );
         $cell1->addChild('Data',"В.А. Нечаев")->addAttribute('xmlns:ss:Type',"String" );
 
         $endrow = $allchild->Worksheet->Table->addChild('Row');
-        $endrow->addAttribute('xmlns:ss:Height','23');
+        $endrow->addAttribute('xmlns:ss:Height','26');
         $cell1 = $endrow->addChild('Cell');
         $cell1->addAttribute('xmlns:ss:MergeAcross','115' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s110" );
+        $cell1->addAttribute('xmlns:ss:StyleID',"s125" );
         $cell1->addChild('Data',"Разрешено дополнение списка с заверением личной подписью Е.Н. Козлова, В.И. Лещинского, М.В. Козлова, С.В. Пластининой, М.О. Костишина, Н.Г. Денисовой")->addAttribute('xmlns:ss:Type',"String" );
 
 
