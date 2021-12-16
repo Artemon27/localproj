@@ -75,8 +75,8 @@ $month = date('m');
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/daterangepicker.css') }}">
-<link rel="stylesheet" disabled="1" href="{{ asset('css/calendar3.css') }}">
-<link rel="stylesheet" href="{{ asset('css/calendarDark3.css') }}">
+<link rel="stylesheet" href="{{ asset('css/calendar3.css') }}">
+<link rel="stylesheet" disabled="1" href="{{ asset('css/calendarDark3.css') }}">
 @endpush
 
 @push('scripts')

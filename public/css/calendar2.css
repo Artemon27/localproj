@@ -21,6 +21,20 @@ td.h4 div:first-child{
     box-shadow: none;
     background-color: #fdfdfd;
 }
+#carouselExampleControls2 #list button{
+  margin: 5px;
+  border: none;
+  background: #444;
+  width: 40px;
+  height: 5px;
+  border-radius: 30%;
+}
+#carouselExampleControls2 #list button:hover{
+  background: #AAA;
+}
+#carouselExampleControls2 #list button.select{
+  background: #3ac4f9;
+}
 
 .wrapper{
     margin: auto;

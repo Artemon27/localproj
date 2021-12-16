@@ -27,7 +27,7 @@ td.h4 div:first-child{
 #carouselExampleControls2 #list button:hover{
   background: #AAA;
 }
-#carouselExampleControls2 #list button:focus{
+#carouselExampleControls2 #list button.select{
   background: #1b5c75;
 }
 

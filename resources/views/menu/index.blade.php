@@ -12,7 +12,7 @@
     <div class="card-header">
         <div class="row">
             <div class="col-2">
-                <div id="theme" class="btn btn-sm btn-outline-primary">Сменить тему</div>   
+                <div id="theme" class="btn btn-sm btn-outline-primary">Сменить тему</div>
             </div>
             <div class="col-2">
             </div>
@@ -20,37 +20,37 @@
             </div>
             <div class="col-2 text-center">
             </div>
-            <div class="col-3 text-end">        
-            </div>  
+            <div class="col-3 text-end">
+            </div>
             <div class="col-2 text-end">
-                @include ('modules.menu')                    
-            </div>            
-        </div>        
+                @include ('modules.menu')
+            </div>
+        </div>
     </div>
 
     <div class="card-body d-flex flex-wrap justify-content-center align-items-start" id="holiday">
         <div class="container">
             <div class="d-flex justify-content-center" id="main-table">
                 @forelse ($menus as $menu)
-                <div>                
+                <div class="text-center m-2">
                     <div class="main-table-item">
                         <a href="{{$menu->url}}">
-                            <img src="{{getThumbs($menu->src)}}" alt="{{$menu->title}}">
+                            <img src="{{getThumbs($menu->src)}}" alt="{{$menu->title}}" width="100" height="100">
                         </a>
                     </div>
                     <div class="text-center menu-text">
                         {{$menu->title}}
                     </div>
                 </div>
-                @if ($loop->iteration%3 == 0)
+                @if ($loop->iteration%4 == 0)
                 </div>
                 <div class="d-flex justify-content-center">
                 @endif
                 @empty
-                @endforelse                
+                @endforelse
             </div>
           </div>
-    </div>  
+    </div>
 </div>
 
 @endsection
@@ -78,8 +78,8 @@ function logout(){
          window.location.href="/";
         },
         error: function(){
-         window.location.href="/";   
-        }                
+         window.location.href="/";
+        }
       });
 }
 

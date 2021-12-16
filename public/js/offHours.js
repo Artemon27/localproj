@@ -142,8 +142,16 @@ function drawLists(){
     let elem = $("<button type='button' data-bs-target='#carouselExampleControls2' data-bs-slide-to='"+i+"' area-label='Стр."+i+1+"'></button>");
     $('#carouselExampleControls2 #list').append(elem)
   }
-  //$('#carouselExampleControls2 #list button:first-child')
+  $('#carouselExampleControls2 #list button:first-child').addClass('select')
 }
+
+$('#carouselExampleControls2 #list button').click(function(){
+  console.log('dsf')
+  //$('#carouselExampleControls2 #list button').forEach((item, i) => {
+    //$(this).removeClass('select');
+  //});
+  //$(this).addClass('select')
+});
 
 //Функции запускаемые по отпусканию мыши
 $(document).mouseup (function() {
