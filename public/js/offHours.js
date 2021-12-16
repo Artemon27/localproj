@@ -89,6 +89,7 @@ function updatedates(){ //******************************************************
         i++;
       }
     });
+    drawLists()
     updatenum();
 }
 
@@ -134,6 +135,16 @@ function drawCalendar(){//******************************************************
     });
 }
 
+function drawLists(){
+  $('#carouselExampleControls2 #list').empty();
+  let a = $('#carouselExampleControls2 .carousel-item').length
+  for (var i = 0; i < a; i++) {
+    let elem = $("<button type='button' data-bs-target='#carouselExampleControls2' data-bs-slide-to='"+i+"' area-label='Стр."+i+1+"'></button>");
+    $('#carouselExampleControls2 #list').append(elem)
+  }
+  //$('#carouselExampleControls2 #list button:first-child')
+}
+
 //Функции запускаемые по отпусканию мыши
 $(document).mouseup (function() {
   $('body .dchange').off('mouseenter');
@@ -162,7 +173,7 @@ function delDates(elem){
        });
         updatenum();
         drawCalendar();
-
+        drawLists()
     });
 }
 
@@ -171,7 +182,7 @@ function delDates(elem){
 $(document).ready(function() {
    updatenum();
    drawCalendar();
-
+   drawLists()
    delDates($('.del_dates'));
  });
 

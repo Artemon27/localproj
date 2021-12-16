@@ -237,7 +237,7 @@ return [
             'text' => 'Пользователи',
             'url'  => 'admin/users',
             'icon' => 'fas fa-users',
-        ],        
+        ],
         [
             'text' => 'Настройки',
             'url'  => 'admin/settings',
@@ -275,6 +275,12 @@ return [
             'text' => 'Выдача ключей',
             'url'  => 'admin/createkey/download',
             'icon' => 'fas fa-umbrella-beach',
+        ],
+        ['header' => 'РАБОЧЕЕ ВРЕМЯ'],
+        [
+            'text' => 'Табель учета рабочего времени',
+            'url'  => 'admin/timeSheet/download',
+            'icon' => 'fas fa-calendar-alt',
         ],
     ],
 

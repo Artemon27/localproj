@@ -83,13 +83,9 @@ $month = date('m');
                 </button>
             </div>
               <div style="width:40%">
-                <div id="carouselExampleControls2" class="carousel slide table-slider p-5" data-bs-ride="carousel" data-bs-interval="false">
-                  <!-- <div id='list'>
-                    <button type='button' data-bs-target="#carouselExampleControls2" data-bs-slide-to='0' class='active' aria-current='true' area-label='Стр.1'></button>
-                    <button type='button' data-bs-target="#carouselExampleControls2" data-bs-slide-to='1' area-label='Стр.2'></button>
-                    <button type='button' data-bs-target="#carouselExampleControls2" data-bs-slide-to='2' area-label='Стр.3'></button>
-                  </div> -->
-                    <div class="carousel-inner ms-5">
+                <div id="carouselExampleControls2" class="carousel slide table-slider p-5 position-relative" data-bs-ride="carousel" data-bs-interval="false">
+
+                    <div class="carousel-inner ms-5" style="height:270px">
                         @include ('offHours.table',['dates'=>$dates])
                       </div>
                       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
@@ -100,6 +96,11 @@ $month = date('m');
                           <span class="carousel-control-next-icon" aria-hidden="true"></span>
                           <span class="visually-hidden">Следующий</span>
                       </button>
+                      <div id='list' class="text-center">
+                        <button type='button' data-bs-target="#carouselExampleControls2" data-bs-slide-to='0' area-label='Стр.1' class='active' aria-current='true'></button>
+                        <button type='button' data-bs-target="#carouselExampleControls2" data-bs-slide-to='1' area-label='Стр.2'></button>
+                        <button type='button' data-bs-target="#carouselExampleControls2" data-bs-slide-to='2' area-label='Стр.3'></button>
+                      </div>
               </div>
         </div>
     </div>

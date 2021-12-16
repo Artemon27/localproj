@@ -15,6 +15,23 @@ td.h4 div:first-child{
   height:10px;
   display: none;
 }
+
+#carouselExampleControls2 #list button{
+  margin: 5px;
+  border: none;
+  background: white;
+  width: 40px;
+  height: 5px;
+  border-radius: 30%;
+}
+#carouselExampleControls2 #list button:hover{
+  background: #AAA;
+}
+#carouselExampleControls2 #list button:focus{
+  background: #1b5c75;
+}
+
+
 .year-num{
     font-size:30pt;
 }
