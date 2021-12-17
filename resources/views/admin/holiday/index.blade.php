@@ -5,7 +5,7 @@
 
 <form action="{{ route('admin.holiday.chose') }}" method="post">
     @csrf
-    <div class="form-group w-50 m-auto mt-3 mb-3 ">    
+    <div class="form-group w-50 m-auto mt-3 mb-3 ">
         <div class="row">
             <div class="col-2">
                 <label for="parent_id">Имя пользователя</label>
@@ -25,7 +25,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-2">
-                    <div id="theme" class="btn btn-sm btn-outline-primary">Сменить тему</div>   
+                    <div id="theme" class="btn btn-sm btn-outline-primary">Сменить тему</div>
                 </div>
                 <div class="col-2">
                     <div id="btn-off" class="btn btn-sm btn-outline-primary">Очистить</div>
@@ -40,16 +40,16 @@
                     <div class="row">
                         <div class="col"><a target="_blank" href="{{ asset('Instruction.pdf') }}" class="btn btn-sm btn-outline-success">Инструкция</a></div>
                         <div class="col"><button href="" class="btn btn-btn btn-sm btn-outline-primary">Сохранить</button></div>
-                    </div>                    
-                </div>  
+                    </div>
+                </div>
                 <div class="col-2 text-end">
-                    @include ('modules.menu')   
-                </div>            
-            </div>        
+                    @include ('modules.menu')
+                </div>
+            </div>
         </div>
         @include ('modules.messages')
         <div class="card-body d-flex flex-wrap justify-content-center align-items-start" id="holiday">
-            <div id="carouselExampleControls" class="carousel slide holiday-slider" data-bs-ride="carousel" data-bs-interval="false">    
+            <div id="carouselExampleControls" class="carousel slide holiday-slider" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="carousel-inner">
                     @for ($curyear=$year-1; $curyear<$year+2; $curyear++)
                         @if ($curyear==$year)
@@ -61,7 +61,7 @@
                             {{$curyear}}
                             </div>
                             <div class="d-flex flex-wrap justify-content-center" id="calendar">
-                                @php 
+                                @php
                                     $n=0;
                                 @endphp
                                 @for ($l=0;$l<3;$l++)
@@ -69,20 +69,20 @@
                                         <div class="d-flex flex-wrap flex-column cal-col-1">
                                     @else
                                         <div class="d-flex flex-wrap flex-column cal-col">
-                                    @endif                                
+                                    @endif
                                         <table>
                                             <tr>
                                                 <td width="100px"></td>
-                                                <td class="wd-name p-2" width="40px">ПН</td>            
+                                                <td class="wd-name p-2" width="40px">ПН</td>
                                                 <td class="wd-name p-2" width="40px">ВТ</td>
                                                 <td class="wd-name p-2" width="40px">СР</td>
                                                 <td class="wd-name p-2" width="40px">ЧТ</td>
                                                 <td class="wd-name p-2" width="40px">ПТ</td>
                                                 <td class="wd-name p-2" width="40px">СБ</td>
                                                 <td class="wd-name p-2" width="40px">ВС</td>
-                                            </tr>   
+                                            </tr>
                                         </table>
-                                        @for ($n++;$n<13;$n++)                        
+                                        @for ($n++;$n<13;$n++)
                                                 @include ('admin.holiday.calendar',['month'=>$n,'year'=>$curyear])
                                                 @if ($n%4 == 0)
                                                     @break
@@ -91,9 +91,9 @@
                                     </div>
 
                                 @endfor
-                            </div>  
+                            </div>
                         </div>
-                    @endfor                 
+                    @endfor
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -103,7 +103,7 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Следующий</span>
                 </button>
-            </div>                        
+            </div>
             @include ('admin.holiday.table',['dates'=>$dates])
         </div>
     </div>
@@ -121,7 +121,7 @@
 @push('scripts')
 <script src="{{ asset('js/holiday.js') }}"></script>
 <script>
-var numdays = {{old('numdays') ?? $numdays}};   
+var numdays = {{old('numdays') ?? $numdays}};
 
 function logout(){
     $.ajax({
@@ -134,8 +134,8 @@ function logout(){
          window.location.href="/";
         },
         error: function(){
-         window.location.href="/";   
-        }                
+         window.location.href="/";
+        }
       });
 }
 

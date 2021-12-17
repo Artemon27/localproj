@@ -279,7 +279,7 @@ return [
         ['header' => 'РАБОЧЕЕ ВРЕМЯ'],
         [
             'text' => 'Табель учета рабочего времени',
-            'url'  => 'admin/timeSheet/download',
+            'url'  => 'admin/timeSheet/timeSheetpers',
             'icon' => 'fas fa-calendar-alt',
         ],
     ],

@@ -1,8 +1,13 @@
 var mouse=0;
 var strDays = [];
 today = new Date ()
+mondey = today
 today = today.getTime()
-endday = today+7*24*60*60*1000
+for (var i = mondey.getDay(); i >0; i--) {
+  mondey -= (24*60*60*1000)
+}
+mondey = new Date(mondey)
+mondey = mondey.getTime()
 
 //Кнопка очистки (очищает календарь)
 $('#btn-off').click(function(){//**********************************************************
@@ -26,17 +31,25 @@ $('body .dchange').mousedown(function(e) {//************************************
     mouse=1;
     if ($(this).find('div:first-child').hasClass('d-block')){
         $(this).find('div:first-child').removeClass().addClass('d-none');
+        $(this).find('div:first-child').removeAttr('prpsk');
+        $(this).find('div:first-child').removeAttr('room');
+        $(this).find('div:first-child').removeAttr('phone');
         updatenum();
         updatedates();
         $('body .dchange').on('mouseenter',function(){
             if ($(this).find('div:first-child').hasClass('d-block')){
                 $(this).find('div:first-child').removeClass().addClass('d-none');
-                console.log('dsf');
+                $(this).find('div:first-child').removeAttr('prpsk');
+                $(this).find('div:first-child').removeAttr('room');
+                $(this).find('div:first-child').removeAttr('phone');
                 updatenum();
             }
         });
     }else{
         $(this).find('div:first-child').removeClass().addClass('d-block');
+        $(this).find('div:first-child').attr('prpsk', prpsk)
+        $(this).find('div:first-child').attr('room', room)
+        $(this).find('div:first-child').attr('phone', phone)
         updatenum();
         updatedates();
         $('body .dchange').on('mouseenter',function(){
@@ -64,27 +77,40 @@ function updatedates(){ //******************************************************
       $('#carouselExampleControls2 .carousel-item:last').remove();
     }
     $('#carouselExampleControls2 .carousel-item').addClass('active')
-    $('#calendar .dchange').each(function( index ) {
-      if ($(this).hasClass('dchecked') || $(this).find('div:first-child').hasClass('d-block')){
-        timestamp = new Date ($(this).attr('cur-date')*1000);
-        curDateVal = formatDateVal(timestamp);
-        curIndex = index;
-        a=0
-        $('.table-all:last tr .curDate').each(function( index ) {
-          if(curDateVal == $('.table-all:last tr .curDate')[index].value)
-            a=1
-        });
-        if(a!=1){
 
-           var el = $('<tr><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]" value="'+prpsk+'"></td><td><input type="text" size="10" name="data['+i+'][room]" value="'+room+'"></td><td><input type="text" size="10" name="data['+i+'][phone]" value="'+phone+'"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
-           delDates($('.del_dates', $(el)));
-           if($('.carousel-item:last .table-all tr').length>=7){
-             var el2 = $('<div class="carousel-item"><table><tr><td class="wd-name p-2" style="width:162px">Дата</td><td class="wd-name p-2" style="width:81px">Пропуск</td><td class="wd-name p-2" style="width:114px">Помещение</td><td class="wd-name p-2" style="width:114px">Телефон</td><td style="width:72px"></td></tr><tbody class="table-all"></tbody></table></div>')
-             $('#carouselExampleControls2 .carousel-inner').append(el2);
-             $('.carousel-item:last .table-all').append(el);
-           }else{
-             $('.carousel-item:last .table-all').append(el);
-           }
+    $('#calendar .celldate').each(function( index ) {
+      if ((new Date ($(this).attr('cur-date')*1000))>=mondey){
+
+        if ($(this).find('div:first-child').hasClass('d-block')){
+          if($(this).find('div:first-child').attr('prpsk')){
+            prpsk_= $(this).find('div:first-child').attr('prpsk')
+            room_= $(this).find('div:first-child').attr('room')
+            phone_= $(this).find('div:first-child').attr('phone')
+          }else{
+            prpsk_=prpsk
+            room_=room
+            phone_=phone
+          }
+          timestamp = new Date ($(this).attr('cur-date')*1000);
+          curDateVal = formatDateVal(timestamp);
+          if($('#carouselExampleControls2 .carousel-item:last-child .table-all tr:last-child input.curDate')[0]){
+            lastDate= $('#carouselExampleControls2 .carousel-item:last-child .table-all tr:last-child input.curDate')[0].value
+            lastDate = new Date(lastDate)
+            lastDate=Number(lastDate.getDay());
+            if((lastDate>=timestamp.getDay() || lastDate==0) && (timestamp.getDay()!=0)){
+              var el2 = $('<div class="carousel-item"><table><tr><td class="wd-name p-2" style="width:162px">Дата</td><td class="wd-name p-2" style="width:81px">Пропуск</td><td class="wd-name p-2" style="width:114px">Помещение</td><td class="wd-name p-2" style="width:114px">Телефон</td><td style="width:72px"></td></tr><tbody class="table-all"></tbody></table></div>')
+              $('#carouselExampleControls2 .carousel-inner').append(el2);
+            }
+          }
+
+          if(today<=timestamp.getTime()){
+            var el = $('<tr><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]" value="'+prpsk_+'"></td><td><input type="text" size="10" name="data['+i+'][room]" value="'+room_+'"></td><td><input type="text" size="10" name="data['+i+'][phone]" value="'+phone_+'"></td><td><div class="btn btn-sm btn-outline-danger del_dates">Удалить</div></td></tr>');
+            delDates($('.del_dates', $(el)));
+            $('.carousel-item:last .table-all').append(el);
+          }else{
+            var el = $('<tr><td><input class="curDate" type="date" name="data['+i+'][date]" value="'+curDateVal+'" readonly></td><td><input type="text" size="5" class="numLine" name="data['+i+'][prpsk]" value="'+prpsk_+'" readonly></td><td><input type="text" size="10" name="data['+i+'][room]" value="'+room_+'" readonly></td><td><input type="text" size="10" name="data['+i+'][phone]" value="'+phone_+'" readonly></td></tr>');
+            $('.carousel-item:last .table-all').append(el);
+          }
         }
         i++;
       }
@@ -131,6 +157,9 @@ function drawCalendar(){//******************************************************
         if (!strDays[index]){
             strDays.push({curDateVal:curDateVal, curIndex:curIndex});
         }
+        $('#calendar .celldate').eq(curIndex).find('div:first-child').attr('prpsk', $($(this).find('td')[1]).find('input').val())
+        $('#calendar .celldate').eq(curIndex).find('div:first-child').attr('room', $($(this).find('td')[2]).find('input').val())
+        $('#calendar .celldate').eq(curIndex).find('div:first-child').attr('phone', $($(this).find('td')[3]).find('input').val())
         $('#calendar .celldate').eq(curIndex).find('div:first-child').removeClass().addClass('d-block');
     });
 }
@@ -145,13 +174,7 @@ function drawLists(){
   $('#carouselExampleControls2 #list button:first-child').addClass('select')
 }
 
-$('#carouselExampleControls2 #list button').click(function(){
-  console.log('dsf')
-  //$('#carouselExampleControls2 #list button').forEach((item, i) => {
-    //$(this).removeClass('select');
-  //});
-  //$(this).addClass('select')
-});
+
 
 //Функции запускаемые по отпусканию мыши
 $(document).mouseup (function() {
@@ -192,6 +215,16 @@ $(document).ready(function() {
    drawCalendar();
    drawLists()
    delDates($('.del_dates'));
+   $('#carouselExampleControls2')[0].addEventListener('slid.bs.carousel',function(){
+     $('#carouselExampleControls2 #list button').each(function() {
+       $(this).removeClass('select');
+     });
+     $('#carouselExampleControls2 .carousel-item').each(function(i) {
+       if($(this).hasClass('active')){
+         $($('#carouselExampleControls2 #list button')[i]).addClass('select');
+       }
+    });
+   });
  });
 
 

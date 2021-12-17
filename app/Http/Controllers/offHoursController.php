@@ -19,7 +19,7 @@ class offHoursController extends Controller
         $phone = Auth::user()->telephoneNumber;
         $now = Carbon::now();
 
-        $dates= off_hours::Where('user_id','=',$id)->get();
+        $dates= off_hours::Where('user_id','=',$id)->orderBy('date')->get();
         $numdays = 0;
 
         foreach ($dates as $date){
