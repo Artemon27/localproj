@@ -38,7 +38,7 @@ $month = date('m');
           </div>
       </div>
       @include('modules.messages')
-        <div class="card-body d-flex justify-content-center align-items-start" id="holiday">
+        <div class="card-body d-flex justify-content-center align-items-start" id="offHoursTable">
             <div id="carouselExampleControls" class="carousel slide holiday-slider" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="carousel-inner">
                   @for ($curyear=$year; $curyear<=2023; $curyear++)
@@ -82,7 +82,7 @@ $month = date('m');
                     <span class="visually-hidden">Следующий</span>
                 </button>
             </div>
-              <div style="width:40%">
+              <div>
                 <div id="carouselExampleControls2" class="carousel slide table-slider p-5 position-relative" data-bs-ride="carousel" data-bs-interval="false">
 
                     <div class="carousel-inner ms-5" style="height:270px">

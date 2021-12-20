@@ -133,11 +133,8 @@
 <script>
 function goToDate(){
     var date = $('#date').val();
-    if (Date.parse(date)>=Date.now()-3600*1000*24)
-    {
-        console.log(date);
-        window.location.href = "{{ route('admin.offhours.download') }}/" + date;
-    }
+    console.log(date);
+    window.location.href = "{{ route('admin.offhours.download') }}/" + date;
 }
 
 </script>

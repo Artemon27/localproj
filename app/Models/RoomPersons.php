@@ -10,6 +10,6 @@ class RoomPersons extends Model
     use HasFactory;
 
     protected $fillable = [
-        'room_id', 'user_id', 'main'
+        'room_id', 'user_id', 'main','name_staff','name_post','pager','pechat','mobile'
     ];
 }

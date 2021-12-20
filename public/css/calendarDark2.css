@@ -193,4 +193,7 @@ td{
     .holiday-slider{
         width:1000px;
     }
+    #offHoursTable{
+      flex-direction: column;
+    }
 }

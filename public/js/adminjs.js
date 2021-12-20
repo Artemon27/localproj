@@ -66,7 +66,6 @@ function Reload(){
 
 $('.changer').click(function(){
   if(this.attributes.class.value.split('room').length == 2){
-    id=this.attributes.class.value.split('room')[1]
     $(this.parentElement.parentElement).find('td').each(function(i){
       if(i>=1 && i<=6){
         this.lastChild.readOnly = false
@@ -84,7 +83,7 @@ $('.changer').click(function(){
       }
     });
   }else{
-    id=this.attributes.class.value.split('user')[1]
+    if(this.attributes.class.value.split('user').length == 2){
     $(this.parentElement.parentElement).find('td').each(function(i){
       if(i>=2 && i<=4){
         this.lastChild.readOnly = false
@@ -97,6 +96,20 @@ $('.changer').click(function(){
         $(this).css('display','none')
       }
     });
+  }else{
+    $(this.parentElement.parentElement).find('td').each(function(i){
+      if(i>=1 && i<=5){
+        this.lastChild.readOnly = false
+        $(this.lastChild).css('border','solid 1px black')
+      }
+      if(i>=7 && i<=8){
+        $(this).css('display','table-cell')
+      }
+      if(i>=9 && i<=10){
+        $(this).css('display','none')
+      }
+      });
+    }
   }
   $('.changer').each(function(i){
     this.disabled = true;

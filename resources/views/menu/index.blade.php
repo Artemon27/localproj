@@ -32,10 +32,10 @@
         <div class="container">
             <div class="d-flex justify-content-center" id="main-table">
                 @forelse ($menus as $menu)
-                <div class="text-center m-2">
+                <div class="text-center m-2 icon_area">
                     <div class="main-table-item">
                         <a href="{{$menu->url}}">
-                            <img src="{{getThumbs($menu->src)}}" alt="{{$menu->title}}" width="100" height="100">
+                            <img src="{{getThumbs($menu->src)}}" alt="{{$menu->title}}" width="100" height="100" class="icon">
                         </a>
                     </div>
                     <div class="text-center menu-text">

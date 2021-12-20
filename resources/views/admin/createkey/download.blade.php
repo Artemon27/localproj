@@ -143,7 +143,7 @@
               <tr>
                 <form method='post' action="{{route('admin.createkey.storepers')}}">
                   @csrf
-                  <td class="p-1 text-center" colspan="5">
+                  <td class="p-1 text-center" colspan="7">
                       <div class='select'>
                         Выбрать пользователей
                       </div>
@@ -158,18 +158,19 @@
                       </div>
                     <input type='hidden' name='room' value='{{$data[0]->id}}'>
                   </td>
-                  <td class="p-1 text-center"><button class="btn btn-success" type="submit">Добавить</button></td>
+                  <td class="p-1 text-center" colspan="2"><button class="btn btn-success" type="submit">Добавить</button></td>
                 </form>
               </tr>
 
                     <tr>
                         <th class="p-1 text-center"></th>
-                        <th class="p-1 text-center">ФИО, должность</th>
+                        <th class="p-1 text-center">ФИО</th>
+                        <th class="p-1 text-center">Должность</th>
                         <th class="p-1 text-center">Таб.Номер</th>
                         <th class="p-1 text-center">№ печати</th>
                         <th class="p-1 text-center">Домашний телефон</th>
                         <th class="p-1 text-center">Образец подписи</th>
-                        <th class="p-1 text-center">Действие</th>
+                        <th class="p-1 text-center" colspan="2">Действие</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -187,19 +188,43 @@
                           <td class="p-1 text-center">
                               @include('modules.toggle', ['model' => $pers, 'toggle' => 'main'])
                           </td>
-                          <td class="p-1 text-center">{{$dates->shortName()}}</td>
-                          <td class="p-1 text-center">{{$dates->pager}}</td>
-                          <td class="p-1 text-center">{{$dates->pechat}}</td>
-                          <td class="p-1 text-center">{{$dates->mobile}}</td>
+                          <form method="post" action="{{route('admin.createkey.changepers')}}">
+                            @csrf
+                            @if($pers['name_post']!=null)
+                              <td class="p-1 text-center"><input value="{{$pers['name_staff']}}" name="name_staff" readonly="readonly" style="border: none;"></td>
+                              <td class="p-1 text-center"><input value="{{$pers['name_post']}}" name="name_post" readonly="readonly" style="border: none;"></td>
+                              <td class="p-1 text-center"><input value="{{$pers['pager']}}" name="pager" readonly="readonly" style="border: none;" size='10'></td>
+                              <td class="p-1 text-center"><input value="{{$pers['pechat']}}" name="pechat" readonly="readonly" style="border: none;" size='8'></td>
+                              <td class="p-1 text-center"><input value="{{$pers['mobile']}}" name="mobile" readonly="readonly" style="border: none;"></td>
+                            @else
+                              <td class="p-1 text-center"><input value="{{$dates->shortName()}}" name="name_staff" readonly="readonly" style="border: none;"></td>
+                              <td class="p-1 text-center"><input value="{{$dates->title}}" name="name_post" readonly="readonly" style="border: none;"></td>
+                              <td class="p-1 text-center"><input value="{{$dates->pager}}" name="pager" readonly="readonly" style="border: none;" size='10'></td>
+                              <td class="p-1 text-center"><input value="{{$dates->pechat}}" name="pechat" readonly="readonly" style="border: none;" size='8'></td>
+                              <td class="p-1 text-center"><input value="{{$dates->mobile}}" name="mobile" readonly="readonly" style="border: none;"></td>
+                            @endif
                           <td class="p-1 text-center"></td>
-                          <td class="p-1 text-center">
-                            <form method="post" action="{{route('admin.createkey.delpers')}}">
-                              @csrf
-                              <input type='hidden' name='user_id' value='{{$dates->id}}'>
-                              <input type='hidden' name='room_id' value='{{$data[0]->id}}'>
-                              <button class="btn btn-danger" type="submit">Удалить</button>
-                            </form>
+                          <td class="p-1 text-center" style="display:none;">
+                            <input type='hidden' name='user_id' value='{{$dates->id}}'>
+                            <input type='hidden' name='room_id' value='{{$data[0]->id}}'>
+                            <button class="btn btn-success" type='submit'>Сохранить</button>
                           </td>
+                        </form>
+                        <td class="p-1 text-center" style="display:none;">
+                                <button class="btn btn-danger" onclick='Reload()'>Отмена</button>
+                        </td>
+                        <td class="p-1 text-center">
+                              <button class="btn btn-primary changer keypers-k" >Редактировать</button>
+                              </a>
+                        </td>
+                        <td class="p-1 text-center">
+                          <form method="post" action="{{route('admin.createkey.delpers')}}">
+                            @csrf
+                            <input type='hidden' name='user_id' value='{{$dates->id}}'>
+                            <input type='hidden' name='room_id' value='{{$data[0]->id}}'>
+                            <button class="btn btn-danger" type="submit">Удалить</button>
+                          </form>
+                        </td>
                       </tr>
                     @empty
                     @endforelse

@@ -8,6 +8,9 @@
       $mondey=$mondey-(24*60*60);
   @endphp
 @endfor
+@php
+    $mondey=$mondey-(24*60*60);
+@endphp
 
 <div class="carousel-item active">
 <table>

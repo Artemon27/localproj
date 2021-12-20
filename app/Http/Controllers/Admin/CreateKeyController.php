@@ -7,6 +7,7 @@ use Carbon\Carbon;
 
 use App\Http\Requests\Admin\CreateKeyRequest;
 use App\Http\Requests\Admin\CreateKeyTableRequest;
+use App\Http\Requests\Admin\CreateKeyChangeRequest;
 use App\Http\Requests\Admin\CreateKeyDeleteRoomRequest;
 use App\Http\Requests\Admin\CreateKeyPersRequest;
 use App\Http\Requests\Admin\CreateKeyDelPersRequest;
@@ -41,6 +42,16 @@ if(Rooms::Where('id_corp','=',$request['id_corp'])->where('id_room','=',$request
         } else {
           return back()->with('warning', 'Комната уже добавлена');
         }
+    }
+    public function changepers(CreateKeyChangeRequest $request)
+    {
+      $date['name_staff'] = $request['name_staff'];
+      $date['name_post'] = $request['name_post'];
+      $date['pager'] = $request['pager'];
+      $date['pechat'] = $request['pechat'];
+      $date['mobile'] = $request['mobile'];
+      RoomPersons::Where('room_id','=',$request['room_id'])->Where('user_id','=',$request['user_id'])->update($date);
+      return back()->with('success', 'Записи добавлена');
     }
 
     public function change(CreateKeyRequest $request)
@@ -163,6 +174,7 @@ if(Rooms::Where('id_corp','=',$request['id_corp'])->where('id_room','=',$request
                   $cells[6]->Data = $staff[0]->pechat;
                   $cells[7]->Data = $staff[0]->mobile;
                 } else {
+
                   for( $i=0; $i < 5; $i++ ) {
                       $cell = $newrow->addChild('Cell');
                       if ( $i == 0 ) {
@@ -173,11 +185,18 @@ if(Rooms::Where('id_corp','=',$request['id_corp'])->where('id_room','=',$request
                       $data = $cell->addChild('Data');
                       $data->addAttribute('xmlns:ss:Type',"String" );
                   }
-                  $staff = User::Where('id','=',$pers->user_id)->get();
-                  $cells[0]->Data = $staff[0]->name."\r".$staff[0]->title;
-                  $cells[1]->Data = $staff[0]->pager;
-                  $cells[2]->Data = $staff[0]->pechat;
-                  $cells[3]->Data = $staff[0]->mobile;
+                  if($pers->name_post != null){
+                      $cells[0]->Data = $pers->name_staff."\r".$pers->name_post;
+                      $cells[1]->Data = $pers->pager;
+                      $cells[2]->Data = $pers->pechat;
+                      $cells[3]->Data = $pers->mobile;
+                    }else{
+                      $staff = User::Where('id','=',$pers->user_id)->get();
+                      $cells[0]->Data = $staff[0]->name."\r".$staff[0]->title;
+                      $cells[1]->Data = $staff[0]->pager;
+                      $cells[2]->Data = $staff[0]->pechat;
+                      $cells[3]->Data = $staff[0]->mobile;
+                  }
                 }
         }
 

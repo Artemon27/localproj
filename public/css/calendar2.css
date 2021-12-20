@@ -188,12 +188,15 @@ td{
     background-color: #68b7d7;
 }
 
-@media (max-width: 1550px) {
+@media (max-width: 1650px) {
     #calendar  .cal-col{
         margin-left: -50px;
     }
     .holiday-slider{
         width:1000px;
+    }
+    #offHoursTable{
+      flex-direction: column;
     }
 }
 
