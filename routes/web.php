@@ -76,6 +76,7 @@ Route::group([
         require(__DIR__ . '/front/timeSheet.php');
         require(__DIR__ . '/front/keys.php');
         require(__DIR__ . '/front/menu.php');
+        require(__DIR__ . '/front/userSettings.php');
     });
 
 Auth::routes();

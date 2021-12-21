@@ -1,4 +1,3 @@
-
 var mouse=0;
 var strDays = [];
 
@@ -398,18 +397,3 @@ $(document).ready(function() {
    tableInputOn();
    delDates($('.del_dates'));
  });
-
-
-//Для смены темы
-$('#theme').click(function(){
-    if (!$('link[theme*="1"]').prop('disabled')){
-        $('link[theme*="1"]').prop('disabled', true);
-        $('link[theme*="2"]').prop('disabled', false);
-        $('#inpDesign').val('2');
-    }
-    else{
-        $('link[theme*="1"]').prop('disabled', false);
-        $('link[theme*="2"]').prop('disabled', true);
-        $('#inpDesign').val('1');
-    }
-});

@@ -11,6 +11,7 @@ class UserSetting extends Model
     
       protected $fillable = [
         'design',
+        'user_id',
     ];
       
     public function user(): BelongsTo

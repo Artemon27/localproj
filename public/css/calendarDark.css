@@ -27,6 +27,26 @@ body{
 .month-2, .month-2, .month-4, .month-6, .month-8, .month-10, .month-12{
     background-color: #1f2040;
 }
+.icon_area{
+      width: 170px;
+      line-height: 19px;
+      font-weight: 500;
+      font-size: large;
+}
+.icon{
+      border-radius: 20%;
+      box-shadow: 0px 0px 11px #f2c7c7;
+}
+.icon:hover{
+      box-shadow: 0px 0px 30px #f2c7c7;
+}
+.main-table-row{
+      margin-bottom: 30px;
+      height:170px;
+}
+.menu-text{
+      padding-top: 5px;
+}
 .month-3{
 }
 .month-4{

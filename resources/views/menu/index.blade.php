@@ -12,11 +12,11 @@
     <div class="card-header">
         <div class="row">
             <div class="col-2">
-                <div id="theme" class="btn btn-sm btn-outline-primary">Сменить тему</div>
+                @include ('modules.theme')
             </div>
             <div class="col-2">
             </div>
-            <div class="col-1">
+            <div class="col-1"> 
             </div>
             <div class="col-2 text-center">
             </div>
@@ -30,7 +30,7 @@
 
     <div class="card-body d-flex flex-wrap justify-content-center align-items-start" id="holiday">
         <div class="container">
-            <div class="d-flex justify-content-center" id="main-table">
+            <div class="d-flex justify-content-center main-table-row" id="main-table">
                 @forelse ($menus as $menu)
                 <div class="text-center m-2 icon_area">
                     <div class="main-table-item">
@@ -44,7 +44,7 @@
                 </div>
                 @if ($loop->iteration%4 == 0)
                 </div>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center main-table-row">
                 @endif
                 @empty
                 @endforelse
@@ -57,7 +57,7 @@
 
 
 @push('styles')
-@include ('modules.theme')
+
 @endpush
 
 @push('beforescripts')

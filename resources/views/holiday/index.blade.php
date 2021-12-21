@@ -14,7 +14,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-2">
-                    <div id="theme" class="btn btn-sm btn-outline-primary">Сменить тему</div>   
+                    @include ('modules.theme')                    
                 </div>
                 <div class="col-2">
                     <div id="btn-off" class="btn btn-sm btn-outline-primary">Очистить</div>
@@ -146,7 +146,7 @@
 
 
 @push('styles')
-@include ('modules.theme')
+
 @endpush
 
 @push('beforescripts')
