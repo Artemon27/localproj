@@ -270,6 +270,11 @@ return [
             'url'  => 'admin/offhours/download',
             'icon' => 'fas fa-moon',
         ],
+        [
+            'text' => 'Изменить записи',
+            'url'  => 'admin/offhours/offhourpers',
+            'icon' => 'fas fa-moon',
+        ],
         ['header' => 'КЛЮЧИ'],
         [
             'text' => 'Выдача ключей',

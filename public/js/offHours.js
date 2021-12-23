@@ -166,6 +166,11 @@ function drawCalendar(){//******************************************************
     $('.table-all tr.d-none').each(function(i){
       $(this).remove();
     });
+    $('#carouselExampleControls2 .carousel-item').each(function(i){
+      if($(this).find('.table-all tr').length == 0){
+        $(this).remove();
+      }
+    });
     $($('#carouselExampleControls2 .carousel-item')[0]).addClass('active')
 }
 
@@ -224,7 +229,7 @@ function delDates(elem){
 $(document).ready(function() {
    updatenum();
    drawCalendar();
-   updatedates();
+   drawLists()
    delDates($('.del_dates'));
    $('#carouselExampleControls2')[0].addEventListener('slid.bs.carousel',function(){
      $('#carouselExampleControls2 #list button').each(function() {
@@ -249,4 +254,16 @@ $('#theme').click(function(e){
         $('link[href*="calendar2.css"]').prop('disabled', true);
         $('link[href*="calendarDark2.css"]').prop('disabled', false);
     }
+});
+
+$(document).mousedown(function(e){
+  if($(e.target)[0].className.split('celldate').length > 1){
+    if($(e.target)[0].className.split('dchange').length <= 1){
+      if($(e.target)[0].className.split('holiday').length > 1){
+        alert('Запись на выходные дни осуществляется до 9:30 предшествующей пятницы');
+      }else{
+        alert('Запись на вечер осуществляется до 9:30 этого дня');
+      }
+    }
+  }
 });

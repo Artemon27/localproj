@@ -10,6 +10,11 @@
          <h1>Выдача ключей</h1>
       </div>
          <div class="col">
+           <form action="{{ route('admin.createkey.search') }}" method="post" class='float-end'>
+             @csrf
+             <input type='text' name='srch'>
+             <button class="btn btn-success" type="submit">Поиск</button>
+           </form>
       </div>
    </div>
 @else
@@ -24,13 +29,6 @@
       @if($data === -1)
         <div class="card-header">
           <div class="d-flex flex-row">
-            <div class="m-0 p-2">
-              <form action="{{ route('admin.createkey.search') }}" method="post" >
-                @csrf
-                <input type='text' name='srch'>
-                <button class="btn btn-success" type="submit">Поиск</button>
-              </form>
-            </div>
               <div class="ml-auto p-2">
                   <form action="{{ route('admin.createkey.CreateKeyTable') }}" method="post">
                       @csrf
@@ -78,7 +76,7 @@
                         <th class="p-1 text-center" width="8%">№ помещения</th>
                         <th class="p-1 text-center" width="10%">Местный телефон</th>
                         <th class="p-1 text-center" width="10%">Режимное помещение</th>
-                        <th class="p-1 text-center" width="10%">Ответственный</th>
+                        <th class="p-1 text-center" width="10%">Испольнитель</th>
                         <th class="p-1 text-center" width="15%" colspan="4">Действие</th>
                     </tr>
                 </thead>
@@ -95,10 +93,10 @@
                         <td class="p-1 text-center"><input type='checkbox' name='imp'></td>
                         <td class="p-1 text-center">
                           <div class='select'>
-                            Выбрать ответственного
+                            Выбрать исполнителя
                           </div>
                           <div class='select_body'>
-                            <input type='text' name='srch' placeholder='Поиск' size='18' class='srch'>
+                            <input type='text' name='srch' placeholder='Поиск' size='17' class='srch'>
                             <div>
                               @forelse ($users as $i1 => $value)
                               <div><input type='radio' name='staff' value="{{$value->id}}"><span>{{$value->shortName()}}</span></div>
@@ -136,14 +134,19 @@
                               @if(isset($room->responsible))
                                 {{$users->Where('id','=',$room->responsible)->first()->shortName()}}
                               @else
-                                Выбрать ответственного
+                                Выбрать исполнителя
                               @endif
                             </div>
                             <div class='select_body'>
-                              <input type='text' name='srch' placeholder='Поиск' size='18' class='srch'>
+                              <input type='text' name='srch' placeholder='Поиск' size='17' class='srch'>
                               <div>
                                 @forelse ($users as $i2 => $value)
-                                <div><input type='radio' name='staff' value="{{$value->id}}"><span>{{$value->shortName()}}</span></div>
+                                @if(isset($room->responsible) &&
+                                  $users->Where('id','=',$room->responsible)->first()->shortName() == $value->shortName())
+                                  <div><input type='radio' name='staff' value="{{$value->id}}" checked><span>{{$value->shortName()}}</span></div>
+                                @else
+                                  <div><input type='radio' name='staff' value="{{$value->id}}"><span>{{$value->shortName()}}</span></div>
+                                @endif
                                 @empty
                                 @endforelse
                               </div>
@@ -195,7 +198,7 @@
                         Выбрать пользователей
                       </div>
                       <div class='select_body'>
-                        <input type='text' name='srch' placeholder='Поиск' size='18' class='srch'>
+                        <input type='text' name='srch' placeholder='Поиск' size='17' class='srch'>
                         <div>
                           @forelse ($users as $i => $value)
                           <div><input type='checkbox' name='pers[{{$i}}]' value="{{$value->id}}"> <span>{{$value->shortName()}}</span></div>

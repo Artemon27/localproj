@@ -18,7 +18,7 @@ $('.select_body span').click(function(){
     $($(this)[0].previousElementSibling)[0].checked = false;
     let a = $(this)[0].previousElementSibling.attributes.name.value
     if(a == 'staff_id' || a == 'staff'){
-      $(this)[0].parentElement.parentElement.parentElement.previousElementSibling.textContent = 'Выберите ответственного'
+      $(this)[0].parentElement.parentElement.parentElement.previousElementSibling.textContent = 'Выбрать исполнителя'
     }
   }
 });
@@ -45,6 +45,9 @@ $('.srch').keyup(function(){
 });
 
 function find (text, pattern){
+  text = text.toLowerCase()
+  pattern = pattern.toLowerCase()
+  console.log(text)
   t = 0
   last = pattern.length-1
   while (t < pattern.length-last){
@@ -131,4 +134,19 @@ $('.changer').click(function(){
   $('.changer').each(function(i){
     this.disabled = true;
   });
+});
+
+$('.new_user').click(function(){
+  $('.background_new_user').removeClass('d-none').addClass('d-block');
+  $('.new_user_fields').removeClass('d-none').addClass('d-block');
+});
+
+$('.background_new_user').click(function(){
+  $('.background_new_user').removeClass('d-block').addClass('d-none');
+  $('.new_user_fields').removeClass('d-block').addClass('d-none');
+});
+
+$('.new_user_fields span').click(function(){
+  $('.background_new_user').removeClass('d-block').addClass('d-none');
+  $('.new_user_fields').removeClass('d-block').addClass('d-none');
 });

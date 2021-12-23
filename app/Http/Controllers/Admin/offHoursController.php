@@ -49,6 +49,32 @@ class offHoursController extends Controller
       return back()->with('success', 'Записи добавлена');
     }
 
+    public function offhourpers(User $user = NULL){
+      if ($user==NULL){
+          $user = Auth::User();
+      }
+      $id = $user->id;
+      $prpsk = $user->pager;
+      $room = $user->physicalDeliveryOfficeName;
+      $phone = $user->telephoneNumber;
+      $now = Carbon::now();
+
+      $dates= off_hours::Where('user_id','=',$id)->orderBy('date')->get();
+      $users= User::get();
+      $numdays = 0;
+
+      foreach ($dates as $date){
+          $numdays = $numdays+$date->days;
+      }
+
+      return view('admin.offhours.offHours.index', compact('dates','numdays', 'user', 'users', 'prpsk', 'room', 'phone'));
+    }
+
+    public function chose(offHoursRequest $request){
+      $user = User::find($request['id']);
+      return redirect()->route('admin.offhours.offhourpers', ['user' => $user]);
+    }
+
     public function change(offHoursChangeRequest $request)
     {
         $date['prpsk'] = $request['prpsk'];

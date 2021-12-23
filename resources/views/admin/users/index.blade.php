@@ -3,7 +3,20 @@
 @section('title', 'Пользователи')
 
 @section('content_header')
-    <h1>Пользователи</h1>
+  <div class="row">
+      <div class="col"><h1 class="">Пользователи</h1></div>
+      <div class="col">
+        <form action="{{ route('admin.users.search') }}" method="post" class="float-end">
+          @csrf
+          @if(isset($srch))
+            <input type='text' name='srch' value="{{$srch}}">
+          @else
+            <input type='text' name='srch'>
+          @endif
+          <button class="btn btn-success" type="submit">Поиск</button>
+        </form>
+      </div>
+    </div>
 @endsection
 
 @section('content')
@@ -19,19 +32,41 @@
                     </form>
                 </div>
                 <div class='col text-center'>
-                  <form action="{{ route('admin.users.search') }}" method="post" >
-                    @csrf
-                    @if(isset($srch))
-                      <input type='text' name='srch' value="{{$srch}}">
-                    @else
-                      <input type='text' name='srch'>
-                    @endif
-                    <button class="btn btn-success" type="submit">Поиск</button>
-                  </form>
+                  <button class="btn btn-success new_user">Новый пользователь</button>
                 </div>
+                <div class="col">
+                  <form action="{{ route('admin.users.CreateTableUsers') }}" method="post">
+                    @csrf
+                    <div class="float-start">
+                      <div class='select'>
+                        Выбрать поля
+                      </div>
+                      <div class='select_body h-auto'>
+                        <div><input type='checkbox' name='fields[0]' value="name" checked><span> ФИО</span></div>
+                        <div><input type='checkbox' name='fields[1]' value="email" checked><span> Email</span></div>
+                        <div><input type='checkbox' name='fields[2]' value="role" checked><span> Роль</span></div>
+                        <div><input type='checkbox' name='fields[3]' value="pager" checked><span> Пропуск</span></div>
+                        <div><input type='checkbox' name='fields[4]' value="department" checked><span> Отдел</span></div>
+                        <div><input type='checkbox' name='fields[5]' value="title" checked><span> Должность</span></div>
+                        <div><input type='checkbox' name='fields[6]' value="physicalDeliveryOfficeName" checked><span> Кабинет</span></div>
+                        <div><input type='checkbox' name='fields[7]' value="telephoneNumber" checked><span> Телефон кабинета</span></div>
+                        <div><input type='checkbox' name='fields[8]' value="pechat" checked><span> Печать</span></div>
+                        <div><input type='checkbox' name='fields[9]' value="mobile" checked><span> Мобильный телефон</span></div>
+                    </div>
+                  </div>
+                  @if(isset($srch))
+                    <input type='hidden' name='srch' value="{{$srch}}">
+                  @else
+                    <input type='hidden' name='srch'>
+                  @endif
+                  <button class="btn btn-success float-start ms-2" type="submit">Таблица</button>
+                </form>
+                </div>
+                @if(count($users->links()->elements[0])>1)
                 <div class="col">
                     {{ $users->links() }}
                 </div>
+                @endif
             </div>
         </div>
         <div class="card-body">
@@ -152,6 +187,24 @@
         </div>
     </div>
 </div>
+<div class='background_new_user position-absolute w-100 h-100 bg-black d-none'></div>
+<div class="new_user_fields bg-white position-absolute d-none">
+  <span class="position-absolute btn">X</span>
+  <form class="p-5 text-center" method="post" action="{{ route('admin.users.addUser') }}">
+    @csrf
+    <div class='ms-2'>Добавление нового пользователя</div>
+    <input type="text" name="name" placeholder="ФИО" size='50' class="m-1">
+    <input type="text" name="pager" placeholder="Пропуск" size='50' class="m-1">
+    <input type="text" name="department" placeholder="Отдел" size='50' class="m-1">
+    <input type="text" name="email" placeholder="Email" size='50' class="m-1">
+    <input type="text" name="title" placeholder="Должность" size='50' class="m-1">
+    <input type="text" name="physicalDeliveryOfficeName" placeholder="Кабинет" size='50' class="m-1">
+    <input type="text" name="telephoneNumber" placeholder="Телефон кабинета" size='50' class="m-1">
+    <input type="text" name="pechat" placeholder="Печать" size='50' class="m-1">
+    <input type="text" name="mobile" placeholder="Мобильный телефон" size='50' class="m-1">
+    <button type="submit" class="btn btn-success m-2">Добавить</button>
+  </form>
+</div>
 @endsection
 
 @push('css')
@@ -168,6 +221,7 @@
 </style>
 @endpush
 @push('js')
+<script src="{{asset('js/adminjs.js')}}"></script>
 <script>
   $(document).ready(function() {
     let selectedUser

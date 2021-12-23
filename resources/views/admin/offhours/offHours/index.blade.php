@@ -8,6 +8,20 @@ $year = date('Y');
 $month = date('m');
 @endphp
 
+<form action="{{ route('admin.offhours.chose') }}" method="post">
+    @csrf
+    <div class="form-group w-50 m-auto mt-3 mb-3 ">
+        <div class="row">
+            <div class="col-2">
+                <label for="parent_id">Имя пользователя</label>
+            </div>
+            <div class="col">
+                @include('modules.choseUser')
+            </div>
+            <div class="col"><button href="" class="btn btn-btn btn-sm btn-outline-primary">Выбрать</button></div>
+        </div>
+    </div>
+</form>
 
 <form action="{{ route('offhours.store') }}" method="post">
     @csrf

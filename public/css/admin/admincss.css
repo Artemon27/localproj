@@ -1,5 +1,5 @@
 .select{
-  width: 220px;
+  width: 200px;
   height:30px;
   background-color:#FFF;
   padding: 5px;
@@ -8,7 +8,7 @@
 
 .select_body{
   position: absolute;
-  width: 220px;
+  width: 200px;
   background-color:#FFF;
   display: none;
   padding: 5px;
@@ -29,4 +29,20 @@
 
 .select_body div{
   text-align:left;
+}
+
+.background_new_user{
+  opacity: 0.5;
+  top:0;
+  left:0;
+}
+.new_user_fields{
+  width: 500px;
+  height: 500px;
+  opacity: 1;
+  top:5%;
+  left:40%;
+}
+.new_user_fields span{
+  right:1%;
 }

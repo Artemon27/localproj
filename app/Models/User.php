@@ -24,7 +24,7 @@ class User extends Authenticatable
 
     const ROLE_ULTRA_ADMIN = 10;
     const ROLE_ADMIN = 9;
-    const ROLE_USER = 1;  
+    const ROLE_USER = 1;
 
     protected $fillable = [
         'name',         //ФИО
@@ -34,6 +34,7 @@ class User extends Authenticatable
         'objectguid',   //Идентификатор
         'pager',        //Табельный номер
         'department',   //Отдел
+        'title',        //Должность
         'sAMAccountName',//Имя пользователя
         'physicalDeliveryOfficeName', //Номер помещения
         'telephoneNumber', //Номер телефона в помещении
@@ -119,13 +120,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(Holidesign::class);
     }
-    
+
     public function design() {
         dd($this->settings());
         return $this->settings()->design;
-        
+
     }
-    
+
     public function settings()
     {
         return $this->hasOne(UserSetting::class);
