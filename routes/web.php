@@ -60,6 +60,7 @@ Route::group([
         require(__DIR__ . '/admin/offHours.php');
         require(__DIR__ . '/admin/timeSheet.php');
         require(__DIR__ . '/admin/CreateKey.php');
+        require(__DIR__ . '/admin/User.php');
         require(__DIR__ . '/admin/menu.php');
     });
 });

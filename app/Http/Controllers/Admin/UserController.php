@@ -31,18 +31,44 @@ class UserController extends Controller
     {
         $name = $request->get('name') ?? 'name';
         $sort = $request->get('sort') ?? 'asc';
-        
+
         $users = User::query()
                 ->select(['id', 'name', 'email', 'role','department','pager','title','physicalDeliveryOfficeName','telephoneNumber'])
                 ->orderBy($name, $sort)
-                ->paginate('30');        
-        
+                ->paginate('30');
+
         $users->appends(['name' => $name]);
         $users->appends(['sort' => $sort]);
-        
+
         return view('admin.users.index', [
             'users' => $users
-        , 'name' => $name, 'sort' => $sort]);    }
+        , 'name' => $name, 'sort' => $sort]);
+      }
+
+        public function search(Request $request): View
+        {
+            $srch=$request["srch"];
+            $name = $request->get('name') ?? 'name';
+            $sort = $request->get('sort') ?? 'asc';
+
+            $users = User::query()
+                    ->select(['id', 'name', 'email', 'role','department','pager','title','physicalDeliveryOfficeName','telephoneNumber'])
+                    ->orderBy($name, $sort)
+                    ->orWhere('name','LIKE','%'.$srch.'%')
+                    ->orWhere('email','LIKE','%'.$srch.'%')
+                    ->orWhere('role','LIKE','%'.$srch.'%')
+                    ->orWhere('department','LIKE','%'.$srch.'%')
+                    ->orWhere('pager','LIKE','%'.$srch.'%')
+                    ->orWhere('title','LIKE','%'.$srch.'%')
+                    ->paginate('30');
+
+            $users->appends(['name' => $name]);
+            $users->appends(['sort' => $sort]);
+
+            return view('admin.users.index', [
+                'users' => $users
+            , 'name' => $name, 'sort' => $sort, 'srch' => $srch]);
+          }
 
     /**
      * Show the form for creating a new resource.
@@ -152,7 +178,7 @@ class UserController extends Controller
 
         return new JsonResponse(['message' => 'Удалено']);
     }
-    
+
     public function migrate()
     {
         Artisan::call('migrate');
