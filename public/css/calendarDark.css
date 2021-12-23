@@ -20,7 +20,19 @@ body{
 #table-all input[type="number"]{
     max-width: 50px;
 }
-
+.icon_area{
+      width: 120px;
+      line-height: 19px;
+      font-weight: 500;
+      font-size: large;
+}
+.icon{
+      border-radius: 20%;
+      box-shadow: 0px 0px 5px #646464;
+}
+.menu-text{
+      padding-top: 5px;
+}
 .month-1, .month-3, .month-5, .month-7, .month-9, .month-11{
     background-color: #293B3C;
 }
@@ -98,18 +110,18 @@ td{
     width:100px;
     text-align: center;
 }
-.month-name{    
+.month-name{
     text-align: right;
     color: #e3e3e3;
 }
 .month-name-rotate{
-    -webkit-transform: rotate(270deg); 
+    -webkit-transform: rotate(270deg);
     transform: rotate(270deg);
     word-wrap: normal;
     font-size: 17pt;
     text-align: center;
-    padding-top: 70px;    
-    margin-top: -7px;    
+    padding-top: 70px;
+    margin-top: -7px;
 }
 .month-num{
     font-size: 30pt;
@@ -117,7 +129,7 @@ td{
 }
 .month-name-1{
 }
-.month-name-rotate-1{  
+.month-name-rotate-1{
 }
 .month-name-2{
 }
@@ -125,11 +137,11 @@ td{
 }
 .month-name-3{
 }
-.month-name-rotate-3{   
+.month-name-rotate-3{
 }
 .month-name-4{
 }
-.month-name-rotate-4{  
+.month-name-rotate-4{
 }
 .month-name-5{
 }
@@ -148,7 +160,7 @@ td{
 .month-name-12{
 }
 .dchange{
-    
+
 }
 .dchecked.dchange{
     background-color: #319cc6;

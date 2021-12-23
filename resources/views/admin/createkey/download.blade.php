@@ -22,7 +22,12 @@
 
 <div class="card">
       @if($data === -1)
-        <div class="card-header">
+        <div class="card-header text-center">
+          <form action="{{ route('admin.createkey.search') }}" method="post" >
+            @csrf
+            <input type='text' name='srch'>
+            <button class="btn btn-success" type="submit">Поиск</button>
+          </form>
         </div>
         @else
         <div class="card-header">
@@ -80,11 +85,11 @@
                       <form method='post' action="{{route('admin.createkey.store')}}" id='addRoom'>
                         @csrf
                         <td class="p-1 text-center">0</td>
-                        <td class="p-1 text-center" ><input type='text' name='otdel'></td>
-                        <td class="p-1 text-center"><input type='text' name='penal'></td>
-                        <td class="p-1 text-center"><input type='number' name='id_corp'></td>
-                        <td class="p-1 text-center"><input type='text' name='id_room' maxlength='15'></td>
-                        <td class="p-1 text-center"><input type='text' name='phone'></td>
+                        <td class="p-1 text-center" ><input type='text' name='otdel' size='12'></td>
+                        <td class="p-1 text-center"><input type='text' name='penal' size='3'></td>
+                        <td class="p-1 text-center"><input type='text' name='id_corp' size='2'></td>
+                        <td class="p-1 text-center"><input type='text' name='id_room' size='4'></td>
+                        <td class="p-1 text-center"><input type='text' name='phone' size='5'></td>
                         <td class="p-1 text-center"><input type='checkbox' name='imp'></td>
                         <td class="p-1 text-center" colspan="3"><button class="btn btn-success" type="submit">Создать комнату</button></td>
                       </form>
@@ -94,11 +99,11 @@
                         <form method="post" action="{{route('admin.createkey.change')}}">
                           @csrf
                           <td class="p-1 text-center">{{$i++}}<input type='hidden' value="{{$room->id}}" name="id" readonly="readonly" style="border: none;"></td>
-                          <td class='p-1 text-center'><input value="{{$room->otdel}}" name="otdel" readonly="readonly" style="border: none;"></td>
-                          <td class='p-1 text-center'><input value="{{$room->penal}}" name="penal" readonly="readonly" style="border: none;"></td>
-                          <td class='p-1 text-center'><input value="{{$room->id_corp}}" name="id_corp" readonly="readonly" style="border: none;" type='number'></td>
-                          <td class='p-1 text-center'><input value="{{$room->id_room}}" name="id_room" readonly="readonly" style="border: none;" maxlength='15'></td>
-                          <td class='p-1 text-center'><input value="{{$room->phone}}" name="phone" readonly="readonly" style="border: none;"></td>
+                          <td class='p-1 text-center'><input value="{{$room->otdel}}" name="otdel" readonly="readonly" size='12' style="border: none;"></td>
+                          <td class='p-1 text-center'><input value="{{$room->penal}}" name="penal" readonly="readonly" size='3' style="border: none;"></td>
+                          <td class='p-1 text-center'><input value="{{$room->id_corp}}" name="id_corp" readonly="readonly" size='2' style="border: none;"></td>
+                          <td class='p-1 text-center'><input value="{{$room->id_room}}" name="id_room" readonly="readonly" size='4' style="border: none;" maxlength='15'></td>
+                          <td class='p-1 text-center'><input value="{{$room->phone}}" name="phone" readonly="readonly" size='5' style="border: none;"></td>
                           @if($room->imp=='1')
                             <td class='p-1 text-center'><input type='checkbox' name="imp" checked readonly="readonly" style="border: none;" onclick="return false;"></input></td>
                           @else

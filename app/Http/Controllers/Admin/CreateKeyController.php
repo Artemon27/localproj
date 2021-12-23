@@ -103,19 +103,25 @@ if(Rooms::Where('id_corp','=',$request['id_corp'])->where('id_room','=',$request
     }
 
 
-    public function download( $data = -1)
+    public function download($data = -1)
     {
-      $a=$data;
-      $users=User::orderBy('department')->orderBy('name')->get();
-      //$rooms=Rooms::orderBy('otdel')->paginate('30')->get();
-      $rooms=Rooms::orderBy('otdel')->get();
-      $staff=0;
-      if($data != -1){
-        $data=Rooms::Where('id','=',$a)->get();
-        $staff=RoomPersons::Where('room_id','=',$a)->get();
-      }
-      return view('admin.createkey.download', compact('users','rooms', 'data','staff'));
+        $a=$data;
+        $users=User::orderBy('department')->orderBy('name')->get();
+        $rooms=Rooms::orderBy('otdel')->get();
+        $staff=0;
+        if($data != -1){
+          $data=Rooms::Where('id','=',$a)->get();
+          $staff=RoomPersons::Where('room_id','=',$a)->get();
+        }
+        return view('admin.createkey.download', compact('users','rooms', 'data','staff'));
+    }
 
+    public function search(CreateKeyChangeRequest $request){
+      $users=User::orderBy('department')->orderBy('name')->get();
+      $rooms=Rooms::orderBy('otdel')->orWhere('otdel','LIKE',"%".$request['srch']."%")->orWhere('penal','LIKE',"%".$request['srch']."%")->orWhere('id_corp','LIKE',"%".$request['srch']."%")->orWhere('id_room','LIKE',"%".$request['srch']."%")->orWhere('phone','LIKE',"%".$request['srch']."%")->get();
+      $data = -1;
+      $staff=0;
+      return view('admin.createkey.download', compact('users','rooms', 'data','staff'));
     }
 
 
