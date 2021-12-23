@@ -30,7 +30,19 @@ td.h4 div:first-child{
 #carouselExampleControls2 #list button.select{
   background: #1b5c75;
 }
-
+.today{
+  position: absolute;
+  border-radius: 50%;
+  color: white;
+  background-color: red;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  top: 20px;
+  left: 20px;
+}
 
 .year-num{
     font-size:30pt;

@@ -2,7 +2,7 @@
     $weekday = mktime(0, 0, 0, $month, 1, $year);
     $weekday = getdate($weekday);
     $today  = mktime(date("H")+3, date("i"), date("s"), date("m")  , date("d"), date("Y"));
-
+    $today_date  = strtotime(date("d").'.'.date("m").'.'.date("Y"));
 
     $i=1;
     $j=1;

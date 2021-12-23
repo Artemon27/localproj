@@ -22,35 +22,39 @@
 
 <div class="card">
       @if($data === -1)
-        <div class="card-header d-flex flex-row">
-          <div class="m-0 p-2">
-            <form action="{{ route('admin.createkey.search') }}" method="post" >
-              @csrf
-              <input type='text' name='srch'>
-              <button class="btn btn-success" type="submit">Поиск</button>
-            </form>
-          </div>
-          <div class="ml-auto p-2">
-            <form action="{{ route('admin.createkey.CreateKeyTable') }}" method="post" class="text-right">
-              @csrf
-                <div class="m-10" style="float:left">
-                  <div class='select'>
-                    Выбрать ответственного
-                  </div>
-                  <div class='select_body'>
-                    <input type='text' name='srch' placeholder='Поиск' size='18' class='srch'>
-                    <div>
-                      @forelse ($users as $i => $value)
-                      <div><input type='radio' name='staff' value="{{$value->id}}"><span>{{$value->shortName()}}</span></div>
-                      @empty
-                      @endforelse
+        <div class="card-header">
+          <div class="d-flex flex-row">
+            <div class="m-0 p-2">
+              <form action="{{ route('admin.createkey.search') }}" method="post" >
+                @csrf
+                <input type='text' name='srch'>
+                <button class="btn btn-success" type="submit">Поиск</button>
+              </form>
+            </div>
+              <div class="ml-auto p-2">
+                  <form action="{{ route('admin.createkey.CreateKeyTable') }}" method="post">
+                      @csrf
+                      <div class="m-10" style="float:left">
+                        <div class='select'>
+                          Выбрать ответственного
+                        </div>
+                        <div class='select_body'>
+                          <input type='text' name='srch' placeholder='Поиск' size='18' class='srch'>
+                          <div>
+                            @forelse ($users as $i => $value)
+                            <div><input type='radio' name='staff' value="{{$value->id}}"><span>{{$value->shortName()}}</span></div>
+                            @empty
+                            @endforelse
+                          </div>
+                        </div>
                     </div>
-                  </div>
+                      <div style="float:left">
+                        <input type='hidden' name='rooms'>
+                        <input type='hidden' name='room_id' value='none'>
+                        <button class="btn btn-success" style="margin-left:20px" type="submit">Создать таблицу</button>
+                      </div>
+                  </form>
               </div>
-              <input type='hidden' name='rooms'>
-              <input type='hidden' name='room_id' value='none'>
-              <button class="btn btn-success" type="submit">Создать таблицу</button>
-            </form>
           </div>
         </div>
         @else
