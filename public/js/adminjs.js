@@ -64,6 +64,23 @@ function Reload(){
   location.reload();
 }
 
+$('.button-select').mousedown(function(e){
+  let a='';
+  if(this.textContent=='+'){
+    $(this).empty().append('-').removeClass('btn-success').addClass('btn-danger')
+    $(this.parentElement.parentElement).css('background-color','#EEE')
+  }else{
+    $(this).empty().append('+').removeClass('btn-danger').addClass('btn-success')
+    $(this.parentElement.parentElement).css('background-color','white')
+  }
+  $('.button-select').each(function(i){
+    if(this.textContent=='-'){
+      a+=$(this.parentElement.parentElement)[0].id.split('room')[1]+'/';
+    }
+  })
+  $('input[name=rooms]')[0].value = a
+});
+
 $('.changer').click(function(){
   if(this.attributes.class.value.split('room').length == 2){
     $(this.parentElement.parentElement).find('td').each(function(i){

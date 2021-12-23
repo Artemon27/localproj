@@ -43,8 +43,7 @@
             @endif
             </tr>
             @if(isset($dates[$key+1]) &&
-              (int)date('W',strtotime(substr($date->date,0,10).$endstr))!=(int)date('W',strtotime(substr($dates[$key+1]->date,0,10).$endstr)) &&
-              strtotime(substr($date->date,0,10).$endstr)>=$today)
+              (int)date('W',strtotime(substr($date->date,0,10).$endstr))!=(int)date('W',strtotime(substr($dates[$key+1]->date,0,10).$endstr)))
             </tbody>
             </table>
             </div>

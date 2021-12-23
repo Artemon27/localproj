@@ -127,85 +127,87 @@ if(Rooms::Where('id_corp','=',$request['id_corp'])->where('id_room','=',$request
 
     public function CreateKeyTable(CreateKeyTableRequest $request)
     {
-
-        $data = $request['room_id'];
-        $staff_=User::Where('id','=',$request['staff'])->get();
-        $room_pers=RoomPersons::Where('room_id','=',$data)->orderByDesc('main')->get();
-        $room=Rooms::Where('id','=',$data)->get();
-
+        $a=false;
+        $sxe = new SimpleXMLElement('CreateKeyTempl.xml', NULL, TRUE);//создание файла
+        $allchild = $sxe->children();
+        $y=(int)date('Y')+1;
+        $allchild->Worksheet->Table->Row[1]->Cell[10]->Data = '';
+        $allchild->Worksheet->Table->Row[4]->Cell[0]->Data = 'Список сотрудников НИЦ-1, имеющих право на вскрытие и получение пеналов на '.$y.' г.';
         $merges = ["11", "11", "16", "9", "41", "9", "9", "22", "16"];//Кол-во ячеек в столбце
         $merges_user = ["41", "9", "9", "22", "16"];//Кол-во ячеек в столбце
         $style = 'm384756732';
-
-
-        $sxe = new SimpleXMLElement('CreateKeyTempl.xml', NULL, TRUE);//создание файла
-
-        $allchild = $sxe->children();
-        $allchild->Worksheet->Table->Row[1]->Cell[10]->Data = '';
-        $y=(int)date('Y')+1;
-        if(isset($room[0]->imp)){
-          $allchild->Worksheet->Table->Row[0]->Cell[10]->Data = 'СОГЛАСОВАНО';
-          $allchild->Worksheet->Table->Row[1]->Cell[10]->Data = 'Генеральный директор';
-          $allchild->Worksheet->Table->Row[2]->Cell[11]->Data = 'А.В. Гурьянов';
-          $allchild->Worksheet->Table->Row[4]->Cell[0]->Data = 'Список сотрудников НИЦ-1, имеющих право на вскрытие и получение пеналов от режимного помешения, на '.$y.' г.';
-        } else {
-          $allchild->Worksheet->Table->Row[4]->Cell[0]->Data = 'Список сотрудников НИЦ-1, имеющих право на вскрытие и получение пеналов на '.$y.' г.';
+        if($request['room_id']=='none'){
+          $rooms=explode('/',$request["rooms"]);
+          array_pop($rooms);
+        }else{
+          $rooms=array($request['room_id']);
         }
+        foreach ($rooms as $id => $room_id){
 
-        foreach ($room_pers as $id => $pers){
+          $data = $room_id;
+          $staff_=User::Where('id','=',$request['staff'])->get();
+          $room_pers=RoomPersons::Where('room_id','=',$data)->orderByDesc('main')->get();
+          $room=Rooms::Where('id','=',$data)->get();
+          if(isset($room[0]->imp) && !$a){
+            $allchild->Worksheet->Table->Row[0]->Cell[10]->Data = 'СОГЛАСОВАНО';
+            $allchild->Worksheet->Table->Row[1]->Cell[10]->Data = 'Генеральный директор';
+            $allchild->Worksheet->Table->Row[2]->Cell[11]->Data = 'А.В. Гурьянов';
+            $allchild->Worksheet->Table->Row[4]->Cell[0]->Data = 'Список сотрудников НИЦ-1, имеющих право на вскрытие и получение пеналов от режимного помешения, на '.$y.' г.';
+            $a=true;
+          }
+          foreach ($room_pers as $id => $pers){
+                  $newrow = $sxe->Worksheet->Table->addChild('Row');
+                   $newrow->addAttribute('xmlns:ss:AutoFitHeight','0' );
+                   $newrow->addAttribute('xmlns:ss:Height','25' );
+                  $cells = $newrow->children();
+                  if($id == 0){
+                    for( $i=0; $i < 9; $i++ ) {
+                        $cell = $newrow->addChild('Cell');
+                        if($i<4){
+                          $cell->addAttribute('xmlns:ss:MergeDown',count($room_pers)-1);
+                        }
+                        $cell->addAttribute('xmlns:ss:MergeAcross',$merges[$i] );
+                        $cell->addAttribute('xmlns:ss:StyleID',$style );
+                        $data = $cell->addChild('Data');
+                        $data->addAttribute('xmlns:ss:Type',"String" );
+                    }
+                    $cells[0]->Data = $room[0]->otdel;
+                    $cells[1]->Data = $room[0]->penal;
+                    //$cells[2]->Data = $room[0]->corpus_room;
+                    $cells[2]->Data = "Корпус ".$room[0]->id_corp."\rПомещение ".$room[0]->id_room;
+                    $cells[3]->Data = $room[0]->phone;
+                    $staff = User::Where('id','=',$pers->user_id)->get();
+                    $cells[4]->Data = $staff[0]->name."\r".$staff[0]->title;
+                    $cells[5]->Data = $staff[0]->pager;
+                    $cells[6]->Data = $staff[0]->pechat;
+                    $cells[7]->Data = $staff[0]->mobile;
+                  } else {
 
-                $newrow = $sxe->Worksheet->Table->addChild('Row');
-                 $newrow->addAttribute('xmlns:ss:AutoFitHeight','0' );
-                 $newrow->addAttribute('xmlns:ss:Height','25' );
-                $cells = $newrow->children();
-                if($id == 0){
-                  for( $i=0; $i < 9; $i++ ) {
-                      $cell = $newrow->addChild('Cell');
-                      if($i<4){
-                        $cell->addAttribute('xmlns:ss:MergeDown',count($room_pers)-1);
-                      }
-                      $cell->addAttribute('xmlns:ss:MergeAcross',$merges[$i] );
-                      $cell->addAttribute('xmlns:ss:StyleID',$style );
-                      $data = $cell->addChild('Data');
-                      $data->addAttribute('xmlns:ss:Type',"String" );
+                    for( $i=0; $i < 5; $i++ ) {
+                        $cell = $newrow->addChild('Cell');
+                        if ( $i == 0 ) {
+                          $cell->addAttribute('xmlns:ss:Index',"52" );
+                        }
+                        $cell->addAttribute('xmlns:ss:MergeAcross',$merges_user[$i] );
+                        $cell->addAttribute('xmlns:ss:StyleID',$style );
+                        $data = $cell->addChild('Data');
+                        $data->addAttribute('xmlns:ss:Type',"String" );
+                    }
+                    if($pers->name_post != null){
+                        $cells[0]->Data = $pers->name_staff."\r".$pers->name_post;
+                        $cells[1]->Data = $pers->pager;
+                        $cells[2]->Data = $pers->pechat;
+                        $cells[3]->Data = $pers->mobile;
+                      }else{
+                        $staff = User::Where('id','=',$pers->user_id)->get();
+                        $cells[0]->Data = $staff[0]->name."\r".$staff[0]->title;
+                        $cells[1]->Data = $staff[0]->pager;
+                        $cells[2]->Data = $staff[0]->pechat;
+                        $cells[3]->Data = $staff[0]->mobile;
+                    }
                   }
-                  $cells[0]->Data = $room[0]->otdel;
-                  $cells[1]->Data = $room[0]->penal;
-                  //$cells[2]->Data = $room[0]->corpus_room;
-                  $cells[2]->Data = "Корпус ".$room[0]->id_corp."\rПомещение ".$room[0]->id_room;
-                  $cells[3]->Data = $room[0]->phone;
-                  $staff = User::Where('id','=',$pers->user_id)->get();
-                  $cells[4]->Data = $staff[0]->name."\r".$staff[0]->title;
-                  $cells[5]->Data = $staff[0]->pager;
-                  $cells[6]->Data = $staff[0]->pechat;
-                  $cells[7]->Data = $staff[0]->mobile;
-                } else {
-
-                  for( $i=0; $i < 5; $i++ ) {
-                      $cell = $newrow->addChild('Cell');
-                      if ( $i == 0 ) {
-                        $cell->addAttribute('xmlns:ss:Index',"52" );
-                      }
-                      $cell->addAttribute('xmlns:ss:MergeAcross',$merges_user[$i] );
-                      $cell->addAttribute('xmlns:ss:StyleID',$style );
-                      $data = $cell->addChild('Data');
-                      $data->addAttribute('xmlns:ss:Type',"String" );
-                  }
-                  if($pers->name_post != null){
-                      $cells[0]->Data = $pers->name_staff."\r".$pers->name_post;
-                      $cells[1]->Data = $pers->pager;
-                      $cells[2]->Data = $pers->pechat;
-                      $cells[3]->Data = $pers->mobile;
-                    }else{
-                      $staff = User::Where('id','=',$pers->user_id)->get();
-                      $cells[0]->Data = $staff[0]->name."\r".$staff[0]->title;
-                      $cells[1]->Data = $staff[0]->pager;
-                      $cells[2]->Data = $staff[0]->pechat;
-                      $cells[3]->Data = $staff[0]->mobile;
-                  }
-                }
+          }
         }
-
         $allchild->Worksheet->Table->addChild('Row')->addChild('Cell')->addAttribute('xmlns:ss:MergeAcross',"138" );
 
         $endrow = $allchild->Worksheet->Table->addChild('Row');

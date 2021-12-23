@@ -186,7 +186,7 @@ td{
     background-color: #257899;
 }
 
-@media (max-width: 1550px) {
+@media (max-width: 1650px) {
     #calendar  .cal-col{
         margin-left: -50px;
     }

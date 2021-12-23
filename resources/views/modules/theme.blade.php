@@ -23,7 +23,7 @@
     @else
     <link rel="stylesheet" disabled="1" href="{{ asset('css/calendarDark.css') }}" theme="1">
     <link rel="stylesheet" href="{{ asset('css/calendar.css')}}" theme="2">
-    <link rel="stylesheet" disabled="1" href="{{ asset('css/calendar.css') }}" theme="3">
+    <!-- <link rel="stylesheet" disabled="1" href="{{ asset('css/calendar.css') }}" theme="3"> -->
     @endif
 @endpush
 

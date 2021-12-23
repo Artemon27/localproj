@@ -82,7 +82,7 @@ $month = date('m');
                     <span class="visually-hidden">Следующий</span>
                 </button>
             </div>
-              <div>
+              <div style="width:1000px">
                 <div id="carouselExampleControls2" class="carousel slide table-slider p-5 position-relative" data-bs-ride="carousel" data-bs-interval="false">
 
                     <div class="carousel-inner ms-5" style="height:270px">

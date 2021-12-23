@@ -91,13 +91,14 @@ function updatedates(){ //******************************************************
             room_=room
             phone_=phone
           }
-          timestamp = new Date ($(this).attr('cur-date')*1000);
+          timestamp = new Date ($(this).attr('cur-date')*1000+9.5*60*60);
           curDateVal = formatDateVal(timestamp);
           if($('#carouselExampleControls2 .carousel-item:last-child .table-all tr:last-child input.curDate')[0]){
             lastDate= $('#carouselExampleControls2 .carousel-item:last-child .table-all tr:last-child input.curDate')[0].value
             lastDate = new Date(lastDate)
-            lastDate=Number(lastDate.getDay());
-            if((lastDate>=timestamp.getDay() || lastDate==0) && (timestamp.getDay()!=0)){
+            lastDate_dayofweek=Number(lastDate.getDay());
+            lastDate_dayofnum=Number(lastDate.getDate());
+            if((lastDate_dayofweek>=timestamp.getDay() || lastDate_dayofweek==0 || timestamp.getDate()-lastDate_dayofnum>=7) && (timestamp.getDay()!=0)){
               var el2 = $('<div class="carousel-item"><table><tr><td class="wd-name p-2" style="width:162px">Дата</td><td class="wd-name p-2" style="width:81px">Пропуск</td><td class="wd-name p-2" style="width:114px">Помещение</td><td class="wd-name p-2" style="width:114px">Телефон</td><td style="width:72px"></td></tr><tbody class="table-all"></tbody></table></div>')
               $('#carouselExampleControls2 .carousel-inner').append(el2);
             }
@@ -162,16 +163,31 @@ function drawCalendar(){//******************************************************
         $('#calendar .celldate').eq(curIndex).find('div:first-child').attr('phone', $($(this).find('td')[3]).find('input').val())
         $('#calendar .celldate').eq(curIndex).find('div:first-child').removeClass().addClass('d-block');
     });
+    $('.table-all tr.d-none').each(function(i){
+      $(this).remove();
+    });
+    $('#carouselExampleControls2 .carousel-item').each(function(i){
+      if($(this).find('.table-all tr').length == 0){
+        $(this).remove();
+      }
+    });
+    $($('#carouselExampleControls2 .carousel-item')[0]).addClass('active')
 }
 
 function drawLists(){
   $('#carouselExampleControls2 #list').empty();
+  $('#carouselExampleControls2 .carousel-control-prev-icon').addClass('d-none')
+  $('#carouselExampleControls2 .carousel-control-next-icon').addClass('d-none')
   let a = $('#carouselExampleControls2 .carousel-item').length
-  for (var i = 0; i < a; i++) {
-    let elem = $("<button type='button' data-bs-target='#carouselExampleControls2' data-bs-slide-to='"+i+"' area-label='Стр."+i+1+"'></button>");
-    $('#carouselExampleControls2 #list').append(elem)
+  if(a > 1){
+    $('.carousel-control-prev-icon').removeClass('d-none')
+    $('.carousel-control-next-icon').removeClass('d-none')
+    for (var i = 0; i < a; i++) {
+      let elem = $("<button type='button' data-bs-target='#carouselExampleControls2' data-bs-slide-to='"+i+"' area-label='Стр."+i+1+"'></button>");
+      $('#carouselExampleControls2 #list').append(elem)
+    }
+    $('#carouselExampleControls2 #list button:first-child').addClass('select')
   }
-  $('#carouselExampleControls2 #list button:first-child').addClass('select')
 }
 
 
