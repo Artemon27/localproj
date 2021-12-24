@@ -34,21 +34,7 @@
               <div class="ml-auto p-2">
                   <form action="{{ route('admin.createkey.CreateKeyTable') }}" method="post">
                       @csrf
-                      <div class="m-10" style="float:left">
-                        <div class='select'>
-                          Выбрать ответственного
-                        </div>
-                        <div class='select_body'>
-                          <input type='text' name='srch' placeholder='Поиск' size='18' class='srch'>
-                          <div>
-                            @forelse ($users as $i => $value)
-                            <div><input type='radio' name='staff' value="{{$value->id}}"><span>{{$value->shortName()}}</span></div>
-                            @empty
-                            @endforelse
-                          </div>
-                        </div>
-                    </div>
-                      <div style="float:left">
+                      <div>
                         <input type='hidden' name='rooms'>
                         <input type='hidden' name='room_id' value='none'>
                         <button class="btn btn-success" style="margin-left:20px" type="submit">Создать таблицу</button>
@@ -66,21 +52,7 @@
               <div class="ml-auto p-2">
                   <form action="{{ route('admin.createkey.CreateKeyTable') }}" method="post">
                       @csrf
-                      <div class="m-10" style="float:left">
-                        <div class='select'>
-                          Выбрать ответственного
-                        </div>
-                        <div class='select_body'>
-                          <input type='text' name='srch' placeholder='Поиск' size='18' class='srch'>
-                          <div>
-                            @forelse ($users as $i => $value)
-                            <div><input type='radio' name='staff' value="{{$value->id}}"><span>{{$value->shortName()}}</span></div>
-                            @empty
-                            @endforelse
-                          </div>
-                        </div>
-                    </div>
-                      <div style="float:left">
+                      <div>
                         <input type='hidden' name='room_id' value='{{$data[0]->id}}'>
                         <input type='hidden' name='rooms' value='none'>
                         <button class="btn btn-success" style="margin-left:20px" type="submit">Создать таблицу</button>
@@ -106,6 +78,7 @@
                         <th class="p-1 text-center" width="8%">№ помещения</th>
                         <th class="p-1 text-center" width="10%">Местный телефон</th>
                         <th class="p-1 text-center" width="10%">Режимное помещение</th>
+                        <th class="p-1 text-center" width="10%">Ответственный</th>
                         <th class="p-1 text-center" width="15%" colspan="4">Действие</th>
                     </tr>
                 </thead>
@@ -120,6 +93,20 @@
                         <td class="p-1 text-center"><input type='text' name='id_room' size='4'></td>
                         <td class="p-1 text-center"><input type='text' name='phone' size='5'></td>
                         <td class="p-1 text-center"><input type='checkbox' name='imp'></td>
+                        <td class="p-1 text-center">
+                          <div class='select'>
+                            Выбрать ответственного
+                          </div>
+                          <div class='select_body'>
+                            <input type='text' name='srch' placeholder='Поиск' size='18' class='srch'>
+                            <div>
+                              @forelse ($users as $i1 => $value)
+                              <div><input type='radio' name='staff' value="{{$value->id}}"><span>{{$value->shortName()}}</span></div>
+                              @empty
+                              @endforelse
+                            </div>
+                          </div>
+                        </td>
                         <td class="p-1 text-center" colspan="4"><button class="btn btn-success" type="submit">Создать комнату</button></td>
                       </form>
                     </tr>
@@ -138,6 +125,30 @@
                           @else
                             <td class='p-1 text-center'><input type='checkbox' name="imp" readonly="readonly" style="border: none;" onclick="return false;"></input></td>
                           @endif
+
+                          @if(isset($room->responsible))
+                          <td class="p-1 text-center">{{$users->Where('id','=',$room->responsible)->first()->shortName()}}</td>
+                          @else
+                            <td class="p-1 text-center"></td>
+                          @endif
+                          <td class="p-1 text-center" style="display:none;">
+                            <div class='select'>
+                              @if(isset($room->responsible))
+                                {{$users->Where('id','=',$room->responsible)->first()->shortName()}}
+                              @else
+                                Выбрать ответственного
+                              @endif
+                            </div>
+                            <div class='select_body'>
+                              <input type='text' name='srch' placeholder='Поиск' size='18' class='srch'>
+                              <div>
+                                @forelse ($users as $i2 => $value)
+                                <div><input type='radio' name='staff' value="{{$value->id}}"><span>{{$value->shortName()}}</span></div>
+                                @empty
+                                @endforelse
+                              </div>
+                            </div>
+                          </td>
                           <td class="p-1 text-center" style="display:none;" colspan="2">
                                   <button class="btn btn-success" type='submit'>Сохранить</button>
                           </td>

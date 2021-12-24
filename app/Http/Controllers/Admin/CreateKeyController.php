@@ -29,7 +29,7 @@ class CreateKeyController extends Controller
     public function store(CreateKeyRequest $request)
     {
 
-if(Rooms::Where('id_corp','=',$request['id_corp'])->where('id_room','=',$request['id_room'])->count() == 0 ) {
+      if(Rooms::Where('id_corp','=',$request['id_corp'])->where('id_room','=',$request['id_room'])->count() == 0 ) {
           if(isset($request['imp']))  $date['imp'] = 1;
           $date['otdel'] = $request['otdel'];
           $date['penal'] = $request['penal'];
@@ -37,6 +37,7 @@ if(Rooms::Where('id_corp','=',$request['id_corp'])->where('id_room','=',$request
           $date['id_room'] = $request['id_room'];
           $date['corpus_room'] = 1;
           $date['phone'] = $request['phone'];
+          $date['responsible'] = $request['staff'];
           Rooms::Create($date);
           return back()->with('success', 'Комната добавлена');
         } else {
@@ -67,6 +68,7 @@ if(Rooms::Where('id_corp','=',$request['id_corp'])->where('id_room','=',$request
         $date['id_room'] = $request['id_room'];
         $date['corpus_room'] = 1;
         $date['phone'] = $request['phone'];
+        $date['responsible'] = $request['staff'];
         Rooms::Where('id','=',$request['id'])->update($date);
 
         return back()->with('success', 'Данные комнаты изменены');
@@ -127,7 +129,19 @@ if(Rooms::Where('id_corp','=',$request['id_corp'])->where('id_room','=',$request
 
     public function CreateKeyTable(CreateKeyTableRequest $request)
     {
-        $a=false;
+        function addCell($row, $merge, $style=null, $data=null, $index=null){
+          $cell = $row->addChild('Cell');
+          $cell->addAttribute('xmlns:ss:MergeAcross',$merge);
+          if($style != null)
+            $cell->addAttribute('xmlns:ss:StyleID',$style);
+          if($index != null)
+            $cell->addAttribute('xmlns:ss:Index',$index);
+          if($data != null){
+            $data = $cell->addChild('Data',$data);
+            $data->addAttribute('xmlns:ss:Type',"String" );
+          }
+        }
+
         $sxe = new SimpleXMLElement('CreateKeyTempl.xml', NULL, TRUE);//создание файла
         $allchild = $sxe->children();
         $y=(int)date('Y')+1;
@@ -136,24 +150,22 @@ if(Rooms::Where('id_corp','=',$request['id_corp'])->where('id_room','=',$request
         $merges = ["11", "11", "16", "9", "41", "9", "9", "22", "16"];//Кол-во ячеек в столбце
         $merges_user = ["41", "9", "9", "22", "16"];//Кол-во ячеек в столбце
         $style = 'm384756732';
+        $page_breaks = array();
         if($request['room_id']=='none'){
           $rooms=explode('/',$request["rooms"]);
           array_pop($rooms);
         }else{
           $rooms=array($request['room_id']);
         }
-        foreach ($rooms as $id => $room_id){
-
-          $data = $room_id;
-          $staff_=User::Where('id','=',$request['staff'])->get();
-          $room_pers=RoomPersons::Where('room_id','=',$data)->orderByDesc('main')->get();
-          $room=Rooms::Where('id','=',$data)->get();
-          if(isset($room[0]->imp) && !$a){
+        foreach ($rooms as $id_ => $room_id){
+          $room_pers=RoomPersons::Where('room_id','=',$room_id)->orderByDesc('main')->get();
+          $room=Rooms::Where('id','=',$room_id)->get();
+          $staff_=User::Where('id','=',$room[0]->responsible)->get();
+          if(isset($room[0]->imp)){
             $allchild->Worksheet->Table->Row[0]->Cell[10]->Data = 'СОГЛАСОВАНО';
             $allchild->Worksheet->Table->Row[1]->Cell[10]->Data = 'Генеральный директор';
             $allchild->Worksheet->Table->Row[2]->Cell[11]->Data = 'А.В. Гурьянов';
             $allchild->Worksheet->Table->Row[4]->Cell[0]->Data = 'Список сотрудников НИЦ-1, имеющих право на вскрытие и получение пеналов от режимного помешения, на '.$y.' г.';
-            $a=true;
           }
           foreach ($room_pers as $id => $pers){
                   $newrow = $sxe->Worksheet->Table->addChild('Row');
@@ -207,57 +219,96 @@ if(Rooms::Where('id_corp','=',$request['id_corp'])->where('id_room','=',$request
                     }
                   }
           }
+          $allchild->Worksheet->Table->addChild('Row');
+
+          $endrow = $allchild->Worksheet->Table->addChild('Row');
+          addCell($endrow,'11');
+          addCell($endrow,'21','s107','Начальник НИЦ-1');
+          addCell($endrow,'50');
+          addCell($endrow,'30','s107','В.А. Нечаев');
+
+          $allchild->Worksheet->Table->addChild('Row');
+          $allchild->Worksheet->Table->addChild('Row');
+
+          $endrow = $allchild->Worksheet->Table->addChild('Row');
+          addCell($endrow,'11');
+          if(isset($staff_[0]->name)){
+            addCell($endrow,'21','s107',$staff_[0]->shortName());
+          }else{
+            addCell($endrow,'21','s107',$staff_);
+          }
+
+          $endrow = $allchild->Worksheet->Table->addChild('Row');
+          addCell($endrow,'11');
+          if(isset($staff_[0]->telephoneNumber)){
+            addCell($endrow,'21','s107','м.тел '.$staff_[0]->telephoneNumber);
+          }
+
+          if(isset($rooms[$id_+1])){
+            $room=Rooms::Where('id','=',$rooms[$id_+1])->get();
+            $endrow = $allchild->Worksheet->Table->addChild('Row');
+            array_push($page_breaks, $allchild->Worksheet->Table->Row->count());
+            addCell($endrow,'9');
+            if(isset($room[0]->imp)){
+                addCell($endrow,'30','s65','СОГЛАСОВАНО');
+            }else{
+              addCell($endrow,'30','s65');
+            }
+
+            $endrow = $allchild->Worksheet->Table->addChild('Row');
+            addCell($endrow,'9');
+            if(isset($room[0]->imp)){
+                addCell($endrow,'30','s65','Генеральный директор');
+            }else{
+              addCell($endrow,'30','s65');
+            }
+            addCell($endrow,'74');
+            addCell($endrow,'30','s66','Начальнику ОВР');
+
+            $endrow = $allchild->Worksheet->Table->addChild('Row');
+            addCell($endrow,'9');
+            addCell($endrow,'13');
+            if(isset($room[0]->imp)){
+                addCell($endrow,'16','s65','А.В.Гурьянов');
+            }else{
+              addCell($endrow,'16','s65');
+            }
+            addCell($endrow,'74');
+            addCell($endrow,'30','s66','В.В. Голубкову');
+
+            $endrow = $allchild->Worksheet->Table->addChild('Row');
+
+            $endrow = $allchild->Worksheet->Table->addChild('Row');
+            if(isset($room[0]->imp)){
+                addCell($endrow,'152','s70','Список сотрудников НИЦ-1, имеющих право на вскрытие и получение пеналов от режимного помешения, на '.$y.' г.');
+            }else{
+              addCell($endrow,'152','s70','Список сотрудников НИЦ-1, имеющих право на вскрытие и получение пеналов на '.$y.' г.');
+            }
+
+            $endrow = $allchild->Worksheet->Table->addChild('Row');
+
+            $endrow = $allchild->Worksheet->Table->addChild('Row');
+            $endrow->addAttribute('xmlns:ss:AutoFitHeight','0');
+            $endrow->addAttribute('xmlns:ss:Height','25');
+            $title_fields = array("Отдел","№ пенала","№ корпуса\r№ помещения","Мест. телефон","ФИО, должность","Таб. номер","№ печати","Домашний телефон","Образец подписи");
+            for( $i=0; $i < 9; $i++ ) {
+                addCell($endrow,$merges[$i],'m384756652',$title_fields[$i]);
+            }
+          }
         }
-        $allchild->Worksheet->Table->addChild('Row')->addChild('Cell')->addAttribute('xmlns:ss:MergeAcross',"138" );
-
-        $endrow = $allchild->Worksheet->Table->addChild('Row');
-        $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:MergeAcross','11' );
-
-        $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:MergeAcross','21' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s107" );
-        $cell1->addChild('Data','Начальник НИЦ-1')->addAttribute('xmlns:ss:Type',"String" );
-
-        $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:MergeAcross','50' );
-
-        $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:MergeAcross','30' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s107" );
-        $cell1->addChild('Data','В.А. Нечаев')->addAttribute('xmlns:ss:Type',"String" );
-
-        $allchild->Worksheet->Table->addChild('Row')->addChild('Cell')->addAttribute('xmlns:ss:MergeAcross',"138" );
-        $allchild->Worksheet->Table->addChild('Row')->addChild('Cell')->addAttribute('xmlns:ss:MergeAcross',"138" );
-
-        $endrow = $allchild->Worksheet->Table->addChild('Row');
-        $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:MergeAcross','11' );
-
-        $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:MergeAcross','21' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s107" );
-        if(isset($staff_[0]->name)){
-          $cell1->addChild('Data',$staff_[0]->shortName())->addAttribute('xmlns:ss:Type',"String" );
-        }else{
-          $cell1->addChild('Data',$staff_)->addAttribute('xmlns:ss:Type',"String" );
+        $endrow = $allchild->Worksheet->addChild('PageBreaks');
+        $endrow->addAttribute('xmlns',"urn:schemas-microsoft-com:office:excel");
+        $endrow = $allchild->Worksheet->PageBreaks->addChild('RowBreaks');
+        foreach ($page_breaks as $num_breaks) {
+          $endrow = $allchild->Worksheet->PageBreaks->RowBreaks->addChild('RowBreak');
+          $endrow = $endrow->addChild('Row',$num_breaks-1);
         }
-
-
-        $endrow = $allchild->Worksheet->Table->addChild('Row');
-        $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:MergeAcross','11' );
-
-        $cell1 = $endrow->addChild('Cell');
-        $cell1->addAttribute('xmlns:ss:MergeAcross','21' );
-        $cell1->addAttribute('xmlns:ss:StyleID',"s107" );
-        if(isset($staff_[0]->telephoneNumber)){
-          $cell1->addChild('Data','м.тел '.$staff_[0]->telephoneNumber)->addAttribute('xmlns:ss:Type',"String" );
-        }
-
         // Идем на хитрость нужно найти более простой способ сохранения переноса строки
         $out_str = str_replace("&#xD;","&#10;", $sxe->asXML()); // преобразуем в xml и делаем замену символа
         file_put_contents('KeysTable.xml', $out_str);
+
         return response()->download('KeysTable.xml');
     }
+
+
 }

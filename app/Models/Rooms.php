@@ -10,6 +10,6 @@ class Rooms extends Model
     use HasFactory;
 
     protected $fillable = [
-        'otdel', 'penal', 'corpus_room', 'phone','imp','id_corp','id_room'
+        'otdel', 'penal', 'corpus_room', 'phone','imp','id_corp','id_room','responsible'
     ];
 }

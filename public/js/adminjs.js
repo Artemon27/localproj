@@ -82,7 +82,7 @@ $('.button-select').mousedown(function(e){
 });
 
 $('.changer').click(function(){
-  if(this.attributes.class.value.split('room').length == 2){
+  if(this.attributes.class.value.split('room').length == 2){//комнаты в ключах
     $(this.parentElement.parentElement).find('td').each(function(i){
       if(i>=1 && i<=6){
         this.lastChild.readOnly = false
@@ -92,15 +92,15 @@ $('.changer').click(function(){
         this.lastChild.onclick = null
         $(this.lastChild).css('border','solid 1px black')
       }
-      if(i>=7 && i<=8){
+      if(i>=8 && i<=10){
         $(this).css('display','table-cell')
       }
-      if(i>=9 && i<=11){
+      if(i>=11 && i<=13 || i==7){
         $(this).css('display','none')
       }
     });
   }else{
-    if(this.attributes.class.value.split('user').length == 2){
+    if(this.attributes.class.value.split('user').length == 2){//сотрудники в записи на вечер
     $(this.parentElement.parentElement).find('td').each(function(i){
       if(i>=2 && i<=4){
         this.lastChild.readOnly = false
@@ -114,7 +114,7 @@ $('.changer').click(function(){
       }
     });
   }else{
-    $(this.parentElement.parentElement).find('td').each(function(i){
+    $(this.parentElement.parentElement).find('td').each(function(i){ //сотрудники в ключах
       if(i>=1 && i<=5){
         this.lastChild.readOnly = false
         $(this.lastChild).css('border','solid 1px black')
