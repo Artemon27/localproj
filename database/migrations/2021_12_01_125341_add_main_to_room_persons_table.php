@@ -26,7 +26,7 @@ class AddMainToRoomPersonsTable extends Migration
     public function down()
     {
         Schema::table('room_persons', function (Blueprint $table) {
-            $table->boolean('main')->nullable();
+            $table->dropColumn('main');
         });
     }
 }

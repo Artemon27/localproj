@@ -14,7 +14,7 @@ class off_hours extends Model
         'user_id', 'date', 'prpsk', 'room', 'phone', 'allow'
     ];
     
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

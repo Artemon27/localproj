@@ -27,8 +27,8 @@ class AddIdCorpIdRoomToRoomsTable extends Migration
     public function down()
     {
         Schema::table('rooms', function (Blueprint $table) {
-          $table->integer('id_corp')->nullable();
-          $table->string('id_room')->nullable();
+          $table->dropColumn('id_corp');
+          $table->dropColumn('id_room');
         });
     }
 }

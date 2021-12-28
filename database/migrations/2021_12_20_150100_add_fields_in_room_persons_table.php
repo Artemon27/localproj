@@ -30,11 +30,11 @@ class AddFieldsinRoomPersonsTable extends Migration
     public function down()
     {
       Schema::table('room_persons', function (Blueprint $table) {
-      $table->string('name_staff')->nullable();
-      $table->string('name_post')->nullable();
-      $table->string('pager')->nullable();
-      $table->string('pechat')->nullable();
-      $table->string('mobile')->nullable();
+      $table->dropColumn('name_staff');
+      $table->dropColumn('name_post');
+      $table->dropColumn('pager');
+      $table->dropColumn('pechat');
+      $table->dropColumn('mobile');
     });
     }
 }

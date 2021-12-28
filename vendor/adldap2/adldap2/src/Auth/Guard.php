@@ -55,7 +55,6 @@ class Guard implements GuardInterface
      */
     public function attempt($username, $password, $bindAsUser = false)
     {
-        
         $this->validateCredentials($username, $password);
 
         $this->fireAttemptingEvent($username, $password);

@@ -14,6 +14,8 @@ use App\Models\Holidesign;
 use App\Models\UserSetting;
 use App\Models\off_hours;
 use App\Models\time_sheet;
+use App\Models\RoomPersons;
+use App\Models\Rooms;
 use Carbon\Carbon;
 
 class User extends Authenticatable
@@ -96,6 +98,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(off_hours::class);
     }
+    public function get_offhours_days($from, $to)
+    {
+        return $this->off_hours->Where('date','>=',$from)->Where('date','<=',$to)->sortBy('date');
+    }
+    public function rooms()
+    {
+        return $this->belongsToMany(Rooms::class, 'room_persons','','room_id');
+    }
+    
     public function holidaysYear($year)
     {
         $dateFrom = Carbon::create($year, 1, 1, 0, 0, 0);
