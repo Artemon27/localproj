@@ -78,6 +78,7 @@ Route::group([
         require(__DIR__ . '/front/keys.php');
         require(__DIR__ . '/front/menu.php');
         require(__DIR__ . '/front/userSettings.php');
+        Route::get('/api', function () {   return redirect('/api.html');   });
     });
 
 Auth::routes();
