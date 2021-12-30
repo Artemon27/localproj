@@ -166,11 +166,6 @@ function drawCalendar(){//******************************************************
     $('.table-all tr.d-none').each(function(i){
       $(this).remove();
     });
-    $('#carouselExampleControls2 .carousel-item').each(function(i){
-      if($(this).find('.table-all tr').length == 0){
-        $(this).remove();
-      }
-    });
     $($('#carouselExampleControls2 .carousel-item')[0]).addClass('active')
 }
 
@@ -229,7 +224,7 @@ function delDates(elem){
 $(document).ready(function() {
    updatenum();
    drawCalendar();
-   drawLists()
+   updatedates();
    delDates($('.del_dates'));
    $('#carouselExampleControls2')[0].addEventListener('slid.bs.carousel',function(){
      $('#carouselExampleControls2 #list button').each(function() {
